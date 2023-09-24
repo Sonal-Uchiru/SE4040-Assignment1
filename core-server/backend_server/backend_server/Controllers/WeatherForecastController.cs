@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using backend_server.Models.DomainModels;
+using backend_server.Repositories;
+using backend_server.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend_server.Controllers;
 
@@ -6,11 +9,6 @@ namespace backend_server.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<WeatherForecastController> _logger;
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -18,16 +16,56 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [HttpPost(Name = "AddUser")]
+    public Task Add([FromBody] User user)
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        var repo = new UserRepository();
+
+        return repo.Add(user);
     }
+
+    [HttpGet(Name = "GetUser")]
+    public Task<List<User>> Get()
+    {
+        var query = new UserQuery();
+        return query.GetEntities();
+    }
+
+
+    [HttpGet("{id:guid}")]
+    public Task<User> GetById([FromRoute] Guid id)
+    {
+        var query = new UserQuery();
+        return query.GetEntityById(id);
+    }
+
+
+    [HttpDelete("{id:guid}")]
+    public Task DeleteById([FromRoute] Guid id)
+    {
+        var repo = new UserRepository();
+        return repo.Delete(id);
+    }
+
+
+    [HttpPut("{id:guid}")]
+    public Task UpdateById([FromRoute] Guid id, [FromBody] User user)
+    {
+        var repo = new UserRepository();
+        return repo.Update(user);
+    }
+
+
+    [HttpPatch("{id:guid}")]
+    public Task PatchById([FromRoute] Guid id,[FromBody] Command user)
+    {
+        var repo = new UserRepository();
+        return repo.UpdateFirstName(id, user.FirstName);
+    }
+
 }
 
+public class Command
+{
+    public string FirstName { get; set; }
+}
