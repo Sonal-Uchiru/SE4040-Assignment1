@@ -7,7 +7,7 @@ const theme = createTheme({
 
     palette: {
         primary: {
-            main: '#03C988',
+            main: '#070D59',
         },
 
         secondary: {
@@ -37,6 +37,10 @@ const theme = createTheme({
         white: {
             main: '#FFFFFF',
         },
+
+        darkBlue:{
+            main: '#070D59'
+        }
     },
 
     spacing: [5, 10, 15, 25, 40, 65],
@@ -106,13 +110,27 @@ const theme = createTheme({
                 },
             },
         },
+
+        MUIDataTableHeadCell:{
+            styleOverrides: {
+                contentWrapper: {
+                    textAlign:'center',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                },
+            },
+            },
+
         MUIDataTableBodyCell: {
             styleOverrides: {
                 root: {
-                    marginLeft: 17,
+                   textAlign:'center',
+                   alignItems:'center',
+                   alignSelf:'center',
                 },
             },
         },
+
     },
 })
 

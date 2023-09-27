@@ -39,6 +39,14 @@ declare module '@mui/material/styles' {
         white: PaletteOptions['primary']
     }
 
+    interface Palette {
+        darkBlue: Palette['primary']
+    }
+
+    interface PaletteOptions {
+        darkBlue: PaletteOptions['primary']
+    }
+
     // allow configuration using `createTheme`
     interface ThemeOptions {
         status: {

@@ -7,6 +7,7 @@ export class EmailContent {
 
     constructor(email: string) {
         this.email = email
-        ;(this.code = getCode()), (this.time = new Date())
+        this.code = getCode()
+        this.time = new Date()
     }
 }

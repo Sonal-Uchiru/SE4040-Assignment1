@@ -16,124 +16,18 @@ import { Private } from './private/PrivateRoute'
 import theme from './theme/hooks/CreateTheme'
 import Footer from './components/organisms/navigations/Footer'
 import { UserRoles } from './types/enums/UserRoles'
+import FinalizedTimeScheduleDataTable from './components/organisms/tables/FinalizedTimeScheduleDataTable'
+import TravelersDetailsDataTable from './components/organisms/tables/TravelersDetailsDataTable'
+import TravelersDetailsPage from './pages/TravelersDetailsPage'
+import ReservationDetailsDataTable from './components/organisms/tables/ReservationDetailsDataTable'
+import ReservationDetailsPage from './pages/ReservationDetailsPage'
+import TrainDetailsDataTable from './components/organisms/tables/TrainDetailsDataTable'
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <React.Suspense fallback="loading">
-                    <Routes>
-                        <Route path="/" element={<LoginAndRegisterPage />} />
-                        <Route
-                            path="/forgotPassword"
-                            element={<ForgotPasswordPage />}
-                        />
-
-                        {/* Furrow Irrigation */}
-
-                        <Route
-                            path="/paddyFieldDetails"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={PaddyFieldDetailsPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/paddyFieldDrawingTool/:metaData"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={DrawPaddyFieldToolPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/viewPaddyFieldDrawing/:id"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={ViewPaddyFieldPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        {/* Research Disseminating */}
-
-                        <Route
-                            path="/researchDisseminating"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={ResearchFindingsPage}
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        {/* Priority Distribution  */}
-
-                        <Route
-                            path="/priorityDistribution"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={
-                                            PriorityDistributionScheduleStepsPage
-                                        }
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/priorityDistributionSchedule"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={
-                                            PriorityDistributionSchedulePage
-                                        }
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/finalizedTimeSchedule"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={FinalizedTimeSchedulePage}
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                </React.Suspense>
-                <Footer />
+        <TrainDetailsDataTable isDataUpdated={false} />
             </Router>
         </ThemeProvider>
     )
