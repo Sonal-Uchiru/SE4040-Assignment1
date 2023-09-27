@@ -40,6 +40,10 @@ const theme = createTheme({
 
         darkBlue:{
             main: '#070D59'
+        },
+
+        cream:{
+            main: '#DAC0A3'
         }
     },
 

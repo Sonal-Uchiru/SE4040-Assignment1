@@ -22,12 +22,19 @@ import TravelersDetailsPage from './pages/TravelersDetailsPage'
 import ReservationDetailsDataTable from './components/organisms/tables/ReservationDetailsDataTable'
 import ReservationDetailsPage from './pages/ReservationDetailsPage'
 import TrainDetailsDataTable from './components/organisms/tables/TrainDetailsDataTable'
+import TrainDetailsPage from './pages/TrainDetailsPage'
+import UpdateTravelersDetailsModal from './components/modals/user/UpdateTravelersDetailsModal'
+import AddNewTravelerModal from './components/modals/user/AddNewTravelerModal'
+import UpdateReservationModal from './components/modals/reservation/UpdateReservationModal'
+import PaymentSuccessModal from './components/modals/PaymentSuccessModal'
 
 function App() {
+    const [open, setOpen] = React.useState(false)
+
     return (
         <ThemeProvider theme={theme}>
             <Router>
-        <TrainDetailsDataTable isDataUpdated={false} />
+        <PaymentSuccessModal handleCancel={() => setOpen(true)} handleSave={() => console.log("Save button clicked")} />
             </Router>
         </ThemeProvider>
     )
