@@ -1,43 +1,34 @@
 ﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
-  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Controllers/WeatherForecastController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Controllers/V1/AuthenticationController.cs">
     <Files>
-      <File FileName="backend_server/appsettings.json" Line="1" Column="2" />
-      <File FileName="backend_server/Program.cs" Line="29" Column="11" />
-      <File FileName="backend_server/WeatherForecast.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Services/UserService.cs" Line="8" Column="2" />
-      <File FileName="backend_server/Queries/UserQuery.cs" Line="24" Column="54" />
-      <File FileName="backend_server/DataBaseConnection.cs" Line="15" Column="2" />
-      <File FileName="backend_server/Models/DomainModels/User.cs" Line="5" Column="14" />
-      <File FileName="backend_server/Repositories/UserRepository.cs" Line="2" Column="22" />
-      <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="72" Column="1" />
-      <File FileName="backend_server/Models/Types/UserRoles.cs" Line="9" Column="2" />
+      <File FileName="backend_server/Controllers/V1/TrainController.cs" Line="17" Column="38" />
+      <File FileName="backend_server/Controllers/V1/UserController.cs" Line="47" Column="28" />
+      <File FileName="backend_server/Controllers/V1/AuthenticationController.cs" Line="7" Column="29" />
+      <File FileName="backend_server/Controllers/V1/ReservationController.cs" Line="23" Column="51" />
+      <File FileName="backend_server/Controllers/V1/TrainStationController.cs" Line="7" Column="29" />
+      <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Models/Types/UserRoles.cs" Line="5" Column="21" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="backend_server" expanded="True">
             <Node name="backend_server">
-              <Node name="Controllers">
-                <Node name="WeatherForecastController.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="V1" expanded="True">
+                  <Node name="AuthenticationController.cs" selected="True" />
+                </Node>
               </Node>
-              <Node name="Models" expanded="True">
-                <Node name="DomainModels" expanded="True" />
-                <Node name="Types" expanded="True" />
-              </Node>
-              <Node name="Queries" expanded="True" />
-              <Node name="Repositories" expanded="True" />
-              <Node name="Services" expanded="True" />
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
 </Properties>

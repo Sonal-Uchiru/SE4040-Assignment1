@@ -1,9 +1,10 @@
 ﻿using backend_server.Models.DomainModels;
+using backend_server.Repositories.Interfaces;
 using MongoDB.Driver;
 
 namespace backend_server.Repositories;
 
-public class UserRepository
+public class UserRepository : IUserRepository
 {
     private readonly IMongoCollection<User> _dbContext;
 

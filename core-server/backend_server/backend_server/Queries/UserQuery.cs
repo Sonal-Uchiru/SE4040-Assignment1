@@ -1,9 +1,10 @@
 ﻿using backend_server.Models.DomainModels;
+using backend_server.Queries.Interfaces;
 using MongoDB.Driver;
 
 namespace backend_server.Queries;
 
-public class UserQuery
+public class UserQuery : IUserQuery
 {
     private readonly IMongoCollection<User> _dbContext;
 
@@ -22,5 +23,11 @@ public class UserQuery
     {
         var filter = Builders<User>.Filter.Empty;
         return _dbContext.Find(filter).ToListAsync();
+    }
+
+    public Task<User> GetUserByNIC(string nic)
+    {
+        var filter = Builders<User>.Filter.Eq(i => i.Nic, nic);
+        return _dbContext.Find(filter).SingleOrDefaultAsync();
     }
 }

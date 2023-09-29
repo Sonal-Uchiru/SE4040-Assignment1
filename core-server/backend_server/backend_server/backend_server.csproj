@@ -16,6 +16,9 @@
     <PackageReference Include="System.Text.Json" Version="7.0.3" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,23 +26,54 @@
     <None Remove="Models\" />
     <None Remove="Handlers\" />
     <None Remove="Utills\" />
-    <None Remove="Controllers\V1\" />
     <None Remove="Handlers\V1\" />
     <None Remove="Models\DomainModels\" />
     <None Remove="Models\Types\" />
     <None Remove="Repositories\" />
     <None Remove="Queries\" />
+    <None Remove="Handlers\V1\Authentications\" />
+    <None Remove="Handlers\V1\Reservations\" />
+    <None Remove="Handlers\V1\Trains\" />
+    <None Remove="Handlers\V1\TrainStations\" />
+    <None Remove="Handlers\V1\Users\" />
+    <None Remove="Handlers\V1\Authentications\Commands\" />
+    <None Remove="Models\Commons\" />
+    <None Remove="Models\Commons\Responses\" />
+    <None Remove="Handlers\V1\Authentications\Commands\Logins\" />
+    <None Remove="Handlers\V1\Users\Commands\" />
+    <None Remove="Handlers\V1\Users\Commands\Create\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Repositories\Interfaces\" />
+    <None Remove="Queries\Interfaces\" />
+    <None Remove="Handlers\V1\Users\Commands\Update\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Handlers\" />
     <Folder Include="Utills\" />
-    <Folder Include="Controllers\V1\" />
     <Folder Include="Handlers\V1\" />
     <Folder Include="Models\DomainModels\" />
     <Folder Include="Models\Types\" />
     <Folder Include="Repositories\" />
     <Folder Include="Queries\" />
+    <Folder Include="Handlers\V1\Authentications\" />
+    <Folder Include="Handlers\V1\Reservations\" />
+    <Folder Include="Handlers\V1\Trains\" />
+    <Folder Include="Handlers\V1\TrainStations\" />
+    <Folder Include="Handlers\V1\Users\" />
+    <Folder Include="Handlers\V1\Authentications\Commands\" />
+    <Folder Include="Models\Commons\" />
+    <Folder Include="Models\Commons\Responses\" />
+    <Folder Include="Handlers\V1\Authentications\Commands\Logins\" />
+    <Folder Include="Handlers\V1\Users\Commands\" />
+    <Folder Include="Handlers\V1\Users\Commands\Create\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Queries\Interfaces\" />
+    <Folder Include="Handlers\V1\Users\Commands\Update\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" />
   </ItemGroup>
 </Project>

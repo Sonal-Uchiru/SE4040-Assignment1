@@ -46,3 +46,6 @@
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/runtimes/linux/native/libmongocrypt.so
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/runtimes/osx/native/libmongocrypt.dylib
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/MediatR.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/MediatR.Contracts.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Newtonsoft.Json.dll

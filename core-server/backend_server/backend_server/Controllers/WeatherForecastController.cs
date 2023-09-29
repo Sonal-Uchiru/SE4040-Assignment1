@@ -56,16 +56,16 @@ public class WeatherForecastController : ControllerBase
     }
 
 
-    [HttpPatch("{id:guid}")]
-    public Task PatchById([FromRoute] Guid id,[FromBody] Command user)
-    {
-        var repo = new UserRepository();
-        return repo.UpdateFirstName(id, user.FirstName);
-    }
+    //[HttpPatch("{id:guid}")]
+    //public Task PatchById([FromRoute] Guid id,[FromBody] Command user)
+    //{
+    //    var repo = new UserRepository();
+    //    return repo.UpdateFirstName(id, user.FirstName);
+    //}
 
 }
 
-public class Command
-{
-    public string FirstName { get; set; }
-}
+//public class Command
+//{
+//    public string FirstName { get; set; }
+//}
