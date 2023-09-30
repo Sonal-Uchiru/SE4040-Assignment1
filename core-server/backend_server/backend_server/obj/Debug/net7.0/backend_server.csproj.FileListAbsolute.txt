@@ -49,3 +49,4 @@
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/MediatR.dll
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/MediatR.Contracts.dll
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

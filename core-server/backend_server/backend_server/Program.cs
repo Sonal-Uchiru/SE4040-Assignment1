@@ -24,6 +24,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddSingleton<DataBaseConnection>();
 
+builder.Services.AddAutoMapper(typeof(BaseMapperProfile));
+
 // DI
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();

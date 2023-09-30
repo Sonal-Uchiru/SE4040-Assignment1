@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using User = backend_server.Handlers.V1.Users;
 
-
 namespace backend_server.Controllers.V1;
 
 [ApiController]
@@ -24,34 +23,41 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public Task UpdateUser([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Commands.Update.Response))]
+    public Task<User.Commands.Update.Response> UpdateUser([FromRoute] Guid id, [FromBody] User.Commands.Update.Command command)
     {
-        return Task.CompletedTask;
+        command.Id = id;
+        return _mediator.Send(command);
     }
 
 
     [HttpDelete("{id:guid}")]
-    public Task DeleteUser([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(User.Commands.Delete.Response))]
+    public Task<User.Commands.Delete.Response> DeleteUser([FromRoute] Guid id)
     {
-        return Task.CompletedTask;
+        return _mediator.Send(new User.Commands.Delete.Command { Id = id });
     }
 
     [HttpPatch("{id:guid}/toggleActivation")]
-    public Task ToggleActivateUser([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Commands.ToggleActivation.Response))]
+    public Task<User.Commands.ToggleActivation.Response> ToggleActivateUser([FromRoute] Guid id)
     {
-        return Task.CompletedTask;
+        return _mediator.Send(new User.Commands.ToggleActivation.Command { Id = id });
     }
 
     [HttpGet("list")]
-    public Task GetUserList()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Queries.Lists.Response))]
+    public Task<User.Queries.Lists.Response> GetUserList()
     {
-        return Task.CompletedTask;
+        return _mediator.Send(new User.Queries.Lists.Query());
     }
 
     [HttpGet("{id:guid}")]
-    public Task GetUser([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Queries.Individuals.Response))]
+    public Task<User.Queries.Individuals.Response> GetUser([FromRoute] Guid id)
     {
-        return Task.CompletedTask;
+
+        return _mediator.Send(new User.Queries.Individuals.Query { Id = id });
     }
 
     [HttpGet("reservations/list")]

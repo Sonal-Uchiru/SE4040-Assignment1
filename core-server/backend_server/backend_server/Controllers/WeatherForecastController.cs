@@ -52,7 +52,7 @@ public class WeatherForecastController : ControllerBase
     public Task UpdateById([FromRoute] Guid id, [FromBody] User user)
     {
         var repo = new UserRepository();
-        return repo.Update(user);
+        return repo.Replace(user);
     }
 
 

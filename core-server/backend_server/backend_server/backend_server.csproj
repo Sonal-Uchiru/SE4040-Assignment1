@@ -19,6 +19,7 @@
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +34,6 @@
     <None Remove="Queries\" />
     <None Remove="Handlers\V1\Authentications\" />
     <None Remove="Handlers\V1\Reservations\" />
-    <None Remove="Handlers\V1\Trains\" />
     <None Remove="Handlers\V1\TrainStations\" />
     <None Remove="Handlers\V1\Users\" />
     <None Remove="Handlers\V1\Authentications\Commands\" />
@@ -46,6 +46,16 @@
     <None Remove="Repositories\Interfaces\" />
     <None Remove="Queries\Interfaces\" />
     <None Remove="Handlers\V1\Users\Commands\Update\" />
+    <None Remove="Models\Dtos\" />
+    <None Remove="Models\Dtos\Users\" />
+    <None Remove="Handlers\V1\Users\Commands\Delete\" />
+    <None Remove="Handlers\V1\Users\Commands\ToggleActivation\" />
+    <None Remove="Handlers\V1\Users\Queries\" />
+    <None Remove="Handlers\V1\Users\Queries\Lists\" />
+    <None Remove="Handlers\V1\Users\Queries\Individuals\" />
+    <None Remove="Handlers\V1\Trains\" />
+    <None Remove="Models\Dtos\Trains\" />
+    <None Remove="Handlers\V1\Trains\Queries\ScheduleList\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -59,7 +69,6 @@
     <Folder Include="Queries\" />
     <Folder Include="Handlers\V1\Authentications\" />
     <Folder Include="Handlers\V1\Reservations\" />
-    <Folder Include="Handlers\V1\Trains\" />
     <Folder Include="Handlers\V1\TrainStations\" />
     <Folder Include="Handlers\V1\Users\" />
     <Folder Include="Handlers\V1\Authentications\Commands\" />
@@ -72,6 +81,16 @@
     <Folder Include="Repositories\Interfaces\" />
     <Folder Include="Queries\Interfaces\" />
     <Folder Include="Handlers\V1\Users\Commands\Update\" />
+    <Folder Include="Models\Dtos\" />
+    <Folder Include="Models\Dtos\Users\" />
+    <Folder Include="Handlers\V1\Users\Commands\Delete\" />
+    <Folder Include="Handlers\V1\Users\Commands\ToggleActivation\" />
+    <Folder Include="Handlers\V1\Users\Queries\" />
+    <Folder Include="Handlers\V1\Users\Queries\Lists\" />
+    <Folder Include="Handlers\V1\Users\Queries\Individuals\" />
+    <Folder Include="Handlers\V1\Trains\" />
+    <Folder Include="Models\Dtos\Trains\" />
+    <Folder Include="Handlers\V1\Trains\Queries\ScheduleList\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

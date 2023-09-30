@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace backend_server.Models.DomainModels;
 
-public class User
+public sealed class User
 {
     [BsonId]
     public Guid Id { get; set; }
@@ -21,4 +21,6 @@ public class User
     public string PasswordHash { get; set; }
 
     public UserRoles Role { get; set; }
+
+    public bool IsEnabled { get; set; } = true;
 }

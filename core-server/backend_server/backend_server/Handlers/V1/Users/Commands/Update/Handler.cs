@@ -1,4 +1,7 @@
-﻿using backend_server.Models.DomainModels;
+﻿using AutoMapper;
+using backend_server.Models.DomainModels;
+using backend_server.Models.Dtos.Users;
+using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
 using backend_server.Services.Interfaces;
 using MediatR;
@@ -9,35 +12,36 @@ public class Handler : IRequestHandler<Command, Response>
 {
     private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
+    private readonly IUserQuery _userQuery;
+    private readonly IMapper _mapper;
 
-    public Handler(IUserService userService, IUserRepository userRepository)
+    public Handler(IUserService userService, IUserRepository userRepository,IUserQuery userQuery, IMapper mapper)
     {
         _userService = userService;
         _userRepository = userRepository;
+        _userQuery = userQuery;
+        _mapper = mapper;
     }
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var id = Guid.NewGuid();
-        var password = command.Password == "" ? command.Nic : command.Password;
+        var user = await _userQuery.GetEntityById(command.Id);
 
-        var user = new User
+        if(user == null)
         {
-            Id = id,
-            Nic = command.Nic,
-            FirstName = command.FirstName,
-            LastName = command.LastName,
-            Email = command.Email,
-            Mobile = command.Mobile,
-            PasswordHash = _userService.HashPassword(password),
-            Role = command.Role
-        };
+            return new Response
+            {
+                Id = command.Id
+            };
+        }
 
-        await _userRepository.Add(user);
+        var updateUserDto = _mapper.Map<UpdateUserDto>(command);
+
+        await _userRepository.Update(command.Id, updateUserDto);
 
         return new Response
         {
-            Id = id
+            Id = command.Id
         };
     }
 }

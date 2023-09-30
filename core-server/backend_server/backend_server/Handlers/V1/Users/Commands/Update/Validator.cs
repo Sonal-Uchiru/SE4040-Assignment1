@@ -6,7 +6,8 @@ public class Validator : AbstractValidator<Command>
 {
     public Validator()
     {
-        RuleFor(i => i.Nic).NotEmpty().WithMessage("NIC is required.");
-        RuleFor(i => i.Role).NotEmpty().WithMessage("Role is required.");
+        RuleFor(i => i.FirstName).NotEmpty().WithMessage("First Name is required.");
+        RuleFor(i => i.LastName).NotEmpty().WithMessage("Last Name is required.");
+        RuleFor(i => i.Mobile).NotEmpty().WithMessage("Mobile Number is required.");
     }
 }
