@@ -16,7 +16,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onNavigateToRegister(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 
+    public void onNavigateToHome(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 }
