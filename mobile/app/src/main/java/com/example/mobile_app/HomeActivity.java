@@ -2,7 +2,10 @@ package com.example.mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
 import com.example.mobile_app.adapters.TrainAdapter;
@@ -33,5 +36,16 @@ public class HomeActivity extends AppCompatActivity {
         listAdapter = new TrainAdapter(HomeActivity.this, dataList);
         binding.listView.setAdapter(listAdapter);
         binding.listView.setClickable(true);
+
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this, DetailedActivity.class);
+                intent.putExtra("trainName", "Sudu Manika");
+                intent.putExtra("model", "MP-2020");
+                startActivity(intent);
+
+            }
+        });
     }
 }
