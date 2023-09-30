@@ -31,13 +31,13 @@ public class TrainAdapter extends ArrayAdapter<Train> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
-        ImageView listImage = view.findViewById(R.id.list_image);
+//        ImageView listImage = view.findViewById(R.id.list_image);
         TextView listName = view.findViewById(R.id.list_name);
         TextView listTime = view.findViewById(R.id.list_time);
 
 //        listImage.setImageResource(train.image);
         listName.setText(train.trainName);
-        listTime.setText(train.numberOfSeats);
+        listTime.setText(train.startingStation);
 
         return view;
     }
