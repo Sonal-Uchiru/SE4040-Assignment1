@@ -64,7 +64,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/ed_email"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/ic_baseline_email_24_foreground"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="@string/email"
                 android:padding="8dp"
@@ -127,10 +127,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/regidstration_link"
+        android:text="@string/login_link"
         android:textSize="14sp"
         android:textAlignment="center"
         android:id="@+id/signupText"
         android:textColor="@color/primary"
+        android:onClick="onNavigateToLogin"
         android:layout_marginBottom="20dp"/>
 </LinearLayout>

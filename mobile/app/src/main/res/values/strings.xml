@@ -9,6 +9,7 @@
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
     <string name="mobile">Mobile</string>
+    <string name="login_link">Already Registered? SignIn Now</string>
 
 
 </resources>
