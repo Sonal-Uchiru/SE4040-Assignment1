@@ -22,7 +22,7 @@
         android:scrollbars="vertical"
         android:layout_marginTop="12dp"
         tools:listitem="@layout/list_item"
-        android:divider="@color/material_dynamic_neutral60"
+        android:divider="@color/white"
         android:dividerHeight="10sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

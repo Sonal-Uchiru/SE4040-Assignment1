@@ -22,7 +22,7 @@ public class DetailedActivity extends AppCompatActivity {
             String trainName = intent.getStringExtra("trainName");
             String model = intent.getStringExtra("model");
 
-            binding.detailTopic.setText(trainName);
+            binding.trainName.setText(trainName);
         }
     }
 }

@@ -14,9 +14,18 @@ import com.example.mobile_app.R;
 import com.example.mobile_app.models.Train;
 import com.example.mobile_app.models.TrainSchedule;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
+
+    Calendar calendar = Calendar.getInstance();
+
+    Date currentDate = calendar.getTime();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = dateFormat.format(currentDate);
 
     public TrainScheduleAdapter(@NonNull Context context, ArrayList<TrainSchedule> dataArrayList) {
         super(context, R.layout.list_item, dataArrayList);
@@ -31,13 +40,15 @@ public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
-//        ImageView listImage = view.findViewById(R.id.list_image);
-        TextView listName = view.findViewById(R.id.list_train_name);
-        TextView listTime = view.findViewById(R.id.list_train_name);
+        TextView trainName = view.findViewById(R.id.list_train_name);
+        TextView scheduleDate = view.findViewById(R.id.list_schedule_date);
+        TextView availableSeats = view.findViewById(R.id.list_available_seats);
+//        TextView price = view.findViewById(R.id.list_train_name);
 
-//        listImage.setImageResource(trainSchedule.image);
-        listTime.setText("SUDU MANIKA");
-//        listTime.setText("20 20");
+        trainName.setText(trainSchedule.trainName);
+        scheduleDate.setText(formattedDate);
+        availableSeats.setText(String.valueOf(trainSchedule.numberOfSeats));
+//        price.setText(trainSchedule.trainName);
 
         return view;
     }
