@@ -9,10 +9,11 @@
         android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/baseline_home_24"/>
+
     <item
-        android:id="@+id/plus"
+        android:id="@+id/fab"
         android:title=""
-        android:icon="@drawable/baseline_add_24"/>
+        android:enabled="false"/>
     <item
         android:id="@+id/information"
         android:title="Info"
