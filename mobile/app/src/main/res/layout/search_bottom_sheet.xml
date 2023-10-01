@@ -55,6 +55,8 @@
         android:textColor="@color/black"
         android:textColorHighlight="@color/teal_700"
         android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:defaultValue="1"
         />
     <EditText
         android:layout_width="match_parent"
