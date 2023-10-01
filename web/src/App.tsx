@@ -31,14 +31,25 @@ import ReservationManagementTrainListDataTable from "./components/organisms/tabl
 import ReservationManagementPage from "./pages/ReservationManagementPage";
 import OfficerAddNewResearchPaperModal from "./components/modals/officer/OfficerAddNewResearchPaperModal";
 import OfficerAddNewFieldModal from "./components/modals/officer/OfficerAddNewFieldModal";
+import ViewTrainScheduleModal from "./components/modals/train/ViewTrainScheduleModal";
+import TrainScheduleModalTable from "./components/organisms/tables/TrainScheduleModalTable";
+import AddNewTrainPage from "./pages/AddNewTrainPage";
+import TrainScheduleUpdateTable from "./components/organisms/tables/TrainScheduleUpdateTable";
+import UpdateTrainDetailsPage from "./pages/UpdateTrainDetailsPage";
+import DisplaySummaryModal from "./components/modals/reservation/DisplaySummaryModal";
 
 function App() {
-  const [open, setOpen] = React.useState(false);
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <ReservationManagementPage />
+        <DisplaySummaryModal
+          handleCancel={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          handleConfirm={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       </Router>
     </ThemeProvider>
   );
