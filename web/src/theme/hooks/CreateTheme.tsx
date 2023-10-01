@@ -23,7 +23,7 @@ const theme = createTheme({
     },
 
     neutral: {
-      main: "#D0D0D0",
+      main: "#787A91",
     },
 
     blue: {
