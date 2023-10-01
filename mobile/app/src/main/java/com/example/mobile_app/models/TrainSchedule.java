@@ -19,4 +19,16 @@ public class TrainSchedule {
         this.frequency = frequency;
         this.price = price;
     }
+
+    public String getStartingStation() {
+        return startingStation;
+    }
+
+    public String getEndingStation() {
+        return endingStation;
+    }
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
 }

@@ -1,6 +1,9 @@
 package com.example.mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,25 +31,29 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        trainSchedule = new TrainSchedule("1", "Sudu Manika", "ML-2020", "Akalanka", "0778899483", "Gampaha", "Galle", "7.30", "2.30", 8, 3, 200);
-        dataList.add(trainSchedule);
-        trainSchedule = new TrainSchedule("1", "Kalu Manika", "ML-2030", "Danushka", "077884935", "Seeduwa", "Negombo", "7.30", "2.30", 8, 3, 200);
-        dataList.add(trainSchedule);
-
-        listAdapter = new TrainScheduleAdapter(HomeActivity.this, dataList);
-        binding.listView.setAdapter(listAdapter);
-        binding.listView.setClickable(true);
-
-        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(HomeActivity.this, DetailedActivity.class);
-                intent.putExtra("trainName", "Sudu Manika");
-                intent.putExtra("model", "MP-2020");
-                startActivity(intent);
-
+        binding.bottomNavigationView.setBackground(null);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout, new HomeFragement())
+                    .commit();
+        }
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.home) {
+                replaceFragement(new HomeFragement());
+            }else if (item.getItemId() == R.id.profile) {
+                replaceFragement(new ProfileFragement());
             }
+
+            return true;
         });
+
+    }
+
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

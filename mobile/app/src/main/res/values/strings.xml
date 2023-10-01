@@ -11,5 +11,16 @@
     <string name="mobile">Mobile</string>
     <string name="login_link">Already Registered? SignIn Now</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="critiria_text">Enter Search Critiria</string>
+    <string name="starting_station">Starting Station</string>
+    <string name="ending_station">Ending Station</string>
+    <string name="noof_passengers">No of Passengers</string>
+    <string name="date">Date</string>
+    <string name="search_text">Search</string>
+    <string name="reset_text">Reset</string>
+    <string name="enter_passengers">Enter Number of Passengers</string>
+    <string name="btn_ticket_book">Book Ticket</string>
+
 
 </resources>
