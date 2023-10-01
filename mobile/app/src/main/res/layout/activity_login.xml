@@ -43,7 +43,7 @@
                 android:hint="@string/nic"
                 android:padding="8dp"
                 android:textColor="@color/black"
-                android:textColorHighlight="@color/teal_700"
+                android:textColorHighlight="@color/secondary"
                 android:layout_marginTop="40dp"
                 />
             <EditText
@@ -56,7 +56,7 @@
                 android:hint="@string/password"
                 android:padding="8dp"
                 android:textColor="@color/black"
-                android:textColorHighlight="@color/teal_700"
+                android:textColorHighlight="@color/secondary"
                 android:layout_marginTop="20dp"
                 />
 

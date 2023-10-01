@@ -27,7 +27,7 @@
         android:hint="@string/starting_station"
         android:padding="8dp"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/teal_700"
+        android:textColorHighlight="@color/secondary"
         android:layout_marginTop="40dp"
         />
     <EditText
@@ -40,7 +40,7 @@
         android:hint="@string/ending_station"
         android:padding="8dp"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/teal_700"
+        android:textColorHighlight="@color/secondary"
         android:layout_marginTop="20dp"
         />
     <EditText
@@ -53,7 +53,7 @@
         android:hint="@string/noof_passengers"
         android:padding="8dp"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/teal_700"
+        android:textColorHighlight="@color/secondary"
         android:layout_marginTop="20dp"
         android:inputType="number"
         android:defaultValue="1"
@@ -68,7 +68,7 @@
         android:hint="@string/date"
         android:padding="8dp"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/teal_700"
+        android:textColorHighlight="@color/secondary"
         android:layout_marginTop="20dp"
         />
 
