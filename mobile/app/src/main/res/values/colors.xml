@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#070D59</color>
     <color name="teal_700">#FF018786</color>
+    <color name="secondary">#394867</color>
 
 </resources>
