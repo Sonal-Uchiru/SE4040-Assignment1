@@ -1,26 +1,26 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Avatar, Grid } from "@mui/material";
-import Title from "../components/atoms/title/Title";
-import ResearchFindingsListDataTable from "../components/organisms/tables/ResearchFindingsListDataTable";
-import ContainedButton from "../components/atoms/buttons/ContainedButton";
-import theme from "../theme/hooks/CreateTheme";
-import OfficerAddNewResearchPaperModal from "../components/modals/officer/OfficerAddNewResearchPaperModal";
-import ResearchDisseminationProtectedApi from "../api/exclusive/ResearchDisseminationProtectedApi";
-import { uploadResearchPaperAsync } from "../utils/firebase/UploadFile";
+import Title from "../../components/atoms/title/Title";
+import ResearchFindingsListDataTable from "../../components/organisms/tables/ResearchFindingsListDataTable";
+import ContainedButton from "../../components/atoms/buttons/ContainedButton";
+import theme from "../../theme/hooks/CreateTheme";
+import OfficerAddNewResearchPaperModal from "../../components/modals/officer/OfficerAddNewResearchPaperModal";
+import ResearchDisseminationProtectedApi from "../../api/exclusive/ResearchDisseminationProtectedApi";
+import { uploadResearchPaperAsync } from "../../utils/firebase/UploadFile";
 import Snackbar from "@mui/material/Snackbar";
 import { AxiosError } from "axios";
 import { t } from "i18next";
-import ResearchDisseminationService from "../api/services/ResearchDisseminationService";
-import ErrorModal from "../components/modals/ErrorModal";
-import SuccessModal from "../components/modals/SuccessModal";
-import TravelersDetailsDataTable from "../components/organisms/tables/TravelersDetailsDataTable";
-import ReservationDetailsDataTable from "../components/organisms/tables/ReservationDetailsDataTable";
-import ReservationManagementTrainListDataTable from "../components/organisms/tables/ReservationManagementTrainListDataTable";
-import HeadLine2 from "../components/atoms/typographies/HeadLine2";
-import InputField from "../components/atoms/inputFields/InputField";
-import CalenderField from "../components/atoms/inputFields/CalenderField";
-import SelectField from "../components/atoms/selectField/SelectFieldAtom";
+import ResearchDisseminationService from "../../api/services/ResearchDisseminationService";
+import ErrorModal from "../../components/modals/ErrorModal";
+import SuccessModal from "../../components/modals/SuccessModal";
+import TravelersDetailsDataTable from "../../components/organisms/tables/TravelersDetailsDataTable";
+import ReservationDetailsDataTable from "../../components/organisms/tables/ReservationDetailsDataTable";
+import ReservationManagementTrainListDataTable from "../../components/organisms/tables/ReservationManagementTrainListDataTable";
+import HeadLine2 from "../../components/atoms/typographies/HeadLine2";
+import InputField from "../../components/atoms/inputFields/InputField";
+import CalenderField from "../../components/atoms/inputFields/CalenderField";
+import SelectField from "../../components/atoms/selectField/SelectFieldAtom";
 
 export default function ReservationManagementPage() {
   function handleClick() {
