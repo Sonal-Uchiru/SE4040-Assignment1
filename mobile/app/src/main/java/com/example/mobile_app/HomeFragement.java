@@ -1,10 +1,7 @@
 package com.example.mobile_app;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +20,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobile_app.adapters.TrainScheduleAdapter;
-import com.example.mobile_app.databinding.ActivityHomeBinding;
 import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 import com.example.mobile_app.databinding.SearchBottomSheetBinding;
 import com.example.mobile_app.models.TrainSchedule;
@@ -69,15 +65,26 @@ public class HomeFragement extends Fragment {
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showDetailsFragment();
+                TrainSchedule clickedItem = dataList.get(i);
+
+                showDetailsFragment(clickedItem);
             }
         });
         return view;
     }
-    public void showDetailsFragment() {
+    public void showDetailsFragment(TrainSchedule item) {
         Bundle bundle = new Bundle();
-        bundle.putString("trainName", "Sudu Manika");
-        bundle.putString("model", "MP-2020");
+        bundle.putString("trainName", item.trainName);
+        bundle.putString("driverName", item.driverName);
+        bundle.putString("contactNumber", item.contactNumber);
+        bundle.putString("startingStation", item.startingStation);
+        bundle.putString("endingStation", item.endingStation);
+        bundle.putString("depatureTime", item.depatureTime);
+        bundle.putString("arrivalTime", item.arrivalTime);
+        bundle.putInt("numberOfSeats", item.numberOfSeats);
+        bundle.putInt("frequency", item.frequency);
+        bundle.putFloat("price", item.price);
+        bundle.putString("model", item.model);
 
         DetailsFragement fragment = new DetailsFragement();
         fragment.setArguments(bundle);
