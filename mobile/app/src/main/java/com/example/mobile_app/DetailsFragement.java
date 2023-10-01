@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mobile_app.databinding.ActivityDetailedBinding;
 import com.example.mobile_app.databinding.FragmentDetailsFragementBinding;
 import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 
