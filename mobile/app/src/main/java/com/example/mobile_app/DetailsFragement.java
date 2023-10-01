@@ -19,13 +19,11 @@ public class DetailsFragement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
 
         Bundle args = getArguments();
-//        Intent intent = this.getIntent();
         if(args != null){
             String trainName = args.getString("trainName");
             String contactNumber = args.getString("contactNumber");

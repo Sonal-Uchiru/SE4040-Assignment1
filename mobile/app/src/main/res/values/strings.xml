@@ -19,6 +19,8 @@
     <string name="date">Date</string>
     <string name="search_text">Search</string>
     <string name="reset_text">Reset</string>
+    <string name="enter_passengers">Enter Number of Passengers</string>
+    <string name="btn_ticket_book">Book Ticket</string>
 
 
 </resources>
