@@ -1,28 +1,50 @@
 ﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Program.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Handlers/V1/Users/Commands/Update/Validator.cs">
     <Files>
-      <File FileName="backend_server/WeatherForecast.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Program.cs" Line="25" Column="1" />
+      <File FileName="backend_server/Models/DomainModels/User.cs" Line="23" Column="40" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Handler.cs" Line="11" Column="5" />
+      <File FileName="backend_server/Services/UserService.cs" Line="7" Column="33" />
+      <File FileName="backend_server/Program.cs" Line="45" Column="1" />
+      <File FileName="backend_server/Services/Interfaces/IUserService.cs" Line="8" Column="2" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Command.cs" Line="18" Column="18" />
+      <File FileName="backend_server/Repositories/UserRepository.cs" Line="7" Column="46" />
+      <File FileName="backend_server/Repositories/Interfaces/IUserReposiotry.cs" Line="9" Column="1" />
+      <File FileName="backend_server/Controllers/V1/UserController.cs" Line="23" Column="28" />
+      <File FileName="backend_server/Controllers/V1/TrainController.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Command.cs" Line="10" Column="2" />
+      <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="4" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Response.cs" Line="3" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Response.cs" Line="3" Column="1" />
+      <File FileName="backend_server/Models/Types/UserRoles.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Models/Commons/Responses/BaseResponse.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Validator.cs" Line="9" Column="72" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs" Line="39" Column="10" />
+      <File FileName="backend_server/Queries/Interfaces/IUserQuery.cs" Line="14" Column="1" />
+      <File FileName="backend_server/Queries/UserQuery.cs" Line="30" Column="57" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Validator.cs" Line="11" Column="6" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Update/Command.cs" Line="9" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Update/Handler.cs" Line="11" Column="54" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Update/Response.cs" Line="8" Column="2" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Update/Validator.cs" Line="12" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="backend_server" expanded="True">
-            <Node name="backend_server">
+          <Node name="backend_server">
+            <Node name="backend_server" expanded="True" selected="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
