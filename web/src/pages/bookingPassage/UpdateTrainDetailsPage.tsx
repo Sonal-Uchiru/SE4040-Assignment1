@@ -1,31 +1,31 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
-import Title from "../components/atoms/title/Title";
-import ResearchFindingsListDataTable from "../components/organisms/tables/ResearchFindingsListDataTable";
-import ContainedButton from "../components/atoms/buttons/ContainedButton";
-import theme from "../theme/hooks/CreateTheme";
-import OfficerAddNewResearchPaperModal from "../components/modals/officer/OfficerAddNewResearchPaperModal";
-import ResearchDisseminationProtectedApi from "../api/exclusive/ResearchDisseminationProtectedApi";
-import { uploadResearchPaperAsync } from "../utils/firebase/UploadFile";
+import Title from "../../components/atoms/title/Title";
+import ResearchFindingsListDataTable from "../../components/organisms/tables/ResearchFindingsListDataTable";
+import ContainedButton from "../../components/atoms/buttons/ContainedButton";
+import theme from "../../theme/hooks/CreateTheme";
+import OfficerAddNewResearchPaperModal from "../../components/modals/officer/OfficerAddNewResearchPaperModal";
+import ResearchDisseminationProtectedApi from "../../api/exclusive/ResearchDisseminationProtectedApi";
+import { uploadResearchPaperAsync } from "../../utils/firebase/UploadFile";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert, AlertColor } from "@mui/material";
 import { AxiosError } from "axios";
 import Avatar from "@mui/material/Avatar";
 import { t } from "i18next";
-import ResearchDisseminationService from "../api/services/ResearchDisseminationService";
-import ErrorModal from "../components/modals/ErrorModal";
-import SuccessModal from "../components/modals/SuccessModal";
-import TravelersDetailsDataTable from "../components/organisms/tables/TravelersDetailsDataTable";
-import TrainDetailsDataTable from "../components/organisms/tables/TrainDetailsDataTable";
-import InputField from "../components/atoms/inputFields/InputField";
-import CalenderField from "../components/atoms/inputFields/CalenderField";
-import SelectField from "../components/atoms/selectField/SelectFieldAtom";
-import TrainScheduleModalTable from "../components/organisms/tables/TrainScheduleModalTable";
+import ResearchDisseminationService from "../../api/services/ResearchDisseminationService";
+import ErrorModal from "../../components/modals/ErrorModal";
+import SuccessModal from "../../components/modals/SuccessModal";
+import TravelersDetailsDataTable from "../../components/organisms/tables/TravelersDetailsDataTable";
+import TrainDetailsDataTable from "../../components/organisms/tables/TrainDetailsDataTable";
+import InputField from "../../components/atoms/inputFields/InputField";
+import CalenderField from "../../components/atoms/inputFields/CalenderField";
+import SelectField from "../../components/atoms/selectField/SelectFieldAtom";
+import TrainScheduleModalTable from "../../components/organisms/tables/TrainScheduleModalTable";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import TrainScheduleUpdateTable from "../components/organisms/tables/TrainScheduleUpdateTable";
+import TrainScheduleUpdateTable from "../../components/organisms/tables/TrainScheduleUpdateTable";
 
 export default function UpdateTrainDetailsPage() {
   function handleClick() {

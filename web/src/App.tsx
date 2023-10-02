@@ -33,23 +33,17 @@ import OfficerAddNewResearchPaperModal from "./components/modals/officer/Officer
 import OfficerAddNewFieldModal from "./components/modals/officer/OfficerAddNewFieldModal";
 import ViewTrainScheduleModal from "./components/modals/train/ViewTrainScheduleModal";
 import TrainScheduleModalTable from "./components/organisms/tables/TrainScheduleModalTable";
-import AddNewTrainPage from "./pages/AddNewTrainPage";
+import AddNewTrainPage from "./pages/bookingPassage/AddNewTrainPage";
 import TrainScheduleUpdateTable from "./components/organisms/tables/TrainScheduleUpdateTable";
-import UpdateTrainDetailsPage from "./pages/UpdateTrainDetailsPage";
+import UpdateTrainDetailsPage from "./pages/bookingPassage/UpdateTrainDetailsPage";
 import DisplaySummaryModal from "./components/modals/reservation/DisplaySummaryModal";
+import LoginPage from "./pages/bookingPassage/LoginPage";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <DisplaySummaryModal
-          handleCancel={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          handleConfirm={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        <LoginPage />
       </Router>
     </ThemeProvider>
   );
