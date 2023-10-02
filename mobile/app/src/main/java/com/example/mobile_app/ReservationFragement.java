@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class ReservationFragement extends Fragment {
 
     FragmentReservationFragementBinding binding;
@@ -31,9 +30,10 @@ public class ReservationFragement extends Fragment {
 
     UserReservation userReservation;
     Date currentDate = new Date();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         Context context = requireContext();
 
         binding = FragmentReservationFragementBinding.inflate(inflater, container, false);
@@ -71,7 +71,7 @@ public class ReservationFragement extends Fragment {
         bundle.putFloat("perPersonPrice", item.getPerPersonPrice());
         bundle.putString("departureDate", formattedDate);
 
-//        Date departureDate;
+        // Date departureDate;
         ReservationDetailsFragement fragment = new ReservationDetailsFragement();
         fragment.setArguments(bundle);
 
@@ -81,10 +81,13 @@ public class ReservationFragement extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
-    private void loadTrainScheduleData(){
-        userReservation = new UserReservation("1", "Sudu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate, 5, 500, 100);
+
+    private void loadTrainScheduleData() {
+        userReservation = new UserReservation("1", "Sudu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate,
+                5, 500, 100);
         dataList.add(userReservation);
-        userReservation = new UserReservation("1", "Kalu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate, 5, 500, 100);
+        userReservation = new UserReservation("1", "Kalu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate,
+                5, 500, 100);
         dataList.add(userReservation);
     }
 }

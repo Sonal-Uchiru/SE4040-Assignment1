@@ -18,13 +18,13 @@ public class DetailsFragement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
 
         Bundle args = getArguments();
-        if(args != null){
+        if (args != null) {
             String trainName = args.getString("trainName");
             String contactNumber = args.getString("contactNumber");
             String startingStation = args.getString("startingStation");
@@ -37,7 +37,7 @@ public class DetailsFragement extends Fragment {
             String model = args.getString("model");
 
             binding.trainName.setText(trainName);
-//            binding.model.setText(model);
+            // binding.model.setText(model);
         }
 
         return view;

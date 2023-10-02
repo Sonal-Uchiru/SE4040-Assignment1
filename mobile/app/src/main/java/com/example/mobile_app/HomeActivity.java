@@ -25,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     TrainScheduleAdapter listAdapter;
     ArrayList<TrainSchedule> dataList = new ArrayList<>();
     TrainSchedule trainSchedule;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,9 @@ public class HomeActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragement(new HomeFragement());
-            }else if (item.getItemId() == R.id.profile) {
+            } else if (item.getItemId() == R.id.profile) {
                 replaceFragement(new ProfileFragement());
-            }else if (item.getItemId() == R.id.reservations) {
+            } else if (item.getItemId() == R.id.reservations) {
                 replaceFragement(new ReservationFragement());
             }
 
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void replaceFragement(Fragment fragment){
+    private void replaceFragement(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

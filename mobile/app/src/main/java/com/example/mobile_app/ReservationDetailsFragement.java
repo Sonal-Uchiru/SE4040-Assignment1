@@ -19,13 +19,13 @@ public class ReservationDetailsFragement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
         binding = FragmentReservationDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         Bundle args = getArguments();
-        if(args != null){
+        if (args != null) {
             String reservationId = args.getString("reservationId");
             String trainName = args.getString("trainName");
             String departureTime = args.getString("departureTime");
@@ -48,5 +48,6 @@ public class ReservationDetailsFragement extends Fragment {
 
         }
 
-        return view;    }
+        return view;
+    }
 }
