@@ -50,18 +50,18 @@ public class HomeFragement extends Fragment {
         View view = binding.getRoot();
 
         loadTrainScheduleData();
+
+
+        listAdapter = new TrainScheduleAdapter(requireContext(), dataList);
+        binding.listView.setAdapter(listAdapter);
+        binding.listView.setClickable(true);
+
         bottomSheetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog();
             }
         });
-
-        listAdapter = new TrainScheduleAdapter(requireContext(), dataList);
-        binding.listView.setAdapter(listAdapter);
-
-        binding.listView.setClickable(true);
-
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

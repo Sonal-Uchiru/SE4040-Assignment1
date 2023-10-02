@@ -16,8 +16,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_train_name"
-            android:text="Train Name"
+            android:id="@+id/r_list_schedule_date"
+            android:text="@string/l_schedule_date"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -27,45 +27,67 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_label_schedule_date"
-            android:text="Schedule Date:"
+            android:id="@+id/r_list_label_train_name"
+            android:text="@string/l_train_name"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:layout_below="@+id/list_train_name"
+            android:layout_below="@+id/r_list_schedule_date"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_schedule_date"
-            android:text="June 21, 2023"
+            android:id="@+id/r_list_train_name"
+            android:text="Train Name"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginStart="10dp"
-            android:layout_below="@+id/list_train_name"
-            android:layout_toEndOf="@id/list_label_schedule_date"
+            android:layout_below="@+id/r_list_schedule_date"
+            android:layout_toEndOf="@id/r_list_label_train_name"
             android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_label_available_seats"
-            android:text="Available Seats:"
+            android:id="@+id/r_list_label_reservations"
+            android:text="@string/l_reservation"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:layout_below="@+id/list_label_schedule_date"
+            android:layout_below="@+id/r_list_label_train_name"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_available_seats"
+            android:id="@+id/r_list_reservations"
             android:text="3"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginStart="10dp"
-            android:layout_below="@+id/list_label_schedule_date"
-            android:layout_toEndOf="@id/list_label_available_seats"
+            android:layout_below="@+id/r_list_label_train_name"
+            android:layout_toEndOf="@id/r_list_label_reservations"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_label_total_price"
+            android:text="@string/l_total_price"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/r_list_label_reservations"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/l_list_total_price"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/r_list_label_reservations"
+            android:layout_toEndOf="@id/r_list_label_total_price"
             android:layout_marginTop="8dp" />
 
 

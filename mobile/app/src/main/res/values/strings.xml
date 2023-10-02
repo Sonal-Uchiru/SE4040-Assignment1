@@ -21,6 +21,11 @@
     <string name="reset_text">Reset</string>
     <string name="enter_passengers">Enter Number of Passengers</string>
     <string name="btn_ticket_book">Book Ticket</string>
+    <string name="l_train_name">Train Name:</string>
+    <string name="l_schedule_date">Schedule Date:</string>
+    <string name="l_total_price">Total Price:</string>
+    <string name="l_reservation">Reservations:</string>
+
 
 
 </resources>
