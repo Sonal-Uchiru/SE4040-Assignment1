@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">client_mobile</string>
+    <string name="app_name">mobile_app</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="nic">NIC</string>
+    <string name="password">Password</string>
+    <string name="regidstration_link">Not yet registered? SignUp Now</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="login_link">Already Registered? SignIn Now</string>
+
+
 </resources>
