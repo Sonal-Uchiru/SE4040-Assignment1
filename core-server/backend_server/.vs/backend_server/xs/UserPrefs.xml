@@ -11,11 +11,7 @@
       <File FileName="backend_server/Models/DomainModels/User.cs" Line="23" Column="40" />
       <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Handler.cs" Line="11" Column="5" />
       <File FileName="backend_server/Services/UserService.cs" Line="7" Column="33" />
-<<<<<<< HEAD
       <File FileName="backend_server/Program.cs" Line="45" Column="1" />
-=======
-      <File FileName="backend_server/Program.cs" Line="10" Column="1" />
->>>>>>> origin/ui-development
       <File FileName="backend_server/Services/Interfaces/IUserService.cs" Line="8" Column="2" />
       <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Command.cs" Line="18" Column="18" />
       <File FileName="backend_server/Repositories/UserRepository.cs" Line="7" Column="46" />
@@ -23,11 +19,7 @@
       <File FileName="backend_server/Controllers/V1/UserController.cs" Line="23" Column="28" />
       <File FileName="backend_server/Controllers/V1/TrainController.cs" Line="1" Column="1" />
       <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Command.cs" Line="10" Column="2" />
-<<<<<<< HEAD
       <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="4" Column="1" />
-=======
-      <File FileName="backend_server/Controllers/WeatherForecastController.cs" Line="1" Column="1" />
->>>>>>> origin/ui-development
       <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Response.cs" Line="3" Column="1" />
       <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Response.cs" Line="3" Column="1" />
       <File FileName="backend_server/Models/Types/UserRoles.cs" Line="1" Column="1" />
@@ -46,46 +38,9 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="backend_server">
-<<<<<<< HEAD
             <Node name="backend_server" expanded="True" selected="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Properties" expanded="True" />
-=======
-            <Node name="backend_server">
-              <Node name="Controllers" expanded="True">
-                <Node name="V1" expanded="True">
-                  <Node name="UserController.cs" selected="True" />
-                </Node>
-              </Node>
-              <Node name="Handlers" expanded="True">
-                <Node name="V1">
-                  <Node name="Authentications" expanded="True">
-                    <Node name="Commands" expanded="True">
-                      <Node name="Logins" expanded="True" />
-                    </Node>
-                  </Node>
-                  <Node name="Users">
-                    <Node name="Commands">
-                      <Node name="Create" expanded="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Models" expanded="True">
-                <Node name="Commons" expanded="True">
-                  <Node name="Responses" expanded="True" />
-                </Node>
-                <Node name="DomainModels" expanded="True" />
-                <Node name="Types" expanded="True" />
-              </Node>
-              <Node name="Queries">
-                <Node name="Interfaces" expanded="True" />
-              </Node>
-              <Node name="Repositories" expanded="True" />
-              <Node name="Services">
-                <Node name="Interfaces" expanded="True" />
-              </Node>
->>>>>>> origin/ui-development
             </Node>
           </Node>
         </State>
