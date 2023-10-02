@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,135 +8,150 @@
     android:layout_height="match_parent"
     tools:context=".DetailsFragement">
 
-    <androidx.cardview.widget.CardView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        android:layout_height="50dp"
+        android:background="@color/primary"
+        app:title="@string/schedule_details"
+        app:titleTextColor="@android:color/white"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_lock_24"
-            android:layout_gravity="center_horizontal"
-            android:padding="16dp"
-            android:layout_marginTop="16dp" />
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/trainName"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Train Name"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:src="@drawable/ic_baseline_lock_24"
+                android:layout_gravity="center_horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="16dp" />
 
-            <TextView
-                android:id="@+id/model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Model: "
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/driverName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Driver: "
-                android:layout_marginTop="8dp" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/contactNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contact Number: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/trainName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Train Name"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
 
-            <TextView
-                android:id="@+id/startingStation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Starting Station: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Model: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/endingStation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ending Station: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/driverName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Driver: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/depatureTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Departure Time: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/contactNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Number: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/arrivalTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Arrival Time: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/startingStation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Starting Station: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/numberOfSeats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Number of Seats: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/endingStation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ending Station: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/frequency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Frequency: "
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:id="@+id/depatureTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Departure Time: "
+                    android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Price: "
-                android:layout_marginTop="8dp"
-                />
+                <TextView
+                    android:id="@+id/arrivalTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Arrival Time: "
+                    android:layout_marginTop="8dp" />
 
+                <TextView
+                    android:id="@+id/numberOfSeats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Number of Seats: "
+                    android:layout_marginTop="8dp" />
 
+                <TextView
+                    android:id="@+id/frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Frequency: "
+                    android:layout_marginTop="8dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:id="@+id/ed_nic"
-                android:drawablePadding="8dp"
-                android:hint="@string/enter_passengers"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/secondary"
-                android:layout_marginTop="30dp"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:id="@+id/login_btn"
-                android:text="@string/btn_ticket_book"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/primary"
-                android:onClick="onNavigateToHome"
-                app:cornerRadius="20dp"/>
-
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Price: "
+                    android:layout_marginTop="8dp"
+                    />
 
 
 
-    </androidx.cardview.widget.CardView>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/ed_nic"
+                    android:drawablePadding="8dp"
+                    android:hint="@string/enter_passengers"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/secondary"
+                    android:layout_marginTop="30dp"
+                    />
 
-</FrameLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/login_btn"
+                    android:text="@string/btn_ticket_book"
+                    android:textSize="18sp"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/primary"
+                    android:onClick="onNavigateToHome"
+                    app:cornerRadius="20dp"/>
+
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+</RelativeLayout>

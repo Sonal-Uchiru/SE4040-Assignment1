@@ -42,6 +42,8 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragement(new HomeFragement());
             }else if (item.getItemId() == R.id.profile) {
                 replaceFragement(new ProfileFragement());
+            }else if (item.getItemId() == R.id.reservations) {
+                replaceFragement(new ReservationFragement());
             }
 
             return true;
