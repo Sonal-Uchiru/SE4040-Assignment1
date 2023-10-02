@@ -9,11 +9,6 @@
         android:id="@+id/reservations"
         android:title="Reservations"
         android:icon="@drawable/baseline_home_24"/>
-
-    <item
-        android:id="@+id/fab"
-        android:title=""
-        android:enabled="false"/>
     <item
         android:id="@+id/profile"
         android:title="Profile"
