@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    android:layout_margin="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_schedule_date"
+            android:text="@string/l_schedule_date"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_label_train_name"
+            android:text="@string/l_train_name"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/r_list_schedule_date"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_train_name"
+            android:text="Train Name"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/r_list_schedule_date"
+            android:layout_toEndOf="@id/r_list_label_train_name"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_label_reservations"
+            android:text="@string/l_reservation"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/r_list_label_train_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_reservations"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/r_list_label_train_name"
+            android:layout_toEndOf="@id/r_list_label_reservations"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r_list_label_total_price"
+            android:text="@string/l_total_price"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/r_list_label_reservations"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/l_list_total_price"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/r_list_label_reservations"
+            android:layout_toEndOf="@id/r_list_label_total_price"
+            android:layout_marginTop="8dp" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
