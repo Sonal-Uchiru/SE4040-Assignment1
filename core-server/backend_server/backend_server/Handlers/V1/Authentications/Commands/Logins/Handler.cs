@@ -8,11 +8,13 @@ public class Handler : IRequestHandler<Command, Response>
 {
     private readonly IUserQuery _userQuery;
     private readonly IUserService _userService;
+    private readonly IAuthenticationService _authenticationService;
 
-	public Handler(IUserQuery userQuery, IUserService userService)
+	public Handler(IUserQuery userQuery, IUserService userService, IAuthenticationService authenticationService)
     {
         _userQuery = userQuery;
         _userService = userService;
+        _authenticationService = authenticationService;
     }
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
@@ -23,7 +25,7 @@ public class Handler : IRequestHandler<Command, Response>
         {
             return new Response
             {
-                Token = "Invalid Credentials! s"
+                Token = "Invalid Credentials!"
             };
         }
 
@@ -37,7 +39,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         return new Response
         {
-            Token = "new token"
+            Token = _authenticationService.GenerateJWT(user.Id, user.Role)
         };
     }
 }

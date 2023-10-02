@@ -1,5 +1,4 @@
 ﻿using backend_server.Models.DomainModels;
-using backend_server.Models.Dtos.Trains;
 
 namespace backend_server.Repositories.Interfaces;
 

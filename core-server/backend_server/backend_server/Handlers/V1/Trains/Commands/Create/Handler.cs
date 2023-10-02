@@ -23,6 +23,8 @@ public class Handler : IRequestHandler<Command, Response>
 
         var train = _mapper.Map<Train>(command);
 
+        train.Id = id;
+
         await _trainRepository.Add(train);
 
         return new Response

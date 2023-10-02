@@ -20,6 +20,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.0.2" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.2" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.56.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +38,6 @@
     <None Remove="Repositories\" />
     <None Remove="Queries\" />
     <None Remove="Handlers\V1\Authentications\" />
-    <None Remove="Handlers\V1\Reservations\" />
-    <None Remove="Handlers\V1\TrainStations\" />
     <None Remove="Handlers\V1\Users\" />
     <None Remove="Handlers\V1\Authentications\Commands\" />
     <None Remove="Models\Commons\" />
@@ -55,7 +58,11 @@
     <None Remove="Handlers\V1\Users\Queries\Individuals\" />
     <None Remove="Handlers\V1\Trains\" />
     <None Remove="Models\Dtos\Trains\" />
+    <None Remove="Handlers\V1\Trains\Queries\TrainScheduleList\" />
     <None Remove="Handlers\V1\Trains\Queries\ScheduleList\" />
+    <None Remove="Handlers\V1\Reservations\" />
+    <None Remove="Models\Dtos\Reservations\" />
+    <None Remove="Models\Dtos\Authentications\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -68,8 +75,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="Queries\" />
     <Folder Include="Handlers\V1\Authentications\" />
-    <Folder Include="Handlers\V1\Reservations\" />
-    <Folder Include="Handlers\V1\TrainStations\" />
     <Folder Include="Handlers\V1\Users\" />
     <Folder Include="Handlers\V1\Authentications\Commands\" />
     <Folder Include="Models\Commons\" />
@@ -90,7 +95,11 @@
     <Folder Include="Handlers\V1\Users\Queries\Individuals\" />
     <Folder Include="Handlers\V1\Trains\" />
     <Folder Include="Models\Dtos\Trains\" />
+    <Folder Include="Handlers\V1\Trains\Queries\TrainScheduleList\" />
     <Folder Include="Handlers\V1\Trains\Queries\ScheduleList\" />
+    <Folder Include="Handlers\V1\Reservations\" />
+    <Folder Include="Models\Dtos\Reservations\" />
+    <Folder Include="Models\Dtos\Authentications\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

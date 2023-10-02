@@ -50,3 +50,12 @@
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/MediatR.Contracts.dll
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Newtonsoft.Json.dll
 /Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.Identity.Client.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/sonaljayawardana/SE4040-Assignment1/core-server/backend_server/backend_server/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

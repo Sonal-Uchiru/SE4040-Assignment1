@@ -1,4 +1,5 @@
-﻿using backend_server.Queries.Interfaces;
+﻿using backend_server.Models.Dtos.Trains;
+using backend_server.Queries.Interfaces;
 using MediatR;
 
 namespace backend_server.Handlers.V1.Trains.Queries.ScheduleList;
@@ -6,6 +7,7 @@ namespace backend_server.Handlers.V1.Trains.Queries.ScheduleList;
 public class Handler : IRequestHandler<Query, Response>
 {
     private readonly ITrainQuery _trainQuery;
+    
 
     public Handler(ITrainQuery trainQuery)
     {
@@ -14,16 +16,41 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id);
+        var trains = await _trainQuery.GetEntities();
 
-        if(train == null)
+        var scheduleListResponse = new List<ScheduleListResponseDto>();
+
+        foreach(var train in trains)
         {
-            //
+            var tempTrainDetails = new ScheduleListResponseDto
+            {
+                Id = train.Id,
+                Name = train.Name,
+                Model = train.Model,
+                DriverName = train.DriverName,
+                Contact = train.Contact,
+                NoOfSeats = train.NoOfSeats,
+                StartingStation = train.StartingStation,
+                EndingStation = train.EndingStation,
+                IsEnabled = train.IsEnabled
+            };
+
+            foreach (var schedule in train.Schedules)
+            {
+                var scheduleWithTrain = tempTrainDetails;
+                scheduleWithTrain.Frequency = schedule.Frequency;
+                scheduleWithTrain.ArrivalTime = schedule.ArrivalTime;
+                scheduleWithTrain.DepartureTime = schedule.DepartureTime;
+                scheduleWithTrain.IsReturnTrip = schedule.IsReturnTrip;
+                scheduleWithTrain.Price = schedule.Price;
+
+                scheduleListResponse.Add(scheduleWithTrain);
+            }
         }
 
         return new Response
         {
-            Items = train.Schedules
+            Items = scheduleListResponse
         };
     }
 }

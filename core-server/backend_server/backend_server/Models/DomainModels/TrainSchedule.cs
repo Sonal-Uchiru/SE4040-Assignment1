@@ -9,5 +9,7 @@ public class TrainSchedule
     public string DepartureTime { get; set; }
 
     public bool IsReturnTrip { get; set; }
+
+    public double Price { get; set; }
 }
 

@@ -64,16 +64,17 @@ public class TrainController : ControllerBase
     }
 
     [HttpGet("{id:guid}/schedules/list")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Train.Queries.ScheduleList.Response))]
-    public Task<Train.Queries.ScheduleList.Response> GetTrainScheduleList([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Train.Queries.TrainScheduleList.Response))]
+    public Task<Train.Queries.TrainScheduleList.Response> GetTrainScheduleList([FromRoute] Guid id)
     {
-        return _mediator.Send(new Train.Queries.ScheduleList.Query { Id = id });
+        return _mediator.Send(new Train.Queries.TrainScheduleList.Query { Id = id });
     }
 
-    [HttpGet("{id:guid}/schedules/{ids:guid}/availableSeats/list")]
-    public Task GetTrainScheduleAvailableSeatList([FromRoute] Guid id, Guid ids)
+    [HttpGet("/schedules/list")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Train.Queries.ScheduleList.Response))]
+    public Task<Train.Queries.ScheduleList.Response> GetScheduleList()
     {
-        return (Task<User>)Task.CompletedTask;
+        return _mediator.Send(new Train.Queries.ScheduleList.Query());
     }
 }
 
