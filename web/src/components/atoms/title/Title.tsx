@@ -36,7 +36,7 @@ export default function Title({
 
                     <HeadLine2
                         text={t(titleName)}
-                        color={theme.palette.primary.main}
+                        color={theme.palette.darkBlue.main}
                         fontWeight={theme.typography.fontWeightSemi.fontWeight}
                     />
                 </Grid>
