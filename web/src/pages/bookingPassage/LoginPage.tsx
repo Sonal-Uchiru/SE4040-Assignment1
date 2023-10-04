@@ -43,11 +43,26 @@ export default function LoginPage() {
     },
   })
       .then((res: AxiosResponse) => {
-          console.log(res)
+          console.log(res.data.items)
       })
       .catch((err: AxiosError) => {
           console.log(err)
       })
+
+      axios({
+        url: `https://localhost:7142/api/v1/authentications`,
+        method: 'POST',
+        data: {
+          'nic': "string",
+          'password': "string"
+        },
+    })
+        .then((res: AxiosResponse) => {
+            console.log(res.data.token)
+        })
+        .catch((err: AxiosError) => {
+            console.log(err)
+        })
    
   }
 
