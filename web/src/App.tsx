@@ -38,12 +38,13 @@ import TrainScheduleUpdateTable from "./components/organisms/tables/TrainSchedul
 import UpdateTrainDetailsPage from "./pages/bookingPassage/UpdateTrainDetailsPage";
 import DisplaySummaryModal from "./components/modals/reservation/DisplaySummaryModal";
 import LoginPage from "./pages/bookingPassage/LoginPage";
+import PaymentPage from "./pages/bookingPassage/PaymentPage";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <LoginPage />
+        <PaymentPage />
       </Router>
     </ThemeProvider>
   );
