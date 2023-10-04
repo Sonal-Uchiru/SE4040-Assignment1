@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using backend_server.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Reservation = backend_server.Handlers.V1.Reservations;
 namespace backend_server.Controllers.V1;
@@ -8,16 +9,21 @@ namespace backend_server.Controllers.V1;
 public class ReservationController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IAuthenticationService _authenticationService;
 
-    public ReservationController(IMediator mediator)
+    public ReservationController(IMediator mediator, IAuthenticationService authenticationService)
     {
         _mediator = mediator;
+        _authenticationService = authenticationService;
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Reservation.Commands.Create.Response))]
     public Task<Reservation.Commands.Create.Response> CreateReservation([FromBody] Reservation.Commands.Create.Command command)
     {
+        var payload = _authenticationService.GetUserPayloadByContext(HttpContext);
+        command.UserId = payload.UserId;
+
         return _mediator.Send(command);
     }
 

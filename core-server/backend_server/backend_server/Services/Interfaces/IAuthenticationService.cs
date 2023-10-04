@@ -7,6 +7,6 @@ public interface IAuthenticationService
 {
 	public string GenerateJWT(Guid userId, UserRoles role);
 
-	public PayloadDto ExtractToken(string token);
+	public PayloadDto GetUserPayloadByContext(HttpContext context);
 }
 

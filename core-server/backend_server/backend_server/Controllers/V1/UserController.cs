@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using backend_server.Services.Interfaces;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using User = backend_server.Handlers.V1.Users;
 
@@ -9,10 +12,12 @@ namespace backend_server.Controllers.V1;
 public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IAuthenticationService _authenticationService;
 
-    public UserController(IMediator mediator)
+    public UserController(IMediator mediator, IAuthenticationService authenticationService)
     {
         _mediator = mediator;
+        _authenticationService = authenticationService;
     }
 
     [HttpPost]
@@ -22,6 +27,7 @@ public class UserController : ControllerBase
         return _mediator.Send(command);
     }
 
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Commands.Update.Response))]
     public Task<User.Commands.Update.Response> UpdateUser([FromRoute] Guid id, [FromBody] User.Commands.Update.Command command)
@@ -30,7 +36,7 @@ public class UserController : ControllerBase
         return _mediator.Send(command);
     }
 
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(User.Commands.Delete.Response))]
     public Task<User.Commands.Delete.Response> DeleteUser([FromRoute] Guid id)
@@ -61,9 +67,15 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("reservations/list")]
-    public Task GetUserReservationList()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Queries.ReservationLists.Response))]
+    public Task<User.Queries.ReservationLists.Response> GetUserReservationList()
     {
-        return Task.CompletedTask;
+        var payload = _authenticationService.GetUserPayloadByContext(HttpContext);
+
+        return _mediator.Send(new User.Queries.ReservationLists.Query
+        {
+            UserId = payload.UserId
+        });
     }
 }
 

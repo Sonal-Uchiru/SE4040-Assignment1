@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Text.Json.Serialization;
+using MediatR;
 
 namespace backend_server.Handlers.V1.Reservations.Commands.Create;
 
@@ -19,4 +20,7 @@ public class Command : IRequest<Response>
     public int NoOfPassengers { get; set; }
 
     public double PerPersonPrice { get; set; }
+
+    [JsonIgnore]
+    public Guid UserId { get; set; }
 }

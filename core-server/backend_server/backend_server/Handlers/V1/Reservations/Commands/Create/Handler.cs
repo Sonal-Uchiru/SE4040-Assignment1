@@ -23,7 +23,6 @@ public class Handler : IRequestHandler<Command, Response>
         var reservation = _mapper.Map<Reservation>(command);
 
         reservation.Id = id;
-        reservation.UserId = Guid.NewGuid(); // update
 
         await _reservationRepository.Add(reservation);
 

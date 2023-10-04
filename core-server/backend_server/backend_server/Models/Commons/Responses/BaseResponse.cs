@@ -1,9 +1,16 @@
-﻿namespace backend_server.Models.Commons.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class BaseResponse
+namespace backend_server.Models.Commons.Responses;
+
+public class BaseResponse : IActionResult
 {
 	public BaseResponse()
 	{
 	}
+
+    public Task ExecuteResultAsync(ActionContext context)
+    {
+        throw new NotImplementedException();
+    }
 }
 

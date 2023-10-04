@@ -7,7 +7,7 @@ public class MapperProfile : BaseMapperProfile
 {
     public MapperProfile()
     {
-        CreateMap<User, UserResponseDto>();
+        CreateMap<User, Models.Dtos.Users.UserResponseDto>();
     }
 }
 

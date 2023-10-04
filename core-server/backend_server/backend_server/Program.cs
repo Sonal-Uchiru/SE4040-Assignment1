@@ -29,11 +29,25 @@ builder.Services.AddSwaggerGen(options =>
         Description = "Please enter the JWT token in the format 'Bearer {token}'.",
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer" // Use "Bearer" as the authentication scheme
     });
 
-    // Set up a custom operation filter to include the JWT token input box in Swagger UI
-    //options.OperationFilter<AddAuthorizationHeaderOperationFilter>();
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
+
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -44,6 +58,7 @@ builder.Services.AddAutoMapper(typeof(BaseMapperProfile));
 // DI
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
+builder.Services.AddSingleton<IJwtService, JwtService>();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IUserQuery, UserQuery>();

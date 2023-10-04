@@ -9,6 +9,13 @@ namespace backend_server.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
+    private readonly IJwtService _jwtService;
+
+    public AuthenticationService(IJwtService jwtService)
+    {
+        _jwtService = jwtService;
+    }
+
     public string GenerateJWT(Guid userId, UserRoles role)
     {
         string secretKey = "8V7n5phLLJj0GYbJHHkqhs2iNlvAvpPp4q9iutGwj24PDDcYK2";
@@ -39,14 +46,15 @@ public class AuthenticationService : IAuthenticationService
         return tokenHandler.WriteToken(token);
     }
 
-    public PayloadDto ExtractToken(string userToken)
+    public PayloadDto GetUserPayloadByContext(HttpContext context)
     {
+        var userToken = _jwtService.GetToken(context);
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.ReadJwtToken(userToken);
 
         _ = Guid.TryParse(token.Claims.First(claim => claim.Type == "user_id").Value, out Guid guidValue);
 
-        Enum.TryParse(token.Claims.First(claim => claim.Type == ClaimTypes.Role).Value, true, out UserRoles userRole);
+        Enum.TryParse(token.Claims.First(claim => claim.Type == "role").Value, true, out UserRoles userRole);
 
         return new PayloadDto
         {

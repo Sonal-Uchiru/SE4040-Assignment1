@@ -63,6 +63,7 @@
     <None Remove="Handlers\V1\Reservations\" />
     <None Remove="Models\Dtos\Reservations\" />
     <None Remove="Models\Dtos\Authentications\" />
+    <None Remove="Handlers\V1\Users\Queries\ReservationLists\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -100,6 +101,7 @@
     <Folder Include="Handlers\V1\Reservations\" />
     <Folder Include="Models\Dtos\Reservations\" />
     <Folder Include="Models\Dtos\Authentications\" />
+    <Folder Include="Handlers\V1\Users\Queries\ReservationLists\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

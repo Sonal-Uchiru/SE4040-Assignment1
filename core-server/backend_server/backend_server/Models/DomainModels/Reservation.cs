@@ -25,7 +25,5 @@ public class Reservation
 
     public bool IsEnabled { get; set; } = true;
 
-    public Guid TrainId { get; set; }
-
     public Guid UserId { get; set; }
 }
