@@ -1,66 +1,31 @@
 ﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Controllers/V1/ReservationController.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Controllers/V1/UserController.cs">
     <Files>
-      <File FileName="backend_server/Controllers/V1/UserController.cs" Line="70" Column="69" />
-      <File FileName="backend_server/Controllers/V1/ReservationController.cs" Line="24" Column="83" />
-      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Create/Command.cs" Line="21" Column="1" />
-      <File FileName="backend_server/Controllers/V1/TrainController.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Services/AuthenticationService.cs" Line="49" Column="46" />
-      <File FileName="backend_server/Services/Interfaces/IAuthenticationService.cs" Line="10" Column="43" />
-      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Delete/Command.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Update/Command.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Create/Handler.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Controllers/V1/ReservationController.cs" Line="32" Column="53" IsPinned="True" />
+      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Create/Command.cs" Line="6" Column="14" />
+      <File FileName="backend_server/Models/DomainModels/Reservation.cs" Line="5" Column="14" />
+      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Update/Handler.cs" Line="31" Column="15" />
+      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Update/Response.cs" Line="5" Column="22" />
+      <File FileName="backend_server/Models/Commons/Responses/BaseResponse.cs" Line="5" Column="42" />
+      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Update/Command.cs" Line="6" Column="14" />
+      <File FileName="backend_server/DataBaseConnection.cs" Line="7" Column="8" />
+      <File FileName="backend_server/Controllers/V1/UserController.cs" Line="22" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="backend_server">
-            <Node name="backend_server">
-              <Node name="Controllers">
-                <Node name="V1">
-                  <Node name="ReservationController.cs" selected="True" />
-                </Node>
-              </Node>
-              <Node name="Handlers">
-                <Node name="V1">
-                  <Node name="Reservations">
-                    <Node name="Commands">
-                      <Node name="Delete" expanded="True" />
-                      <Node name="Update" expanded="True" />
-                    </Node>
-                    <Node name="Queries" expanded="True">
-                      <Node name="Lists" expanded="True" />
-                    </Node>
-                  </Node>
-                  <Node name="Users">
-                    <Node name="Queries">
-                      <Node name="Individuals" expanded="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Models">
-                <Node name="Commons" expanded="True">
-                  <Node name="Responses" expanded="True" />
-                </Node>
-              </Node>
-              <Node name="Repositories" expanded="True">
-                <Node name="Interfaces" expanded="True" />
-              </Node>
-            </Node>
+          <Node name="backend_server" expanded="True" selected="True">
+            <Node name="backend_server" expanded="True" />
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

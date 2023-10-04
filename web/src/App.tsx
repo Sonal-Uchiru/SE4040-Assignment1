@@ -38,6 +38,7 @@ import TrainScheduleUpdateTable from "./components/organisms/tables/TrainSchedul
 import UpdateTrainDetailsPage from "./pages/bookingPassage/UpdateTrainDetailsPage";
 import DisplaySummaryModal from "./components/modals/reservation/DisplaySummaryModal";
 import LoginPage from "./pages/bookingPassage/LoginPage";
+import PaymentPage from "./pages/bookingPassage/PaymentPage";
 
 function App() {
   return (
@@ -50,3 +51,8 @@ function App() {
 }
 
 export default App;
+
+// TODO : Update payment page
+// TODO : create a footer
+// TODO: add new train is ugly
+// TODO: make the update train page similar to add train (change the edit icon to delete icon)
