@@ -33,11 +33,11 @@ import OfficerAddNewResearchPaperModal from "./components/modals/officer/Officer
 import OfficerAddNewFieldModal from "./components/modals/officer/OfficerAddNewFieldModal";
 import ViewTrainScheduleModal from "./components/modals/train/ViewTrainScheduleModal";
 import TrainScheduleModalTable from "./components/organisms/tables/TrainScheduleModalTable";
-import AddNewTrainPage from './pages/bookingPassage/AddNewTrainPage';
+import AddNewTrainPage from "./pages/bookingPassage/AddNewTrainPage";
 import TrainScheduleUpdateTable from "./components/organisms/tables/TrainScheduleUpdateTable";
 import UpdateTrainDetailsPage from "./pages/bookingPassage/UpdateTrainDetailsPage";
 import DisplaySummaryModal from "./components/modals/reservation/DisplaySummaryModal";
-import LoginPage from './pages/bookingPassage/LoginPage';
+import LoginPage from "./pages/bookingPassage/LoginPage";
 import PaymentPage from "./pages/bookingPassage/PaymentPage";
 
 function App() {
