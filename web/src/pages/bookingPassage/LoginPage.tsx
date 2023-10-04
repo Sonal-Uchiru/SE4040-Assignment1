@@ -10,7 +10,7 @@ import ResearchDisseminationProtectedApi from "../../api/exclusive/ResearchDisse
 import { uploadResearchPaperAsync } from "../../utils/firebase/UploadFile";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert, AlertColor } from "@mui/material";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import Avatar from "@mui/material/Avatar";
 import { t } from "i18next";
 import ResearchDisseminationService from "../../api/services/ResearchDisseminationService";
@@ -34,7 +34,21 @@ import HeadLine4 from "../../components/atoms/typographies/HeadLine4";
 
 export default function LoginPage() {
   function handleClick() {
-    //axios.post()
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKV1RfQXV0aGVudGljYXRpb24iLCJqdGkiOiI1OWM4NzJmMy1iODkxLTQ4NzEtODg0Yy0wNzI0MjQ0OTFmYzAiLCJpYXQiOjE2OTY0NDA1NzIsInVzZXJfaWQiOiI5Y2NmYmNkYS0wMDA2LTQyNTMtOWVkOS0zNGRjOTM4MjBhYjciLCJyb2xlIjoiQmFja09mZmljZXIiLCJleHAiOjE2OTY0NDQxNzIsImlzcyI6ImJvb2tpbmdfcGFzc2FnZV9jb3JlIiwiYXVkIjoiYm9va2luZ19wYXNzYWdlX2NsaWVudCJ9.jVaSEVFd1h8DEGZqjK3Y0DuCQL3XGgM1CxKuKc_O8Sg'
+    axios({
+      url: `https://localhost:7142/api/v1/users/reservations/list`,
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+    },
+  })
+      .then((res: AxiosResponse) => {
+          console.log(res)
+      })
+      .catch((err: AxiosError) => {
+          console.log(err)
+      })
+   
   }
 
   return (
