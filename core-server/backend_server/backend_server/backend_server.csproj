@@ -11,6 +11,99 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.0.2" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.2" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.56.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Models\" />
+    <None Remove="Handlers\" />
+    <None Remove="Utills\" />
+    <None Remove="Handlers\V1\" />
+    <None Remove="Models\DomainModels\" />
+    <None Remove="Models\Types\" />
+    <None Remove="Repositories\" />
+    <None Remove="Queries\" />
+    <None Remove="Handlers\V1\Authentications\" />
+    <None Remove="Handlers\V1\Users\" />
+    <None Remove="Handlers\V1\Authentications\Commands\" />
+    <None Remove="Models\Commons\" />
+    <None Remove="Models\Commons\Responses\" />
+    <None Remove="Handlers\V1\Authentications\Commands\Logins\" />
+    <None Remove="Handlers\V1\Users\Commands\" />
+    <None Remove="Handlers\V1\Users\Commands\Create\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Repositories\Interfaces\" />
+    <None Remove="Queries\Interfaces\" />
+    <None Remove="Handlers\V1\Users\Commands\Update\" />
+    <None Remove="Models\Dtos\" />
+    <None Remove="Models\Dtos\Users\" />
+    <None Remove="Handlers\V1\Users\Commands\Delete\" />
+    <None Remove="Handlers\V1\Users\Commands\ToggleActivation\" />
+    <None Remove="Handlers\V1\Users\Queries\" />
+    <None Remove="Handlers\V1\Users\Queries\Lists\" />
+    <None Remove="Handlers\V1\Users\Queries\Individuals\" />
+    <None Remove="Handlers\V1\Trains\" />
+    <None Remove="Models\Dtos\Trains\" />
+    <None Remove="Handlers\V1\Trains\Queries\TrainScheduleList\" />
+    <None Remove="Handlers\V1\Trains\Queries\ScheduleList\" />
+    <None Remove="Handlers\V1\Reservations\" />
+    <None Remove="Models\Dtos\Reservations\" />
+    <None Remove="Models\Dtos\Authentications\" />
+    <None Remove="Handlers\V1\Users\Queries\ReservationLists\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Models\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Utills\" />
+    <Folder Include="Handlers\V1\" />
+    <Folder Include="Models\DomainModels\" />
+    <Folder Include="Models\Types\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Handlers\V1\Authentications\" />
+    <Folder Include="Handlers\V1\Users\" />
+    <Folder Include="Handlers\V1\Authentications\Commands\" />
+    <Folder Include="Models\Commons\" />
+    <Folder Include="Models\Commons\Responses\" />
+    <Folder Include="Handlers\V1\Authentications\Commands\Logins\" />
+    <Folder Include="Handlers\V1\Users\Commands\" />
+    <Folder Include="Handlers\V1\Users\Commands\Create\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Queries\Interfaces\" />
+    <Folder Include="Handlers\V1\Users\Commands\Update\" />
+    <Folder Include="Models\Dtos\" />
+    <Folder Include="Models\Dtos\Users\" />
+    <Folder Include="Handlers\V1\Users\Commands\Delete\" />
+    <Folder Include="Handlers\V1\Users\Commands\ToggleActivation\" />
+    <Folder Include="Handlers\V1\Users\Queries\" />
+    <Folder Include="Handlers\V1\Users\Queries\Lists\" />
+    <Folder Include="Handlers\V1\Users\Queries\Individuals\" />
+    <Folder Include="Handlers\V1\Trains\" />
+    <Folder Include="Models\Dtos\Trains\" />
+    <Folder Include="Handlers\V1\Trains\Queries\TrainScheduleList\" />
+    <Folder Include="Handlers\V1\Trains\Queries\ScheduleList\" />
+    <Folder Include="Handlers\V1\Reservations\" />
+    <Folder Include="Models\Dtos\Reservations\" />
+    <Folder Include="Models\Dtos\Authentications\" />
+    <Folder Include="Handlers\V1\Users\Queries\ReservationLists\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" />
+  </ItemGroup>
 </Project>
