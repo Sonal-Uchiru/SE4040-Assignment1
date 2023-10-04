@@ -10,7 +10,7 @@ import ResearchDisseminationProtectedApi from "../../api/exclusive/ResearchDisse
 import { uploadResearchPaperAsync } from "../../utils/firebase/UploadFile";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert, AlertColor } from "@mui/material";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import Avatar from "@mui/material/Avatar";
 import { t } from "i18next";
 import ResearchDisseminationService from "../../api/services/ResearchDisseminationService";
@@ -34,7 +34,7 @@ import HeadLine4 from "../../components/atoms/typographies/HeadLine4";
 
 export default function LoginPage() {
   function handleClick() {
-    console.log("clicked");
+    //axios.post()
   }
 
   return (
@@ -173,6 +173,7 @@ export default function LoginPage() {
 
                   <div style={styles.button}>
                     <ContainedButton
+                    onClick={handleClick}
                       title={"Login"}
                       backgroundColor={theme.palette.primary.main}
                     />
