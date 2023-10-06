@@ -2,6 +2,7 @@ package com.example.mobile_app.managers;
 
 import com.example.mobile_app.models.Login;
 import com.example.mobile_app.response.LoginResponse;
+import com.example.mobile_app.response.TrainScheduleResponse;
 import com.example.mobile_app.service.LoginService;
 import com.example.mobile_app.service.TrainScheduleService;
 
@@ -27,21 +28,21 @@ public class TrainScheduleManager {
     }
 
     public void fetchList(
-            Runnable onSuccess,
+            Consumer<TrainScheduleResponse> onSuccess,
             Consumer<String> onError
-    ){
-        if (!NetworkManager.getInstance().isNetworkAvailable()){
+    ) {
+        if (!NetworkManager.getInstance().isNetworkAvailable()) {
             onError.accept("No internet connectivity");
             return;
         }
 
-        trainScheduleService.fetch().enqueue(new Callback<Object[]>() {
+        trainScheduleService.fetch().enqueue(new Callback<TrainScheduleResponse>() {
             @Override
-            public void onResponse(Call<Object[]> call, Response<Object[]> response) {
+            public void onResponse(Call<TrainScheduleResponse> call, Response<TrainScheduleResponse> response) {
                 if (response.isSuccessful()) {
-                    Object[] objects = response.body();
-                    if (objects != null && objects.length > 0) {
-                        onSuccess.run();
+                    TrainScheduleResponse trainScheduleResponse = response.body();
+                    if (trainScheduleResponse != null) {
+                        onSuccess.accept(trainScheduleResponse); // Pass the retrieved response to the callback
                     } else {
                         onError.accept("Response is empty");
                     }
@@ -51,9 +52,10 @@ public class TrainScheduleManager {
             }
 
             @Override
-            public void onFailure(Call<Object[]> call, Throwable t) {
+            public void onFailure(Call<TrainScheduleResponse> call, Throwable t) {
                 onError.accept("Network request failed: " + t.getMessage());
             }
         });
     }
+
 }

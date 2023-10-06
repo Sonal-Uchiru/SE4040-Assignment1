@@ -22,14 +22,18 @@ import android.widget.Toast;
 import com.example.mobile_app.adapters.TrainScheduleAdapter;
 import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 import com.example.mobile_app.databinding.SearchBottomSheetBinding;
+import com.example.mobile_app.managers.LoginManager;
+import com.example.mobile_app.managers.TrainScheduleManager;
 import com.example.mobile_app.models.TrainSchedule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragement extends Fragment {
 
+    private TrainScheduleManager trainScheduleManager;
     FragmentHomeFragementBinding binding;
     SearchBottomSheetBinding searchSheetBinding;
     TrainScheduleAdapter listAdapter;
@@ -49,6 +53,8 @@ public class HomeFragement extends Fragment {
         searchSheetBinding = SearchBottomSheetBinding.inflate(inflater, container, false);
         bottomSheetBtn = binding.btnDialogOpen;
         View view = binding.getRoot();
+
+        trainScheduleManager = TrainScheduleManager.getInstance();
 
         loadTrainScheduleData();
 
@@ -142,57 +148,69 @@ public class HomeFragement extends Fragment {
     }
 
     private void loadTrainScheduleData() {
-        trainSchedule = new TrainSchedule("1", "Sudu Manika", "ML-2020", "Akalanka", "0778899483", "Gampaha", "Galle",
-                "7.30", "2.30", 8, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Nil Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
-                "7.30", "2.30", 5, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Rathu Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
-                "7.30", "2.30", 4, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Duburu Manika", "ML-2030", "Danushka", "077884935", "Seeduwa",
-                "Negombo", "7.30", "2.30", 3, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Thabili Manika", "ML-2030", "Danushka", "077884935", "Seeduwa",
-                "Negombo", "7.30", "2.30", 66, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Kaha Manika", "ML-2030", "Danushka", "077884935", "Seeduwa", "Negombo",
-                "7.30", "2.30", 7, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Kola Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
-                "7.30", "2.30", 2, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Dam Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
-                "7.30", "2.30", 1, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Alu Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
-                "7.30", "2.30", 9, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
-        trainSchedule = new TrainSchedule("1", "Rosa Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
-                "7.30", "2.30", 6, 3, 200);
-        dataList.add(trainSchedule);
-        dataHolder.add(trainSchedule);
-
+        trainScheduleManager.fetchList(
+                trainScheduleResponse -> {
+                    List<Object> entries = trainScheduleResponse.getEntries();
+                    for (Object entry : entries) {
+                        System.out.println(entry.toString());
+                        trainSchedule = new TrainSchedule("1", "Nil Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
+                            "7.30", "2.30", 5, 3, 200);
+                        dataList.add(trainSchedule);
+                        dataHolder.add(trainSchedule);
+                    }
+                },
+                error -> handleFailed(error)
+        );
     }
+
+
+
+//        trainSchedule = new TrainSchedule("1", "Nil Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
+//                "7.30", "2.30", 5, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Rathu Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
+//                "7.30", "2.30", 4, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Duburu Manika", "ML-2030", "Danushka", "077884935", "Seeduwa",
+//                "Negombo", "7.30", "2.30", 3, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Thabili Manika", "ML-2030", "Danushka", "077884935", "Seeduwa",
+//                "Negombo", "7.30", "2.30", 66, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Kaha Manika", "ML-2030", "Danushka", "077884935", "Seeduwa", "Negombo",
+//                "7.30", "2.30", 7, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Kola Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
+//                "7.30", "2.30", 2, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Dam Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
+//                "7.30", "2.30", 1, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Alu Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
+//                "7.30", "2.30", 9, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+//
+//        trainSchedule = new TrainSchedule("1", "Rosa Manika", "ML-2030", "Danushka", "077884935", "Jaffna", "Negombo",
+//                "7.30", "2.30", 6, 3, 200);
+//        dataList.add(trainSchedule);
+//        dataHolder.add(trainSchedule);
+
+
 
     private void showDialog() {
         Context context = requireContext();
@@ -230,5 +248,9 @@ public class HomeFragement extends Fragment {
             dialog.dismiss();
         }
 
+    }
+
+    private void handleFailed(String error){
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
     }
 }

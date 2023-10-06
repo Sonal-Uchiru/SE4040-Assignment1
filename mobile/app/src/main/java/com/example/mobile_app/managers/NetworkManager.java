@@ -12,7 +12,7 @@ public class NetworkManager {
     private static NetworkManager singleton;
 
     private Retrofit retrofit;
-    private final String baseUrl = "https://onboardingapp-4818eafb5176.herokuapp.com/";
+    private final String baseUrl = "https://api.publicapis.org/";
     private ConnectivityManager connectivityManager;
 
     public static NetworkManager getInstance(){
