@@ -2,10 +2,4 @@
 
 namespace backend_server;
 
-public class BaseMapperProfile : Profile
-{
-	public BaseMapperProfile()
-	{
-	}
-}
-
+public class BaseMapperProfile : Profile { }
