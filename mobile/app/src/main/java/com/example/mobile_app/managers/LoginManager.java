@@ -23,7 +23,6 @@ public class LoginManager {
     public static LoginManager getInstance() {
         if (singleton == null)
             singleton = new LoginManager();
-
         return singleton;
     }
 
@@ -31,8 +30,8 @@ public class LoginManager {
         loginService = NetworkManager.getInstance().createService(LoginService.class);
     }
 
-    public Boolean validateCredentials(String username, String password) {
-        if (username == null || username.length() == 0)
+    public Boolean validateCredentials(String nic, String password) {
+        if (nic == null || nic.length() == 0)
             return false;
 
         if (password == null || password.length() == 0)
@@ -42,7 +41,7 @@ public class LoginManager {
     }
 
     public void login(
-            String username,
+            String nic,
             String password,
             Runnable onSuccess,
             Consumer<String> onError
@@ -52,7 +51,7 @@ public class LoginManager {
             return;
         }
 
-        Login body = new Login(username, password);
+        Login body = new Login(nic, password);
         loginService.login(body)
                 .enqueue(new Callback<LoginResponse>() {
                     @Override
@@ -61,7 +60,7 @@ public class LoginManager {
                             onSuccess.run();
                         }
                         else{
-                            onError.accept("Username or password is incorrect");
+                            onError.accept("NIC or password is incorrect");
                         }
                     }
 
