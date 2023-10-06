@@ -10,5 +10,5 @@ import retrofit2.http.POST;
 
 public interface TrainScheduleService {
     @POST("get")
-    Call<TrainScheduleResponse> fetch(@Body TrainSchedule request);
+    Call<Object[]> fetch();
 }
