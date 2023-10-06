@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.mobile_app.models.Login;
-import com.example.mobile_app.models.LoginResponse;
+import com.example.mobile_app.response.LoginResponse;
 import com.example.mobile_app.service.LoginService;
 
 import java.util.function.Consumer;

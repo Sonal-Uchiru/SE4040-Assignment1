@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.example.mobile_app.R;
 import com.example.mobile_app.models.Train;
 import com.example.mobile_app.models.TrainSchedule;
+import com.example.mobile_app.utilities.DatabaseTypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,8 +25,7 @@ public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
     Calendar calendar = Calendar.getInstance();
 
     Date currentDate = calendar.getTime();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDate = dateFormat.format(currentDate);
+    String formattedDate = DatabaseTypeConverters.dateToString(currentDate);
 
     public TrainScheduleAdapter(@NonNull Context context, ArrayList<TrainSchedule> dataArrayList) {
         super(context, R.layout.list_item, dataArrayList);

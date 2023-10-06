@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.example.mobile_app.R;
 import com.example.mobile_app.models.TrainSchedule;
 import com.example.mobile_app.models.UserReservation;
+import com.example.mobile_app.utilities.DatabaseTypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,8 +37,7 @@ public class UserReservationAdapter extends ArrayAdapter<UserReservation> {
         TextView reservations = view.findViewById(R.id.r_list_reservations);
 
         Date departureDate = userReservation.getDepartureDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = dateFormat.format(departureDate);
+        String formattedDate = DatabaseTypeConverters.dateToString(departureDate);
 
         scheduleDate.setText(formattedDate);
         trainName.setText(userReservation.getTrainName());

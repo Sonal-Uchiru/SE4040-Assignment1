@@ -1,7 +1,7 @@
 package com.example.mobile_app.service;
 
 import com.example.mobile_app.models.Login;
-import com.example.mobile_app.models.LoginResponse;
+import com.example.mobile_app.response.LoginResponse;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
