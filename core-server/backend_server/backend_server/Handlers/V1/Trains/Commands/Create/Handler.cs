@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using backend_server.Models.DomainModels;
 using backend_server.Repositories.Interfaces;
-using backend_server.Services.Interfaces;
 using MediatR;
 
 namespace backend_server.Handlers.V1.Trains.Commands.Create;

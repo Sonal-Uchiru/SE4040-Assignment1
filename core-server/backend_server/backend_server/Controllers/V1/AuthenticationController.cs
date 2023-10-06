@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using backend_server.Models.Commons.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Authentication = backend_server.Handlers.V1.Authentications.Logins;
 
@@ -17,6 +18,7 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Authentication.Response))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnAuthorizedResponse))]
     public Task<Authentication.Response> Authenticate([FromBody] Authentication.Command command)
     {
         return _mediator.Send(command);

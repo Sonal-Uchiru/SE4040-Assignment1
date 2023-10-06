@@ -64,6 +64,8 @@
     <None Remove="Models\Dtos\Reservations\" />
     <None Remove="Models\Dtos\Authentications\" />
     <None Remove="Handlers\V1\Users\Queries\ReservationLists\" />
+    <None Remove="Middlewares\" />
+    <None Remove="Models\Commons\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -102,6 +104,8 @@
     <Folder Include="Models\Dtos\Reservations\" />
     <Folder Include="Models\Dtos\Authentications\" />
     <Folder Include="Handlers\V1\Users\Queries\ReservationLists\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Models\Commons\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
