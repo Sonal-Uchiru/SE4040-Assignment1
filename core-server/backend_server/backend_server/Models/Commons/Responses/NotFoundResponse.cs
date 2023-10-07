@@ -4,6 +4,6 @@ public sealed class NotFoundResponse : ErrorResponse
 {
     public NotFoundResponse(Guid id, string modelName)
     {
-        Meessage = $"{modelName} - Id: {id} is not found";
+        Message = $"{modelName} - Id: {id} is not found";
     }
 }

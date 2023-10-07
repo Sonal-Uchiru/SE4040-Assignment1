@@ -2,6 +2,6 @@
 
 public class ErrorResponse : BaseResponse
 {
-	public string Meessage { get; set; }
+	public string Message { get; set; }
 }
 

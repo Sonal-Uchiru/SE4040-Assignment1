@@ -23,34 +23,30 @@ public class ExceptionHandler
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             context.Response.ContentType = "application/json";
 
-            // Create a JSON response with the error message
             var errorMessage = new UnAuthorizedResponse(unauthorizedException.ErrorReason);
-         
-            await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(errorMessage));
+
+            await context.Response.WriteAsJsonAsync(errorMessage);
         }
         catch (NotFoundException notFoundException)
         {
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             context.Response.ContentType = "application/json";
 
-            // Create a JSON response with the error message
             var errorMessage = new NotFoundResponse(notFoundException.Id, notFoundException.ObjectName);
 
-            await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(errorMessage));
+            await context.Response.WriteAsJsonAsync(errorMessage);
         }
         catch (Exception ex)
         {
-            // Handle other types of exceptions here
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
 
-            // Create a JSON response with a generic error message
             var errorMessage = new
             {
                 Message = "An internal server error occurred."
             };
 
-            await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(errorMessage));
+            await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(errorMessage).ToLowerInvariant());
         }
     }
 }

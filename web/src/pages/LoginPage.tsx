@@ -1,7 +1,6 @@
 import { Grid, Link } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import axios, { AxiosError, AxiosResponse } from "axios";
 import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import InputField from "../components/atoms/inputFields/InputField";
 import PasswordInputField from "../components/atoms/inputFields/PasswordInputField";
@@ -10,40 +9,23 @@ import HeadLine3 from "../components/atoms/typographies/HeadLine3";
 import HeadLine4 from "../components/atoms/typographies/HeadLine4";
 import ParagraphBold from "../components/atoms/typographies/ParagraphBold";
 import theme from "../theme/hooks/CreateTheme";
+import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
+import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
+import ReservationProtectedApi from "../api/exclusive/ReservationProtectedApi";
 
+// TODO : incomplete implementation (sample only) (Kaveen)
 export default function LoginPage() {
-  function handleClick() {
-    var token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKV1RfQXV0aGVudGljYXRpb24iLCJqdGkiOiI1OWM4NzJmMy1iODkxLTQ4NzEtODg0Yy0wNzI0MjQ0OTFmYzAiLCJpYXQiOjE2OTY0NDA1NzIsInVzZXJfaWQiOiI5Y2NmYmNkYS0wMDA2LTQyNTMtOWVkOS0zNGRjOTM4MjBhYjciLCJyb2xlIjoiQmFja09mZmljZXIiLCJleHAiOjE2OTY0NDQxNzIsImlzcyI6ImJvb2tpbmdfcGFzc2FnZV9jb3JlIiwiYXVkIjoiYm9va2luZ19wYXNzYWdlX2NsaWVudCJ9.jVaSEVFd1h8DEGZqjK3Y0DuCQL3XGgM1CxKuKc_O8Sg";
-    axios({
-      url: `https://localhost:7142/api/v1/users/reservations/list`,
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((res: AxiosResponse) => {
-        console.log(res.data.items);
-      })
-      .catch((err: AxiosError) => {
-        console.log(err);
-      });
+  const handleClick = () => {
+    UserAuthenticationApi.loginAsync({ nic: "string", password: "string" })
+      .then(async (res) => {
+        BrowserLocalStorage.SetAccessToken(res.data?.token)
 
-    axios({
-      url: `https://localhost:7142/api/v1/authentications`,
-      method: "POST",
-      data: {
-        nic: "string",
-        password: "string",
-      },
-    })
-      .then((res: AxiosResponse) => {
-        console.log(res.data.token);
+        await ReservationProtectedApi.getListAsync()
       })
-      .catch((err: AxiosError) => {
-        console.log(err);
+      .catch((err: any) => {
+        console.log(err.response?.data.message);
       });
-  }
+  };
 
   return (
     <>

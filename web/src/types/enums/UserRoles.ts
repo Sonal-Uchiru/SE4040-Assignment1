@@ -1,5 +1,6 @@
 export enum UserRoles {
     Unspecified = 0,
-    Farmer = 1,
-    Officer = 2,
+    BackOfficer = 1,
+    TravelAgent = 2,
+    Traveller = 3
 }
