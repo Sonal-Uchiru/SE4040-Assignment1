@@ -1,70 +1,61 @@
 import { Box, IconButton } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import * as React from "react";
+import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
+import { AxiosError } from "axios";
 
 interface IProp {
   isDataUpdated: boolean;
 }
 
+class TravelersData {
+  nic: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobile: string;
+
+  constructor(
+    nic: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    mobile: string
+  ) {
+    this.nic = nic;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.mobile = mobile;
+  }
+}
+
 export default function TravelersDetailsDataTable({}: IProp) {
-  const data = [
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-  ];
+  const [travelers, setTravelers] = React.useState<any[]>([]);
+  const [dataTableTravelers, setDataTableTravelers] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    UserProtectedApi.getListAsync()
+      .then((res) => {
+        console.log(res.data.items);
+        const travelerList = res.data.items.map(
+          (item: any) =>
+            new TravelersData(
+              item.nic,
+              item.firstName,
+              item.lastName,
+              item.email,
+              item.mobile
+            )
+        );
+        setTravelers(res.data.items);
+        setDataTableTravelers(travelerList);
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, []);
 
   const options: any = {
     responsive: "standard",
@@ -72,8 +63,8 @@ export default function TravelersDetailsDataTable({}: IProp) {
     rowsPerPage: 10,
 
     onTableChange: (action: any, state: any) => {
-      console.log(action);
-      console.log(state);
+      // console.log(action);
+      // console.log(state);
     },
   };
 
@@ -144,12 +135,14 @@ export default function TravelersDetailsDataTable({}: IProp) {
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Travelers List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableTravelers && (
+          <MUIDataTable
+            title={"Travelers List"}
+            data={dataTableTravelers}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );

@@ -30,7 +30,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <LoginPage />
+        {/* <LoginPage /> */}
+        <TravelersDetailsDataTable isDataUpdated={false} />
       </Router>
     </ThemeProvider>
   );
