@@ -24,7 +24,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         if (user == null || !_userService.VerifyPassword(command.Password, user.PasswordHash))
         {
-            throw new UnauthorizedException("Invalid Credentials!");
+            throw new UnauthorizedException(errorResason: "Invalid Credentials");
         }
 
         return new Response

@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using backend_server.Utills.FlutentValidations;
+using FluentValidation;
 
 namespace backend_server.Handlers.V1.Trains.Commands.Update;
 
@@ -10,7 +11,7 @@ public class Validator : AbstractValidator<Command>
         RuleFor(i => i.Model).NotEmpty().WithMessage("Model is required.");
         RuleFor(i => i.DriverName).NotEmpty().WithMessage("Driver Name is required.");
         RuleFor(i => i.Contact).NotEmpty().WithMessage("Contact is required.");
-        RuleFor(i => i.NoOfSeats).NotEmpty().WithMessage("No of seats are required.");
+        RuleFor(i => i.NoOfSeats).NotEmpty().MaximumLength(5).WithMessage("No of seats are required.");
         RuleFor(i => i.StartingStation).NotEmpty().WithMessage("Stating Station is required.");
         RuleFor(i => i.EndingStation).NotEmpty().WithMessage("Ending Station is required.");
     }

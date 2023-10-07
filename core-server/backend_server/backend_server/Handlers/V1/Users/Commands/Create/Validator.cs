@@ -6,7 +6,7 @@ public class Validator : AbstractValidator<Command>
 {
     public Validator()
     {
-        RuleFor(i => i.Nic).NotEmpty().WithMessage("NIC is required.");
+        RuleFor(i => i.Nic).NotEmpty().MaximumLength(12).WithMessage("NIC is required.");
         RuleFor(i => i.Role).NotEmpty().WithMessage("Role is required.");
     }
 }

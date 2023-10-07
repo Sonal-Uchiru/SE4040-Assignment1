@@ -20,7 +20,7 @@ public class Handler : IRequestHandler<Command, Response>
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
         _ = await _reservationQuery.GetEntityById(command.Id)
-            ?? throw new NotFoundException(command.Id, typeof(Reservation).ToString());
+            ?? throw new NotFoundException(command.Id, nameof(Reservation));
 
         await _reservationRepository.Delete(command.Id);
 

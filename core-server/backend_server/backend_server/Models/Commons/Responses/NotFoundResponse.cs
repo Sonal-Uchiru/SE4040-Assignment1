@@ -1,9 +1,9 @@
 ﻿namespace backend_server.Models.Commons.Responses;
 
-public class NotFoundResponse :ErrorResponse
+public sealed class NotFoundResponse : ErrorResponse
 {
-	public NotFoundResponse(Guid id, string modelName)
-	{
-		Meessage = $"{modelName} id {id} is not found!";
-	}
+    public NotFoundResponse(Guid id, string modelName)
+    {
+        Meessage = $"{modelName} - Id: {id} is not found";
+    }
 }

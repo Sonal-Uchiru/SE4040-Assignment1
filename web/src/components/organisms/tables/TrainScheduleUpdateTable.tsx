@@ -1,14 +1,5 @@
-import * as React from "react";
-import MUIDataTable from "mui-datatables";
-import { useTranslation } from "react-i18next";
 import { Box, IconButton } from "@mui/material";
-import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
-import OfficerEditResearchCategoryModal from "../../modals/officer/OfficerEditResearchCategoryModal";
-import { getFormattedDate } from "../../../utils/common/DateFormatter";
-import ResearchDisseminationProtectedApi from "../../../api/exclusive/ResearchDisseminationProtectedApi";
-import { AxiosError } from "axios";
-import ContentLoadingBar from "../../atoms/Loadings/ContentLoadingBar";
-import ErrorModal from "../../modals/ErrorModal";
+import MUIDataTable from "mui-datatables";
 
 export default function TrainScheduleUpdateTable() {
   const data = [

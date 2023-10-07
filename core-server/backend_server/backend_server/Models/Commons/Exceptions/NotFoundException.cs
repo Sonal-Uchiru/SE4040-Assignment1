@@ -1,6 +1,6 @@
 ﻿namespace backend_server.Models.Commons.Exceptions;
 
-public class NotFoundException : BaseException
+public sealed class NotFoundException : BaseException
 {
     public NotFoundException(Guid id, string modelName)
     {

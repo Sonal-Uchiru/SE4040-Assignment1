@@ -39,7 +39,7 @@ public class ReservationController : ControllerBase
 
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservations.Commands.Delete.Response))]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(NotFoundResponse<Reservation>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResponse))]
     public Task<Reservations.Commands.Delete.Response> DeleteReservation([FromRoute] Guid id)
     {
         return _mediator.Send(new Reservations.Commands.Delete.Command { Id = id });
