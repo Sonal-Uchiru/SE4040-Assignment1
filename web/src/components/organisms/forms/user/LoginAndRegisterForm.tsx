@@ -27,7 +27,6 @@ import {
 } from './ValidationSchema'
 import UserUnprotectedApi from '../../../../api/exclusive/userApis/UserUnprotectedApi'
 import BrowserLocalStorage from '../../../../utils/localStorage/BrowserLocalStorage'
-import { isPasswordComplex } from '../../../../extensions/form_fields/PasswordMeter'
 import SuccessModal from '../../../modals/SuccessModal'
 import { GetUserRoleByEmail } from '../../../../utils/email/UserRoleVerification'
 import { UserRoles } from '../../../../types/enums/UserRoles'
@@ -91,7 +90,7 @@ export default function LoginAndRegisterForm({
         confirmPassword: string
     ) => {
         setIsLoading(true)
-        if (isPasswordComplex(password)) {
+        // if (isPasswordComplex(password)) {
             if (password === confirmPassword) {
                 UserUnprotectedApi.registrationAsync({
                     firstName,
@@ -115,12 +114,12 @@ export default function LoginAndRegisterForm({
                 )
                 setIsLoading(false)
             }
-        } else {
-            setRegisterErrorMessage(
-                'loginAndRegisterPage.weakPasswordErrorText'
-            )
-            setIsLoading(false)
-        }
+        // } else {
+        //     setRegisterErrorMessage(
+        //         'loginAndRegisterPage.weakPasswordErrorText'
+        //     )
+        //     setIsLoading(false)
+        // }
     }
 
     const handleTabChange = (
