@@ -15,5 +15,6 @@ public class Validator : AbstractValidator<Command>
         RuleFor(i => i.DepartureTime).NotEmpty().WithMessage("Departure Time is required.");
         RuleFor(i => i.NoOfPassengers).NotEmpty().MaximumLength(1).WithMessage("No of Passengers are required.");
         RuleFor(i => i.PerPersonPrice).NotEmpty().MaximumLength(6).WithMessage("Per person Price is required.");
+        RuleFor(i => i.ReservationDate).NotEmpty().WithMessage("Reservation Date is required.");
     }
 }

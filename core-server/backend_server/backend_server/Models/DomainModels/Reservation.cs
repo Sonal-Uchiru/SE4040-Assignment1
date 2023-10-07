@@ -23,6 +23,8 @@ public class Reservation
 
     public double PerPersonPrice { get; set; }
 
+    public DateTime ReservationDate { get; set; }
+
     public bool IsEnabled { get; set; } = true;
 
     public Guid UserId { get; set; }

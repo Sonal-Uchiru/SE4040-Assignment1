@@ -17,7 +17,7 @@ public class Handler : IRequestHandler<Query, Response>
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
         var train = await _trainQuery.GetEntityById(command.Id)
-            ?? throw new NotFoundException(command.Id, nameof(Train)); ;
+            ?? throw new NotFoundException(command.Id, nameof(Train));
 
         return new Response
         {
