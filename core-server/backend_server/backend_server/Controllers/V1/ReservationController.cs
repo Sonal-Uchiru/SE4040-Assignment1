@@ -1,5 +1,5 @@
-﻿using backend_server.Models.Commons.Responses;
-using backend_server.Models.DomainModels;
+﻿using backend_server.Controllers.V1.Common;
+using backend_server.Models.Commons.Responses;
 using backend_server.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ namespace backend_server.Controllers.V1;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-public class ReservationController : ControllerBase
+public class ReservationController : ApiBaseController
 {
     private readonly IMediator _mediator;
     private readonly IAuthenticationService _authenticationService;
@@ -21,6 +21,7 @@ public class ReservationController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Reservations.Commands.Create.Response))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public Task<Reservations.Commands.Create.Response> CreateReservation([FromBody] Reservations.Commands.Create.Command command)
     {
         var payload = _authenticationService.GetUserPayloadByContext(HttpContext);
@@ -31,6 +32,8 @@ public class ReservationController : ControllerBase
 
     [HttpPatch("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservations.Commands.Update.Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public Task<Reservations.Commands.Update.Response> UpdateReservation([FromRoute] Guid id, [FromBody] Reservations.Commands.Update.Command command)
     {
         command.Id = id;

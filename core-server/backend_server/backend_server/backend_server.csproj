@@ -39,7 +39,6 @@
     <None Remove="Handlers\V1\Authentications\" />
     <None Remove="Handlers\V1\Users\" />
     <None Remove="Handlers\V1\Authentications\Commands\" />
-    <None Remove="Models\Commons\" />
     <None Remove="Models\Commons\Responses\" />
     <None Remove="Handlers\V1\Authentications\Commands\Logins\" />
     <None Remove="Handlers\V1\Users\Commands\" />
@@ -66,7 +65,10 @@
     <None Remove="Middlewares\" />
     <None Remove="Models\Commons\Exceptions\" />
     <None Remove="Utills\" />
-    <None Remove="Utills\FlutentValidations\" />
+    <None Remove="Middlewares\Extensions\" />
+    <None Remove="Controllers\V1\Common\" />
+    <None Remove="Utills\FluentValidations\" />
+    <None Remove="Models\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -80,7 +82,6 @@
     <Folder Include="Handlers\V1\Authentications\" />
     <Folder Include="Handlers\V1\Users\" />
     <Folder Include="Handlers\V1\Authentications\Commands\" />
-    <Folder Include="Models\Commons\" />
     <Folder Include="Models\Commons\Responses\" />
     <Folder Include="Handlers\V1\Authentications\Commands\Logins\" />
     <Folder Include="Handlers\V1\Users\Commands\" />
@@ -107,7 +108,10 @@
     <Folder Include="Middlewares\" />
     <Folder Include="Models\Commons\Exceptions\" />
     <Folder Include="Utills\" />
-    <Folder Include="Utills\FlutentValidations\" />
+    <Folder Include="Middlewares\Extensions\" />
+    <Folder Include="Controllers\V1\Common\" />
+    <Folder Include="Utills\FluentValidations\" />
+    <Folder Include="Models\Common\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

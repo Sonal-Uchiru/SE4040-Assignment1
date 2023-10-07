@@ -23,7 +23,7 @@ public class Handler : IRequestHandler<Command, Response>
     {
         var reservation = await _reservationQuery.GetEntityById(command.Id);
 
-        if(reservation == null)
+        if (reservation == null)
         {
             return new Response
             {
