@@ -45,7 +45,7 @@ public class ProfileFragement extends Fragment {
         activateBtn = view.findViewById(R.id.p_activate_btn);
 
 //        String userId = tokenManager.getUserId();
-        String userId = "d56176b6-4ee2-4501-a0a8-8200338f61bb";
+        String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
 //        Log.d("MyApp", "Activity created." + userId); // Debug message
 
 
@@ -101,10 +101,11 @@ public class ProfileFragement extends Fragment {
                     binding.pEdMobile.setText(String.valueOf(mobile));
                     binding.pNic.setText(user.getNic());
                     binding.pEmail.setText(user.getEmail());
+                    handleButtonVisiblity(user.isEnabled());
+
                 },
                 error -> handleFailed(error)
         );
-        handleButtonVisiblity();
     }
     private void handleFailed(String error){
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
@@ -115,13 +116,13 @@ public class ProfileFragement extends Fragment {
     }
 
     private void handleToggleSuccess(){
-        String userId = "d56176b6-4ee2-4501-a0a8-8200338f61bb";
+        String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
         loadUserDetails(userId);
         Toast.makeText(requireContext(), "User account status updated sucessfully", Toast.LENGTH_LONG).show();
     }
 
-    private void handleButtonVisiblity(){
-        if (true) {
+    private void handleButtonVisiblity(boolean status){
+        if (status) {
             deactivateBtn.setVisibility(View.VISIBLE);
             activateBtn.setVisibility(View.INVISIBLE);
 

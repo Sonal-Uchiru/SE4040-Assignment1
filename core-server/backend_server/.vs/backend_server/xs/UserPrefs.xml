@@ -1,34 +1,23 @@
-﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
+﻿<Properties>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Middlewares/ExceptionHandler.cs">
     <Files>
-      <File FileName="backend_server/Middlewares/ExceptionHandler.cs" Line="51" Column="1" />
-      <File FileName="backend_server/Services/AuthenticationService.cs" Line="13" Column="36" />
-      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs" Line="23" Column="1" />
-      <File FileName="backend_server/Handlers/V1/Trains/Commands/Delete/Handler.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Handler.cs" Line="37" Column="43" />
-      <File FileName="backend_server/Queries/Interfaces/IUserQuery.cs" Line="7" Column="14" />
-      <File FileName="backend_server/Queries/Interfaces/IBaseQuery.cs" Line="4" Column="2" />
-      <File FileName="backend_server/Queries/UserQuery.cs" Line="17" Column="16" />
+      <File FileName="backend_server/Middlewares/ExceptionHandler.cs" Line="15" Column="23" />
+      <File FileName="backend_server/Services/AuthenticationService.cs" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs" />
+      <File FileName="backend_server/Handlers/V1/Trains/Commands/Delete/Handler.cs" />
+      <File FileName="backend_server/Handlers/V1/Users/Commands/Create/Handler.cs" />
+      <File FileName="backend_server/Queries/Interfaces/IUserQuery.cs" />
+      <File FileName="backend_server/Queries/Interfaces/IBaseQuery.cs" />
+      <File FileName="backend_server/Queries/UserQuery.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="backend_server">
-            <Node name="backend_server">
-              <Node name="Constants" expanded="True" />
-              <Node name="Handlers">
-                <Node name="V1">
-                  <Node name="Authentications" expanded="True">
-                    <Node name="Commands" expanded="True">
-                      <Node name="Logins" expanded="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Middlewares" expanded="True">
-                <Node name="ExceptionHandler.cs" selected="True" />
-              </Node>
+          <Node name="backend_server" expanded="True">
+            <Node name="backend_server" expanded="True">
+              <Node name="Middlewares" expanded="True" />
               <Node name="Repositories" expanded="True">
                 <Node name="Interfaces" expanded="True" />
               </Node>
@@ -36,15 +25,11 @@
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.models.User;
+import com.example.mobile_app.models.UserUpdateModel;
 import com.example.mobile_app.response.RegistrationResponse;
 import com.example.mobile_app.response.TrainScheduleResponse;
 import com.example.mobile_app.response.UpadateUserRespose;
@@ -107,17 +108,10 @@ public class UserManager {
             return;
         }
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("firstName", firstName);
-            jsonObject.put("lastName", lastName);
-            jsonObject.put("mobile", mobile);
 
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
 
-        userService.updateSelectedUser(id, jsonObject)
+        UserUpdateModel user = new UserUpdateModel(firstName, lastName, mobile);
+        userService.updateSelectedUser(id, user)
                 .enqueue(new Callback<UpadateUserRespose>() {
                     @Override
                     public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {

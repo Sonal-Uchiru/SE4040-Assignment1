@@ -1,6 +1,7 @@
 package com.example.mobile_app.service;
 
 import com.example.mobile_app.models.NewUser;
+import com.example.mobile_app.models.UserUpdateModel;
 import com.example.mobile_app.response.RegistrationResponse;
 import com.example.mobile_app.response.UpadateUserRespose;
 import com.example.mobile_app.response.UserResponse;
@@ -20,10 +21,10 @@ public interface UserService {
     @GET("users/{id}")
     Call<UserResponse> getUserDetails(@Path("id") String userId);
 
-    @PUT("usersNew/{id}")
-    Call<UpadateUserRespose> updateSelectedUser(@Path("id") String userId, Object obj);
+    @PUT("users/{id}")
+    Call<UpadateUserRespose> updateSelectedUser(@Path("id") String userId, @Body UserUpdateModel obj);
 
-    @PATCH("usersNew/{id}/toggleActivation")
+    @PATCH("users/{id}/toggleactivation")
     Call<UpadateUserRespose> deactivateAccount(@Path("id") String userId);
 
 }
