@@ -41,12 +41,12 @@ public class LoginActivity extends AppCompatActivity {
         String nic = ed_nic.getText().toString();
         String password = ed_password.getText().toString();
 
-        onNavigateToHome();
-//        loginManager.login(
-//                nic,
-//                password,
-//                () -> onNavigateToHome(),
-//                error -> handleLoginFailed(error));
+//        onNavigateToHome();
+        loginManager.login(
+                nic,
+                password,
+                () -> onNavigateToHome(),
+                error -> handleLoginFailed(error));
     }
 
 
