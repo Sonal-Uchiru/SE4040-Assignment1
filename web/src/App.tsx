@@ -30,8 +30,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {/* <LoginPage /> */}
-        <ReservationDetailsPage />
+        <LoginPage />
       </Router>
     </ThemeProvider>
   );

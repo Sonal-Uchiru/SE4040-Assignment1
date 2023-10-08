@@ -45,7 +45,7 @@ public async getScheduleListAsync(): Promise<AxiosResponse> {
   return await protectedApiAsync(
       HttpMethods.Get,
     Versions.V1,
-    `${ModelConstants.SCHEDULES}/list`
+    `${ModelConstants.TRAIN}/schedules/list`
   );
         
     }

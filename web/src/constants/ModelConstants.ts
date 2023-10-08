@@ -3,7 +3,6 @@ class ModelConstants {
     public USERS = 'users'
     public RESERVATIONS = 'reservations'
     public TRAIN = 'trains'
-    public SCHEDULES = 'schedules'
 }
 
 export default new ModelConstants()
