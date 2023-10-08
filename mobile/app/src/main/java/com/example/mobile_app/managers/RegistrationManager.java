@@ -1,12 +1,7 @@
 package com.example.mobile_app.managers;
 
-import android.util.Log;
-
-import com.example.mobile_app.models.Login;
-import com.example.mobile_app.models.User;
-import com.example.mobile_app.response.LoginResponse;
+import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.response.RegistrationResponse;
-import com.example.mobile_app.service.LoginService;
 import com.example.mobile_app.service.RegistrationService;
 
 import java.util.function.Consumer;
@@ -31,7 +26,7 @@ public class RegistrationManager {
     }
 
     public void register(
-            User user,
+            NewUser newUser,
             Runnable onSuccess,
             Consumer<String> onError
     ){
@@ -39,7 +34,7 @@ public class RegistrationManager {
             onError.accept("No internet connectivity");
             return;
         }
-        registrationService.register(user)
+        registrationService.register(newUser)
                 .enqueue(new Callback<RegistrationResponse>() {
                     @Override
                     public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {

@@ -9,9 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mobile_app.managers.LoginManager;
 import com.example.mobile_app.managers.RegistrationManager;
-import com.example.mobile_app.models.User;
+import com.example.mobile_app.models.NewUser;
 
 public class RegisterActivity extends AppCompatActivity {
     private RegistrationManager registrationManager;
@@ -45,9 +44,9 @@ public class RegisterActivity extends AppCompatActivity {
         String nic = ed_nic.getText().toString();
         String password = ed_password.getText().toString();
 
-        User user = new User(nic, firstname, lastname, email, password, mobile, 0);
+        NewUser newUser = new NewUser(nic, firstname, lastname, email, password, mobile, 0);
         registrationManager.register(
-                user,
+                newUser,
                 () -> registerSuccess(),
                 error -> handleRegisterfailed(error));
     }
