@@ -106,7 +106,6 @@
                 android:layout_toEndOf="@id/p_label_email"
                 android:layout_marginTop="8dp" />
 
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -114,6 +113,24 @@
                 android:text="@string/update"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
+                android:backgroundTint="@color/primary"
+                app:cornerRadius="20dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/p_deactivate_btn"
+                android:text="@string/deactivate"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/primary"
+                app:cornerRadius="20dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/p_activate_btn"
+                android:text="@string/activate"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/primary"
                 app:cornerRadius="20dp"/>
         </LinearLayout>

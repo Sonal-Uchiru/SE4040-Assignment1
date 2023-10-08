@@ -20,7 +20,10 @@ public interface UserService {
     @GET("users/{id}")
     Call<UserResponse> getUserDetails(@Path("id") String userId);
 
-    @PUT("users/{id}")
-    Call<UpadateUserRespose> updateUser(@Path("id") String userId, Object obj);
+    @PUT("usersNew/{id}")
+    Call<UpadateUserRespose> updateSelectedUser(@Path("id") String userId, Object obj);
+
+    @PATCH("usersNew/{id}/toggleActivation")
+    Call<UpadateUserRespose> deactivateAccount(@Path("id") String userId);
 
 }

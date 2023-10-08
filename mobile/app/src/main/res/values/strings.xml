@@ -31,5 +31,8 @@
     <string name="reservation_history">Reservation History</string>
     <string name="reservation_details">Reservation Details</string>
     <string name="update">Update</string>
+    <string name="deactivate">Deactivate Account</string>
+    <string name="activate">Activate Account</string>
+
 
 </resources>

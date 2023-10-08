@@ -29,7 +29,8 @@ public class ProfileFragement extends Fragment {
     TokenManager tokenManager;
     private UserManager userManager;
     FragmentProfileFragementBinding binding;
-    Button updateBtn;
+    Button updateBtn, deactivateBtn, activateBtn;
+    User user;
 
 
     @Override
@@ -39,7 +40,9 @@ public class ProfileFragement extends Fragment {
         View view = binding.getRoot();
 
         tokenManager = new TokenManager(requireContext());
-        updateBtn = binding.pUpdateBtn;
+        updateBtn = view.findViewById(R.id.p_update_btn);
+        deactivateBtn = view.findViewById(R.id.p_deactivate_btn);
+        activateBtn = view.findViewById(R.id.p_activate_btn);
 
 //        String userId = tokenManager.getUserId();
         String userId = "d56176b6-4ee2-4501-a0a8-8200338f61bb";
@@ -49,37 +52,47 @@ public class ProfileFragement extends Fragment {
         userManager = UserManager.getInstance();
         loadUserDetails(userId);
 
-        view.findViewById(R.id.p_update_btn).setOnClickListener(v -> {
-            try {
-                updateUser(userId);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+        updateBtn.setOnClickListener(v -> {
+            updateUser(userId);
         });
 
+        deactivateBtn.setOnClickListener(v -> {
+            toggleUserAccountStatus(userId);
+        });
+
+        activateBtn.setOnClickListener(v -> {
+            toggleUserAccountStatus(userId);
+        });
         return view;
     }
 
-    private void updateUser(String userId) throws JSONException {
+    private void updateUser(String userId) {
         String firstName = String.valueOf(binding.pEdFirstname.getText());
         String lastName = String.valueOf(binding.pEdLastname.getText());
         String mobileString = String.valueOf(binding.pEdMobile.getText());
         int mobile = Integer.parseInt(mobileString);
 
-//        userManager.updateUser(
-//                userId,
-//                firstName,
-//                lastName,
-//                mobile,
-//                () -> handleSuccess(),
-//                error -> handleFailed(error));
+        userManager.updateUser(
+                userId,
+                firstName,
+                lastName,
+                mobile,
+                () -> handleSuccess(),
+                error -> handleFailed(error));
+    }
+
+    private void toggleUserAccountStatus(String userId) {
+        userManager.toggleUserAccount(
+                userId,
+                () -> handleToggleSuccess(),
+                error -> handleFailed(error));
     }
 
     private void loadUserDetails(String id) {
         userManager.getUserDetails(
                 id,
                 trainScheduleResponse -> {
-                    User user = trainScheduleResponse.item;
+                    user = trainScheduleResponse.item;
                     binding.pEdFirstname.setText(user.getFirstName());
                     binding.pEdLastname.setText(user.getLastName());
 
@@ -91,6 +104,7 @@ public class ProfileFragement extends Fragment {
                 },
                 error -> handleFailed(error)
         );
+        handleButtonVisiblity();
     }
     private void handleFailed(String error){
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
@@ -98,5 +112,22 @@ public class ProfileFragement extends Fragment {
 
     private void handleSuccess(){
         Toast.makeText(requireContext(), "User updated sucessfully", Toast.LENGTH_LONG).show();
+    }
+
+    private void handleToggleSuccess(){
+        String userId = "d56176b6-4ee2-4501-a0a8-8200338f61bb";
+        loadUserDetails(userId);
+        Toast.makeText(requireContext(), "User account status updated sucessfully", Toast.LENGTH_LONG).show();
+    }
+
+    private void handleButtonVisiblity(){
+        if (true) {
+            deactivateBtn.setVisibility(View.VISIBLE);
+            activateBtn.setVisibility(View.INVISIBLE);
+
+        } else {
+            activateBtn.setVisibility(View.VISIBLE);
+            deactivateBtn.setVisibility(View.INVISIBLE);
+        }
     }
 }

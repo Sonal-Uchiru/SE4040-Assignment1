@@ -101,18 +101,23 @@ public class UserManager {
             int mobile,
             Runnable onSuccess,
             Consumer<String> onError
-    ) throws JSONException {
+    ){
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("firstName", firstName);
-        jsonObject.put("lastName", lastName);
-        jsonObject.put("mobile", mobile);
+        try {
+            jsonObject.put("firstName", firstName);
+            jsonObject.put("lastName", lastName);
+            jsonObject.put("mobile", mobile);
 
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
-        userService.updateUser(id, jsonObject)
+        userService.updateSelectedUser(id, jsonObject)
                 .enqueue(new Callback<UpadateUserRespose>() {
                     @Override
                     public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {
@@ -129,4 +134,35 @@ public class UserManager {
                     }
                 });
     }
+
+    public void toggleUserAccount(
+            String id,
+            Runnable onSuccess,
+            Consumer<String> onError
+    ){
+        if (!NetworkManager.getInstance().isNetworkAvailable()){
+            onError.accept("No internet connectivity");
+            return;
+        }
+
+        userService.deactivateAccount(id)
+                .enqueue(new Callback<UpadateUserRespose>() {
+                    @Override
+                    public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {
+                        if (response.body() != null && response.body().id != null) {
+                            onSuccess.run();
+                        }else{
+                            onError.accept("Something Went wrong");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpadateUserRespose> call, Throwable t) {
+                        onError.accept("Unknown :" + t.getMessage());
+                    }
+                });
+    }
+
+
+
 }
