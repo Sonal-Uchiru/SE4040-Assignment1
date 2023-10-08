@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace backend_server.Handlers.V1.Authentications.Logins;
+namespace backend_server.Handlers.V1.Authentications.Commands.Logins;
 
 public class Command : IRequest<Response>
 {

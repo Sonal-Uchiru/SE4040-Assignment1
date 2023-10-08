@@ -111,8 +111,6 @@ app.UseHttpsRedirection();
 
 app.UseErrorHandlingMiddleware();
 
-//app.UseMiddleware<ValidationHandler>();
-
 app.UseAuthentication();
 
 app.UseAuthorization();
