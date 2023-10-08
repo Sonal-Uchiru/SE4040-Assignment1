@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using backend_server;
+using backend_server.Middlewares;
 using backend_server.Middlewares.Extensions;
 using backend_server.Queries;
 using backend_server.Queries.Interfaces;
@@ -109,6 +110,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseErrorHandlingMiddleware();
+
+//app.UseMiddleware<ValidationHandler>();
 
 app.UseAuthentication();
 
