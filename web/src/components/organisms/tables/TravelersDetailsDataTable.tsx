@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import * as React from "react";
 import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
 import { AxiosError } from "axios";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -49,7 +50,8 @@ export default function TravelersDetailsDataTable({}: IProp) {
             )
         );
         setTravelers(res.data.items);
-        setDataTableTravelers(travelerList);
+        console.log(travelerList);
+        setDataTableTravelers(getDataArrayByJson(travelerList));
       })
       .catch((err) => {
         err as AxiosError;

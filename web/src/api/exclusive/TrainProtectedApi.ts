@@ -1,16 +1,16 @@
 import { AxiosResponse } from "axios";
-import ModelConstants from "../../../constants/ModelConstants";
-import { HttpMethods } from "../../../types/enums/HttpMethods";
-import { Versions } from "../../../types/enums/Versions";
-import { protectedApiAsync } from "../../ProtectedApi";
-import { protectedListApiAsync } from "../../ProtectedListApi";
+import { protectedApiAsync } from "../ProtectedApi";
+import { HttpMethods } from "../../types/enums/HttpMethods";
+import { Versions } from "../../types/enums/Versions";
+import ModelConstants from "../../constants/ModelConstants";
+import { protectedListApiAsync } from "../ProtectedListApi";
 
-class UserProtectedApi {
+class TrainProtectedApi {
   public async updateAsync(data: any): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Put,
       Versions.V1,
-      ModelConstants.USERS,
+      ModelConstants.TRAIN,
       data
     );
   }
@@ -19,7 +19,7 @@ class UserProtectedApi {
     return await protectedApiAsync(
       HttpMethods.Delete,
       Versions.V1,
-      ModelConstants.USERS
+      ModelConstants.TRAIN
     );
   }
 
@@ -27,18 +27,19 @@ class UserProtectedApi {
     return await protectedApiAsync(
       HttpMethods.Get,
       Versions.V1,
-      ModelConstants.USERS
+      ModelConstants.TRAIN
     );
   }
+
 
   public async getListAsync(): Promise<AxiosResponse> {
     return await protectedApiAsync(
-      HttpMethods.Get,
+        HttpMethods.Get,
       Versions.V1,
-      `${ModelConstants.USERS}/list`
+      `${ModelConstants.TRAIN}/list`
     );
-  }
-
+        
+    }
 }
 
-export default new UserProtectedApi();
+export default new TrainProtectedApi();

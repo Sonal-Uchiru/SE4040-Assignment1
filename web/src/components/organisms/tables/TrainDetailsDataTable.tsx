@@ -1,95 +1,71 @@
 import { Box, IconButton } from "@mui/material";
+import { AxiosError } from "axios";
 import MUIDataTable from "mui-datatables";
 import * as React from "react";
+import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 
 interface IProp {
   isDataUpdated: boolean;
 }
 
+class TrainData {
+  name: string;
+  model: string;
+  driverName: string;
+  contact: string;
+  noOfSeats: string;
+  startingStation: string;
+  endingStation: string;
+
+  constructor(
+    name: string,
+    model: string,
+    driverName: string,
+    contact: string,
+    noOfSeats: string,
+    startingStation: string,
+    endingStation: string
+  ) {
+    this.name = name;
+    this.model = model;
+    this.driverName = driverName;
+    this.contact = contact;
+    this.noOfSeats = noOfSeats;
+    this.startingStation = startingStation;
+    this.endingStation = endingStation;
+  }
+}
+
 export default function TrainDetailsDataTable({}: IProp) {
-  const data = [
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-    [
-      "Udarata Manike",
-      "Express",
-      "Anushka",
-      "0756542155",
-      "200",
-      "Colombo - Fort",
-      "Badulla",
-    ],
-  ];
+  const [trains, setTrains] = React.useState<any[]>([]);
+  const [dataTableTrains, setDataTableTrains] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    TrainProtectedApi.getListAsync()
+      .then((res) => {
+        console.log(res.data.items);
+        const trainList = res.data.items.map(
+          (item: any) =>
+            new TrainData(
+              item.name,
+              item.model,
+              item.driverName,
+              item.contact,
+              item.noOfSeats,
+              item.startingStation,
+              item.endingStation
+            )
+        );
+        setTrains(res.data.items);
+        console.log(trainList);
+        setDataTableTrains(getDataArrayByJson(trainList));
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, []);
 
   const options: any = {
     responsive: "standard",
@@ -204,12 +180,14 @@ export default function TrainDetailsDataTable({}: IProp) {
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Train List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableTrains && (
+          <MUIDataTable
+            title={"Train List"}
+            data={dataTableTrains}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );

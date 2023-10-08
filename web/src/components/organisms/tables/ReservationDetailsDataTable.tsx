@@ -1,95 +1,78 @@
 import { Box, IconButton } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import * as React from "react";
+import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import { AxiosError } from "axios";
 
 interface IProp {
   isDataUpdated: boolean;
 }
 
+class ReservationData {
+  trainName: string;
+  startingStation: string;
+  endingStation: string;
+  departureDate: string;
+  arrivalTime: string;
+  departureTime: string;
+  noOfPassengers: string;
+  perPersonPrice: string;
+
+  constructor(
+    trainName: string,
+    startingStation: string,
+    endingStation: string,
+    departureDate: string,
+    arrivalTime: string,
+    departureTime: string,
+    noOfPassengers: string,
+    perPersonPrice: string
+  ) {
+    {
+      this.trainName = trainName;
+      this.startingStation = startingStation;
+      this.endingStation = endingStation;
+      this.departureDate = departureDate;
+      this.arrivalTime = arrivalTime;
+      this.departureTime = departureTime;
+      this.noOfPassengers = noOfPassengers;
+      this.perPersonPrice = perPersonPrice;
+    }
+  }
+}
+
 export default function ReservationDetailsDataTable({}: IProp) {
-  const data = [
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-  ];
+  const [reservations, setReservations] = React.useState<any[]>([]);
+  const [dataTableReservations, setDataTableReservations] =
+    React.useState<any>(null);
+
+  React.useEffect(() => {
+    ReservationProtectedApi.getListAsync()
+      .then((res) => {
+        console.log(res.data.items);
+        const reservationList = res.data.items.map(
+          (item: any) =>
+            new ReservationData(
+              item.trainName,
+              item.startingStation,
+              item.endingStation,
+              item.departureDate,
+              item.arrivalTime,
+              item.departureTime,
+              item.noOfPassengers,
+              item.perPersonPrice
+            )
+        );
+        setReservations(res.data.items);
+        console.log(reservationList);
+        setDataTableReservations(getDataArrayByJson(reservationList));
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, []);
 
   const options: any = {
     responsive: "standard",
@@ -171,12 +154,14 @@ export default function ReservationDetailsDataTable({}: IProp) {
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Reservation List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableReservations && (
+          <MUIDataTable
+            title={"Reservation List"}
+            data={dataTableReservations}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );
