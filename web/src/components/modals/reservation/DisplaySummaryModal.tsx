@@ -1,30 +1,15 @@
 import * as React from "react";
-import { Formik, Form } from "formik";
+import { Grid } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import theme from "../../../theme/hooks/CreateTheme";
-import Avatar from "@mui/material/Avatar";
 import ContainedButton from "../../atoms/buttons/ContainedButton";
-import { Grid } from "@mui/material";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
-import SelectField from "../../atoms/selectField/SelectFieldAtom";
-import CategoryProtectedApi from "../../../api/exclusive/CategoryProtectedApi";
-import {
-  ISelectField,
-  SelectFieldOptions,
-  getSelectFieldOptions,
-} from "../../../types/selectFields/SelectFieldTypes";
-import { AxiosError } from "axios";
-import { ExtractValueAndLabel } from "../../../utils/common/ValueLabelExtraction";
-import SuccessModal from "../SuccessModal";
-import ResearchDisseminationProtectedApi from "../../../api/exclusive/ResearchDisseminationProtectedApi";
-import ErrorModal from "../ErrorModal";
-import InputField from "../../atoms/inputFields/InputField";
-import ParagraphBold from "../../atoms/typographies/ParagraphBold";
-import HeadLine3 from "../../atoms/typographies/HeadLine3";
 import Paragraph from "../../atoms/typographies/Paragraph";
+import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 
 interface IProps {
   handleCancel(): void;

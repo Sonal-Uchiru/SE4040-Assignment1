@@ -1,4 +1,6 @@
-﻿using backend_server.Queries.Interfaces;
+﻿using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
+using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
 using MediatR;
 
@@ -17,15 +19,8 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var reservation = await _reservationQuery.GetEntityById(command.Id);
-
-        if (reservation == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
+        _ = await _reservationQuery.GetEntityById(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(Reservation));
 
         await _reservationRepository.Delete(command.Id);
 

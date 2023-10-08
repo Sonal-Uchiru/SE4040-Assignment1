@@ -1,7 +1,9 @@
-﻿using backend_server.Services.Interfaces;
+﻿using backend_server.Models.Commons.Responses;
+using backend_server.Models.DomainModels;
+using backend_server.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Reservation = backend_server.Handlers.V1.Reservations;
+using Reservations = backend_server.Handlers.V1.Reservations;
 namespace backend_server.Controllers.V1;
 
 [ApiController]
@@ -18,8 +20,8 @@ public class ReservationController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Reservation.Commands.Create.Response))]
-    public Task<Reservation.Commands.Create.Response> CreateReservation([FromBody] Reservation.Commands.Create.Command command)
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Reservations.Commands.Create.Response))]
+    public Task<Reservations.Commands.Create.Response> CreateReservation([FromBody] Reservations.Commands.Create.Command command)
     {
         var payload = _authenticationService.GetUserPayloadByContext(HttpContext);
         command.UserId = payload.UserId;
@@ -28,25 +30,26 @@ public class ReservationController : ControllerBase
     }
 
     [HttpPatch("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservation.Commands.Update.Response))]
-    public Task<Reservation.Commands.Update.Response> UpdateReservation([FromRoute] Guid id, [FromBody] Reservation.Commands.Update.Command command)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservations.Commands.Update.Response))]
+    public Task<Reservations.Commands.Update.Response> UpdateReservation([FromRoute] Guid id, [FromBody] Reservations.Commands.Update.Command command)
     {
         command.Id = id;
         return _mediator.Send(command);
     }
 
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservation.Commands.Delete.Response))]
-    public Task<Reservation.Commands.Delete.Response> DeleteReservation([FromRoute] Guid id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservations.Commands.Delete.Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResponse))]
+    public Task<Reservations.Commands.Delete.Response> DeleteReservation([FromRoute] Guid id)
     {
-        return _mediator.Send(new Reservation.Commands.Delete.Command { Id = id });
+        return _mediator.Send(new Reservations.Commands.Delete.Command { Id = id });
     }
 
     [HttpGet("list")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservation.Queries.Lists.Response))]
-    public Task<Reservation.Queries.Lists.Response> GetReservationList()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Reservations.Queries.Lists.Response))]
+    public Task<Reservations.Queries.Lists.Response> GetReservationList()
     {
-        return _mediator.Send(new Reservation.Queries.Lists.Query());
+        return _mediator.Send(new Reservations.Queries.Lists.Query());
     }
 }
 

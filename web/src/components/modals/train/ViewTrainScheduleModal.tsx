@@ -1,29 +1,13 @@
 import * as React from "react";
-import { Formik, Form } from "formik";
+import Avatar from "@mui/material/Avatar";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import theme from "../../../theme/hooks/CreateTheme";
-import Avatar from "@mui/material/Avatar";
 import ContainedButton from "../../atoms/buttons/ContainedButton";
 
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
-import SelectField from "../../atoms/selectField/SelectFieldAtom";
-import CategoryProtectedApi from "../../../api/exclusive/CategoryProtectedApi";
-import {
-  ISelectField,
-  SelectFieldOptions,
-  getSelectFieldOptions,
-} from "../../../types/selectFields/SelectFieldTypes";
-import { AxiosError } from "axios";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import TrainScheduleModalTable from "../../organisms/tables/TrainScheduleModalTable";
 
 interface IProps {

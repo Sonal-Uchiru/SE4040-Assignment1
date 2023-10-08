@@ -1,4 +1,5 @@
-﻿using backend_server.Queries.Interfaces;
+﻿using backend_server.Models.Commons.Exceptions;
+using backend_server.Queries.Interfaces;
 using backend_server.Services.Interfaces;
 using MediatR;
 
@@ -10,7 +11,7 @@ public class Handler : IRequestHandler<Command, Response>
     private readonly IUserService _userService;
     private readonly IAuthenticationService _authenticationService;
 
-	public Handler(IUserQuery userQuery, IUserService userService, IAuthenticationService authenticationService)
+    public Handler(IUserQuery userQuery, IUserService userService, IAuthenticationService authenticationService)
     {
         _userQuery = userQuery;
         _userService = userService;
@@ -21,20 +22,9 @@ public class Handler : IRequestHandler<Command, Response>
     {
         var user = await _userQuery.GetUserByNIC(command.Nic);
 
-        if (user == null)
+        if (user == null || !_userService.VerifyPassword(command.Password, user.PasswordHash))
         {
-            return new Response
-            {
-                Token = "Invalid Credentials!"
-            };
-        }
-
-        if(!_userService.VerifyPassword(command.Password, user.PasswordHash))
-        {
-            return new Response
-            {
-                Token = "Invalid Credentials!"
-            };
+            throw new UnauthorizedException(errorResason: "Invalid Credentials");
         }
 
         return new Response

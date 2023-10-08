@@ -6,7 +6,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { PasswordStrengthMeter } from "../../../extensions/form_fields/PasswordMeter";
+// import { PasswordStrengthMeter } from "../../../extensions/form_fields/PasswordMeter";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useTranslation } from "react-i18next";
 
@@ -104,7 +104,7 @@ export default function PasswordInputField({
           {t(helperText)}
         </FormHelperText>
       )}
-      {showMeter ? <PasswordStrengthMeter password={password} /> : <></>}
+      {/* {showMeter ? <PasswordStrengthMeter password={password} /> : <></>} */}
     </FormControl>
   );
 }

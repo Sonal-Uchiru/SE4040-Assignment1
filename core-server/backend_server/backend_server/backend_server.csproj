@@ -31,7 +31,6 @@
     <None Remove="Services\" />
     <None Remove="Models\" />
     <None Remove="Handlers\" />
-    <None Remove="Utills\" />
     <None Remove="Handlers\V1\" />
     <None Remove="Models\DomainModels\" />
     <None Remove="Models\Types\" />
@@ -64,12 +63,15 @@
     <None Remove="Models\Dtos\Reservations\" />
     <None Remove="Models\Dtos\Authentications\" />
     <None Remove="Handlers\V1\Users\Queries\ReservationLists\" />
+    <None Remove="Middlewares\" />
+    <None Remove="Models\Commons\Exceptions\" />
+    <None Remove="Utills\" />
+    <None Remove="Utills\FlutentValidations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Handlers\" />
-    <Folder Include="Utills\" />
     <Folder Include="Handlers\V1\" />
     <Folder Include="Models\DomainModels\" />
     <Folder Include="Models\Types\" />
@@ -102,6 +104,10 @@
     <Folder Include="Models\Dtos\Reservations\" />
     <Folder Include="Models\Dtos\Authentications\" />
     <Folder Include="Handlers\V1\Users\Queries\ReservationLists\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Models\Commons\Exceptions\" />
+    <Folder Include="Utills\" />
+    <Folder Include="Utills\FlutentValidations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
