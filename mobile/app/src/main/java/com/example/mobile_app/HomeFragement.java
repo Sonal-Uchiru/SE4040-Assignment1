@@ -120,6 +120,7 @@ public class HomeFragement extends Fragment {
     }
 
     private void resetSchedules() {
+        dataList.clear();
         TrainSchedule[] dataArray = dataHolder.toArray(new TrainSchedule[dataHolder.size()]);
 
         Gson gson = new Gson();
@@ -135,6 +136,8 @@ public class HomeFragement extends Fragment {
     }
 
     private void filterDataList(String trainStartingPoint, String trainDestinationPoint, int noOfPassengers) {
+        dataList.clear();
+
         ArrayList<TrainSchedule> filteredList = new ArrayList<>();
         for (TrainSchedule schedule : dataHolder) {
             if (schedule.getStartingStation().toLowerCase().contains(trainStartingPoint.toLowerCase())
@@ -143,7 +146,6 @@ public class HomeFragement extends Fragment {
                 filteredList.add(schedule);
             }
         }
-        dataList.clear();
         dataList.addAll(filteredList);
     }
 
@@ -151,12 +153,12 @@ public class HomeFragement extends Fragment {
         trainScheduleManager.fetchList(
                 trainScheduleResponse -> {
                     List<TrainSchedule> entries = trainScheduleResponse.getItems();
+                    Log.d("MyApp", "This is a debug message.");
                     for (TrainSchedule entry : entries) {
-                        System.out.println(entry.toString());
-//                        trainSchedule = new TrainSchedule("1", "asd", "asddsad", "dsadas", "asdsad", "erar", "5", "11", "34", 1122334345, 6, 240, true, true);
                         dataList.add(entry);
                         dataHolder.add(entry);
                     }
+                    listAdapter.notifyDataSetChanged();
                 },
                 error -> handleFailed(error)
         );
