@@ -5,18 +5,12 @@ using MongoDB.Driver;
 
 namespace backend_server.Repositories;
 
-public class UserRepository : IUserRepository
+public sealed class UserRepository : BaseRepository<User>, IUserRepository
 {
-    private readonly IMongoCollection<User> _dbContext;
-
     public UserRepository()
     {
         _dbContext = DataBaseConnection.database.GetCollection<User>("users");
     }
-
-    public Task Add(User entity) => _dbContext.InsertOneAsync(entity);
-
-    public Task Replace(User entity) => _dbContext.ReplaceOneAsync(Builders<User>.Filter.Eq(i => i.Id, entity.Id), entity);
 
     public Task Update(Guid id, UpdateUserDto userDto)
     {
@@ -24,20 +18,9 @@ public class UserRepository : IUserRepository
         var update = Builders<User>.Update
             .Set(i => i.FirstName, userDto.FirstName)
             .Set(i => i.LastName, userDto.LastName)
-            .Set(i => i.Mobile, userDto.Mobile);
+            .Set(i => i.Mobile, userDto.Mobile)
+            .Set(i => i.Modified, DateTime.Now);
 
         return _dbContext.UpdateOneAsync(filter, update);
     }
-
-    public Task ToggleActivation(Guid id, bool activation)
-    {
-        var filter = Builders<User>.Filter.Eq(i => i.Id, id);
-        var update = Builders<User>.Update.Set(i => i.IsEnabled, activation);
-
-        return _dbContext.UpdateOneAsync(filter, update);
-    }
-
-    public Task Delete(Guid id) => _dbContext.DeleteOneAsync(Builders<User>.Filter.Eq(i => i.Id, id));
 }
-
-

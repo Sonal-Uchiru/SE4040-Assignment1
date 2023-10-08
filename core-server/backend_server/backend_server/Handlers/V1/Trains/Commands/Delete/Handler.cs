@@ -1,4 +1,6 @@
-﻿using backend_server.Queries.Interfaces;
+﻿using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
+using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
 using MediatR;
 
@@ -17,17 +19,10 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id);
+        var train = await _trainQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(Train));
 
-        if (train == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
-
-        await _trainRepository.Delete(command.Id);
+        await _trainRepository.DeleteAsync(command.Id);
 
         return new Response
         {

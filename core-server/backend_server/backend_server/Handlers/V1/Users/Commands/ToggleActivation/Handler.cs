@@ -19,7 +19,7 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityById(command.Id);
+        var user = await _userQuery.GetEntityByIdAsync(command.Id);
 
         if(user == null)
         {
@@ -29,7 +29,7 @@ public class Handler : IRequestHandler<Command, Response>
             };
         }
 
-        await _userRepository.ToggleActivation(command.Id, !user.IsEnabled);
+        await _userRepository.ToggleActivationAsync(command.Id, !user.IsEnabled);
 
         return new Response
         {

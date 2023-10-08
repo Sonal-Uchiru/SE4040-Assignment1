@@ -18,7 +18,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var userList = await _userQuery.GetEntities();
+        var userList = await _userQuery.GetEntitiesAsync();
 
         return new Response
         {

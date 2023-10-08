@@ -3,6 +3,7 @@ using backend_server.Models.DomainModels;
 using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
 using MediatR;
+using static backend_server.Constants.ErrorConstant;
 
 namespace backend_server.Handlers.V1.Reservations.Commands.Delete;
 
@@ -19,10 +20,17 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        _ = await _reservationQuery.GetEntityById(command.Id)
+        var reservation = await _reservationQuery.GetEntityByIdAsync(command.Id)
             ?? throw new NotFoundException(command.Id, nameof(Reservation));
 
-        await _reservationRepository.Delete(command.Id);
+        TimeSpan difference = reservation.ReservationDate - DateTime.Now;
+
+        if (difference.TotalDays < 5)
+        {
+            throw new ValidationException(errorReason: ReservationError.InvalidTimePeriodReservationDeleteError);
+        }
+
+        await _reservationRepository.DeleteAsync(command.Id);
 
         return new Response
         {

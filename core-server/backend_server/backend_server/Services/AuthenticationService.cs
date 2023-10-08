@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace backend_server.Services;
 
-public class AuthenticationService : IAuthenticationService
+public sealed class AuthenticationService : IAuthenticationService
 {
     private readonly IJwtService _jwtService;
 
@@ -52,8 +52,7 @@ public class AuthenticationService : IAuthenticationService
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.ReadJwtToken(userToken);
 
-        _ = Guid.TryParse(token.Claims.First(claim => claim.Type == "user_id").Value, out Guid guidValue);
-
+        Guid.TryParse(token.Claims.First(claim => claim.Type == "user_id").Value, out Guid guidValue);
         Enum.TryParse(token.Claims.First(claim => claim.Type == "role").Value, true, out UserRoles userRole);
 
         return new PayloadDto

@@ -1,13 +1,9 @@
 ﻿using backend_server.Models.Types;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace backend_server.Models.DomainModels;
 
-public sealed class User
+public sealed class User : BaseEntity
 {
-    [BsonId]
-    public Guid Id { get; set; }
-
     public string Nic { get; set; }
 
     public string FirstName { get; set; }
@@ -21,6 +17,4 @@ public sealed class User
     public string PasswordHash { get; set; }
 
     public UserRoles Role { get; set; }
-
-    public bool IsEnabled { get; set; } = true;
 }

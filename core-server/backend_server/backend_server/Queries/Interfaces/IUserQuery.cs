@@ -2,12 +2,8 @@
 
 namespace backend_server.Queries.Interfaces;
 
-public interface IUserQuery
+public interface IUserQuery : IBaseQuery<User>
 {
-    Task<User> GetEntityById(Guid id);
-
-    Task<List<User>> GetEntities();
-
     Task<User> GetUserByNIC(string nic);
 }
 
