@@ -81,17 +81,17 @@ public class HomeFragement extends Fragment {
 
     public void showDetailsFragment(TrainSchedule item) {
         Bundle bundle = new Bundle();
-        bundle.putString("trainName", item.trainName);
-        bundle.putString("driverName", item.driverName);
-        bundle.putString("contactNumber", item.contactNumber);
-        bundle.putString("startingStation", item.startingStation);
-        bundle.putString("endingStation", item.endingStation);
-        bundle.putString("depatureTime", item.depatureTime);
-        bundle.putString("arrivalTime", item.arrivalTime);
-        bundle.putInt("numberOfSeats", item.numberOfSeats);
-        bundle.putInt("frequency", item.frequency);
-        bundle.putFloat("price", item.price);
-        bundle.putString("model", item.model);
+        bundle.putString("trainName", item.getName());
+        bundle.putString("driverName", item.getDriverName());
+        bundle.putInt("contactNumber", item.getContact());
+        bundle.putString("startingStation", item.getStartingStation());
+        bundle.putString("endingStation", item.getEndingStation());
+        bundle.putString("depatureTime", item.getDepartureTime());
+        bundle.putString("arrivalTime", item.getArrivalTime());
+        bundle.putInt("numberOfSeats", item.getNoOfSeats());
+        bundle.putString("frequency", item.getFrequency());
+        bundle.putDouble("price", item.getPrice());
+        bundle.putString("model", item.getModel());
 
         DetailsFragement fragment = new DetailsFragement();
         fragment.setArguments(bundle);
@@ -139,7 +139,7 @@ public class HomeFragement extends Fragment {
         for (TrainSchedule schedule : dataHolder) {
             if (schedule.getStartingStation().toLowerCase().contains(trainStartingPoint.toLowerCase())
                     && schedule.getEndingStation().toLowerCase().contains(trainDestinationPoint.toLowerCase())
-                    && schedule.getNumberOfSeats() >= noOfPassengers) {
+                    && schedule.getNoOfSeats() >= noOfPassengers) {
                 filteredList.add(schedule);
             }
         }
@@ -153,8 +153,7 @@ public class HomeFragement extends Fragment {
                     List<Object> entries = trainScheduleResponse.getEntries();
                     for (Object entry : entries) {
                         System.out.println(entry.toString());
-                        trainSchedule = new TrainSchedule("1", "Nil Manika", "ML-2030", "Danushka", "077884935", "Gampaha", "Negombo",
-                            "7.30", "2.30", 5, 3, 200);
+                        trainSchedule = new TrainSchedule("1", "asd", "asddsad", "dsadas", "asdsad", "erar", "5", "11", "34", 1122334345, 6, 240, true, true);
                         dataList.add(trainSchedule);
                         dataHolder.add(trainSchedule);
                     }
