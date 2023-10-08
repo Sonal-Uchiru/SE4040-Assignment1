@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using backend_server;
+using backend_server.Middlewares;
 using backend_server.Middlewares.Extensions;
 using backend_server.Queries;
 using backend_server.Queries.Interfaces;
@@ -110,6 +111,8 @@ app.UseHttpsRedirection();
 
 app.UseErrorHandlingMiddleware();
 
+//app.UseMiddleware<ValidationHandler>();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -119,4 +122,3 @@ app.MapControllers();
 app.UseCors("AllowSpecificOrigin");
 
 app.Run();
-

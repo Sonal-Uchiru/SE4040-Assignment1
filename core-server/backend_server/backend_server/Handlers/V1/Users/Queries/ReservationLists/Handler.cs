@@ -17,7 +17,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var reservationList = await _reservationQuery.GetUserEntities(command.UserId);
+        var reservationList = await _reservationQuery.GetUserEntitiesAsync(command.UserId);
 
         return new Response
         {

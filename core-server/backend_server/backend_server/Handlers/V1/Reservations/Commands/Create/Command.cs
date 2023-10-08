@@ -5,6 +5,8 @@ namespace backend_server.Handlers.V1.Reservations.Commands.Create;
 
 public class Command : IRequest<Response>
 {
+    public Guid TrainId { get; set; }
+
     public string TrainName { get; set; }
 
     public string StartingStation { get; set; }
