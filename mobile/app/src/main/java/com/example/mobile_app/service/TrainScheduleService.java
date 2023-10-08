@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface TrainScheduleService {
-    @GET("schedules/list")
+    @GET("trains/schedules/list")
     Call<TrainScheduleResponse> fetch();
 }
