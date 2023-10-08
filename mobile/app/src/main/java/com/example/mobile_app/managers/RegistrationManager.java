@@ -2,7 +2,7 @@ package com.example.mobile_app.managers;
 
 import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.response.RegistrationResponse;
-import com.example.mobile_app.service.RegistrationService;
+import com.example.mobile_app.service.UserService;
 
 import java.util.function.Consumer;
 
@@ -12,7 +12,7 @@ import retrofit2.Response;
 
 public class RegistrationManager {
     private static RegistrationManager singleton;
-    private RegistrationService registrationService;
+    private UserService userService;
 
 
     public static RegistrationManager getInstance() {
@@ -22,7 +22,7 @@ public class RegistrationManager {
     }
 
     private RegistrationManager() {
-        registrationService = NetworkManager.getInstance().createService(RegistrationService.class);
+        userService = NetworkManager.getInstance().createService(UserService.class);
     }
 
     public void register(
@@ -34,7 +34,7 @@ public class RegistrationManager {
             onError.accept("No internet connectivity");
             return;
         }
-        registrationService.register(newUser)
+        userService.register(newUser)
                 .enqueue(new Callback<RegistrationResponse>() {
                     @Override
                     public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
