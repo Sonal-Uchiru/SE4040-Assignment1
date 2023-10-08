@@ -12,13 +12,26 @@ import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 
 interface IProps {
   handleCancel(): void;
-  handleSave(): void;
+  handleSave(values: any): void;
 }
 
 export default function AddNewTravelerModal({
   handleCancel,
   handleSave,
 }: IProps) {
+  const [nic, setNic] = React.useState("");
+
+  const handleAddNewTravler = () => {
+    const travelerData = {
+      nic,
+      password: nic,
+      role: 3,
+    };
+
+    handleSave(travelerData);
+    console.log(travelerData);
+  };
+
   return (
     <>
       <Modal
@@ -63,8 +76,9 @@ export default function AddNewTravelerModal({
                 placeholder={"Enter NIC Number"}
                 width={300}
                 name="nic"
+                value={nic}
                 onChange={(e) => {
-                  console.log("hi");
+                  setNic(e.target.value);
                 }}
                 required={true}
               />
@@ -94,6 +108,7 @@ export default function AddNewTravelerModal({
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleAddNewTravler}
                 />
               </div>
               <div

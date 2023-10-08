@@ -30,7 +30,23 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <LoginPage />
+        <Routes>
+          <Route path="/" element={<TravelersDetailsPage />} />
+
+          {/* Back Officer */}
+
+          {/* <Route
+            path="/travelersDetails"
+            element={
+              <>
+                <Private
+                  Component={TravelersDetailsPage}
+                  Role={UserRoles.BackOfficer}
+                />
+              </>
+            }
+          /> */}
+        </Routes>
       </Router>
     </ThemeProvider>
   );

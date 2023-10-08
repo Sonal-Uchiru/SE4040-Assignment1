@@ -1,13 +1,31 @@
 import Box from "@mui/material/Box";
+import * as React from "react";
 import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import Title from "../components/atoms/title/Title";
 import TravelersDetailsDataTable from "../components/organisms/tables/TravelersDetailsDataTable";
 import theme from "../theme/hooks/CreateTheme";
+import AddNewTravelerModal from "../components/modals/user/AddNewTravelerModal";
+import UserProtectedApi from "../api/exclusive/userApis/UserProtectedApi";
+import UserUnprotectedApi from "../api/exclusive/userApis/UserUnprotectedApi";
 
 export default function TravelersDetailsPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSave = (values: any) => {
+    UserProtectedApi.saveAsync(values)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -28,6 +46,14 @@ export default function TravelersDetailsPage() {
         <div>
           <TravelersDetailsDataTable isDataUpdated={false} />
         </div>
+        {isOpen && (
+          <AddNewTravelerModal
+            handleCancel={() => {
+              setIsOpen(!isOpen);
+            }}
+            handleSave={handleSave}
+          />
+        )}
       </Box>
     </>
   );

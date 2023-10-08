@@ -15,6 +15,15 @@ class UserProtectedApi {
     );
   }
 
+  public async saveAsync(data: any): Promise<AxiosResponse> {
+    return await protectedApiAsync(
+      HttpMethods.Post,
+      Versions.V1,
+      ModelConstants.USERS,
+      data
+    );
+  }
+
   public async deleteAsync(): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Delete,

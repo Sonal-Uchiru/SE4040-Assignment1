@@ -13,12 +13,15 @@ import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationA
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
 import ReservationProtectedApi from "../api/exclusive/ReservationProtectedApi";
 import React from "react";
+import { UserRoles } from "../types/enums/UserRoles";
+import { useNavigate } from "react-router-dom";
 
 // TODO : incomplete implementation (sample only) (Kaveen)
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [nic, setNic] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
-
+  const [loginErrorMessage, setLoginErrorMessage] = React.useState("");
   const handleNicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNic(e.target.value);
   };
@@ -28,16 +31,30 @@ export default function LoginPage() {
   };
 
   const handleClick = () => {
-    UserAuthenticationApi.loginAsync({ nic: "string", password: "string" })
+    setLoginErrorMessage("");
+    UserAuthenticationApi.loginAsync({ nic: nic, password: password })
       .then(async (res) => {
         BrowserLocalStorage.SetAccessToken(res.data?.token);
         await ReservationProtectedApi.getListAsync();
-        console.log(nic);
-        console.log(password);
         console.log(res.data);
+        const userRole = BrowserLocalStorage.GetUserRole();
+        switch (userRole) {
+          case UserRoles.BackOfficer:
+            navigate("/travelersDetails");
+            break;
+          case UserRoles.TravelAgent:
+            navigate("/");
+            break;
+          case UserRoles.Traveller:
+            navigate("/");
+            break;
+          default:
+            throw new Error(`Unsupported user role - ${userRole}`);
+        }
       })
       .catch((err: any) => {
-        console.log(err.response?.data.message);
+        // console.log(err.response?.data.message);
+        setLoginErrorMessage(err?.response?.data?.message);
       });
   };
 
@@ -106,7 +123,7 @@ export default function LoginPage() {
                       alt="Research Image"
                       src="./images/logo.png"
                       style={{
-                        marginTop: 20,
+                        marginTop: 30,
                         height: 230,
                         width: 230,
                         borderRadius: 10,
@@ -129,18 +146,20 @@ export default function LoginPage() {
                       fontWeight={"bold"}
                     />
                   </div>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      alignSelf: "center",
-                      marginTop: 20,
-                    }}
-                  >
-                    <ParagraphBold
-                      text={"Invalid Credentials!"}
-                      color={theme.palette.error.main}
-                    />
-                  </div>
+                  {loginErrorMessage && (
+                    <div
+                      style={{
+                        textAlign: "center",
+                        alignSelf: "center",
+                        marginTop: 20,
+                      }}
+                    >
+                      <ParagraphBold
+                        text={"Invalid Credentials!"}
+                        color={theme.palette.error.main}
+                      />
+                    </div>
+                  )}
                   <div style={styles.input}>
                     <InputField
                       id={"nic"}
