@@ -15,4 +15,3 @@ public class DataBaseConnection
 
     public static readonly IMongoDatabase database = dbClient.GetDatabase("BookingPassage");
 }
-

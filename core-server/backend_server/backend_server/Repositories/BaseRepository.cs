@@ -8,7 +8,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     public static IMongoCollection<T> _dbContext;
 
-    public Task Add(T entity)
+    public Task AddAsync(T entity)
     {
         entity.Created = DateTime.Now;
         entity.Modified = DateTime.Now;
@@ -16,16 +16,16 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return _dbContext.InsertOneAsync(entity);
     }
 
-    public Task Delete(Guid id) => _dbContext.DeleteOneAsync(Builders<T>.Filter.Eq(i => i.Id, id));
+    public Task DeleteAsync(Guid id) => _dbContext.DeleteOneAsync(Builders<T>.Filter.Eq(i => i.Id, id));
 
-    public Task Replace(T entity)
+    public Task ReplaceAsync(T entity)
     {
         entity.Modified = DateTime.Now;
 
         return _dbContext.ReplaceOneAsync(Builders<T>.Filter.Eq(i => i.Id, entity.Id), entity);
     }
 
-    public Task ToggleActivation(Guid id, bool activation)
+    public Task ToggleActivationAsync(Guid id, bool activation)
     {
         var filter = Builders<T>.Filter.Eq(i => i.Id, id);
         var update = Builders<T>.Update

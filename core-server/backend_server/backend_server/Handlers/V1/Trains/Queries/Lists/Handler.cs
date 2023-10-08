@@ -14,7 +14,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var trainList = await _trainQuery.GetEntities();
+        var trainList = await _trainQuery.GetEntitiesAsync();
 
         return new Response
         {

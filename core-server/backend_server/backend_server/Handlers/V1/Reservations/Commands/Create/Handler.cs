@@ -28,7 +28,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         reservation.Id = id;
 
-        await _reservationRepository.Add(reservation);
+        await _reservationRepository.AddAsync(reservation);
 
         return new Response
         {

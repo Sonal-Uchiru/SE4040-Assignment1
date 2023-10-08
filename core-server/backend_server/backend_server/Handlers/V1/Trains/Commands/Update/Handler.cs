@@ -22,14 +22,14 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id)
+        var train = await _trainQuery.GetEntityByIdAsync(command.Id)
             ?? throw new NotFoundException(command.Id, nameof(Train));
 
         var updatedTrain = _mapper.Map<Train>(command);
 
         updatedTrain.IsEnabled = train.IsEnabled;
 
-        await _trainRepository.Replace(updatedTrain);
+        await _trainRepository.ReplaceAsync(updatedTrain);
 
         return new Response
         {
