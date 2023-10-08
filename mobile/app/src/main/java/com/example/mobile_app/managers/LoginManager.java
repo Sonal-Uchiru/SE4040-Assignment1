@@ -56,17 +56,18 @@ public class LoginManager {
                 .enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        if (response.body().time != null){
-                            onSuccess.run();
-                        }
-                        else{
-                            onError.accept("NIC or password is incorrect");
+                        if (response.body() != null) {
+                            if (response.body().time != null) {
+                                onSuccess.run();
+                            } else if (response.body().message != null) {
+                                onError.accept("NIC or password is incorrect");
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        onError.accept("Unknown error occurred while logging in");
+                        onError.accept("Unknown :" + t.getMessage());
                     }
                 });
     }
