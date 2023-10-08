@@ -16,4 +16,10 @@ public sealed class ReservationQuery : BaseQuery<Reservation>, IReservationQuery
         var filter = Builders<Reservation>.Filter.Eq(i => i.UserId, id);
         return _dbContext.Find(filter).ToListAsync();
     }
+
+    public Task<bool> IsTrainContainReservationByTrainIdAsync(Guid id)
+    {
+        var filter = Builders<Reservation>.Filter.Eq(i => i.TrainId, id);
+        return _dbContext.Find(filter).AnyAsync();
+    }
 }
