@@ -153,7 +153,6 @@ public class HomeFragement extends Fragment {
         trainScheduleManager.fetchList(
                 trainScheduleResponse -> {
                     List<TrainSchedule> entries = trainScheduleResponse.getItems();
-                    Log.d("MyApp", "This is a debug message.");
                     for (TrainSchedule entry : entries) {
                         dataList.add(entry);
                         dataHolder.add(entry);

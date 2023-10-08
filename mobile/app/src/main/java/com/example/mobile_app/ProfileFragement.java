@@ -1,5 +1,6 @@
 package com.example.mobile_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,7 @@ public class ProfileFragement extends Fragment {
     TokenManager tokenManager;
     private UserManager userManager;
     FragmentProfileFragementBinding binding;
-    Button updateBtn, deactivateBtn, activateBtn;
+    Button updateBtn, deactivateBtn;
     User user;
 
 
@@ -42,7 +43,6 @@ public class ProfileFragement extends Fragment {
         tokenManager = new TokenManager(requireContext());
         updateBtn = view.findViewById(R.id.p_update_btn);
         deactivateBtn = view.findViewById(R.id.p_deactivate_btn);
-        activateBtn = view.findViewById(R.id.p_activate_btn);
 
 //        String userId = tokenManager.getUserId();
         String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
@@ -60,9 +60,6 @@ public class ProfileFragement extends Fragment {
             toggleUserAccountStatus(userId);
         });
 
-        activateBtn.setOnClickListener(v -> {
-            toggleUserAccountStatus(userId);
-        });
         return view;
     }
 
@@ -101,7 +98,6 @@ public class ProfileFragement extends Fragment {
                     binding.pEdMobile.setText(String.valueOf(mobile));
                     binding.pNic.setText(user.getNic());
                     binding.pEmail.setText(user.getEmail());
-                    handleButtonVisiblity(user.isEnabled());
 
                 },
                 error -> handleFailed(error)
@@ -116,19 +112,8 @@ public class ProfileFragement extends Fragment {
     }
 
     private void handleToggleSuccess(){
-        String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
-        loadUserDetails(userId);
         Toast.makeText(requireContext(), "User account status updated sucessfully", Toast.LENGTH_LONG).show();
-    }
-
-    private void handleButtonVisiblity(boolean status){
-        if (status) {
-            deactivateBtn.setVisibility(View.VISIBLE);
-            activateBtn.setVisibility(View.INVISIBLE);
-
-        } else {
-            activateBtn.setVisibility(View.VISIBLE);
-            deactivateBtn.setVisibility(View.INVISIBLE);
-        }
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
+        startActivity(intent);
     }
 }
