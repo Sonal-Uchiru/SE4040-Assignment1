@@ -150,12 +150,12 @@ public class HomeFragement extends Fragment {
     private void loadTrainScheduleData() {
         trainScheduleManager.fetchList(
                 trainScheduleResponse -> {
-                    List<Object> entries = trainScheduleResponse.getEntries();
-                    for (Object entry : entries) {
+                    List<TrainSchedule> entries = trainScheduleResponse.getItems();
+                    for (TrainSchedule entry : entries) {
                         System.out.println(entry.toString());
-                        trainSchedule = new TrainSchedule("1", "asd", "asddsad", "dsadas", "asdsad", "erar", "5", "11", "34", 1122334345, 6, 240, true, true);
-                        dataList.add(trainSchedule);
-                        dataHolder.add(trainSchedule);
+//                        trainSchedule = new TrainSchedule("1", "asd", "asddsad", "dsadas", "asdsad", "erar", "5", "11", "34", 1122334345, 6, 240, true, true);
+                        dataList.add(entry);
+                        dataHolder.add(entry);
                     }
                 },
                 error -> handleFailed(error)

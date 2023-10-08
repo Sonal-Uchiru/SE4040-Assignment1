@@ -56,7 +56,7 @@ public class LoginManager {
                 .enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        if (response.body().success){
+                        if (response.body().time != null){
                             onSuccess.run();
                         }
                         else{
