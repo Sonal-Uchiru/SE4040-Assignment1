@@ -1,13 +1,13 @@
 package com.example.mobile_app.models;
 
 public class TrainSchedule {
-    public String trainId, trainName, model, driverName, contactNumber, startingStation, endingStation, depatureTime, arrivalTime;
+    public String id, name, model, driverName, contactNumber, startingStation, endingStation, depatureTime, arrivalTime;
     public int numberOfSeats, frequency;
     public float price;
 
     public TrainSchedule(String trainId, String trainName, String model, String driverName, String contactNumber, String startingStation, String endingStation, String depatureTime, String arrivalTime, int numberOfSeats, int frequency, float price) {
-        this.trainId = trainId;
-        this.trainName = trainName;
+        this.id = trainId;
+        this.name = trainName;
         this.model = model;
         this.driverName = driverName;
         this.contactNumber = contactNumber;
