@@ -19,8 +19,6 @@ public sealed class AuthenticationService : IAuthenticationService
 
     public string GenerateJWT(Guid userId, UserRoles role)
     {
-
-
         var claims = new Claim[]
         {
             new (JwtRegisteredClaimNames.Sub, "JWT_Authentication"),

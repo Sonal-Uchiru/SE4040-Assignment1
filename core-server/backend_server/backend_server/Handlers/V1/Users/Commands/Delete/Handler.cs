@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
 using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
-using backend_server.Services.Interfaces;
 using MediatR;
 
 namespace backend_server.Handlers.V1.Users.Commands.Delete;
@@ -19,15 +20,8 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityByIdAsync(command.Id);
-
-        if(user == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
+        _ = await _userQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(User));
 
         await _userRepository.DeleteAsync(command.Id);
 

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
 using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
 using backend_server.Services.Interfaces;
@@ -19,15 +21,8 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityByIdAsync(command.Id);
-
-        if(user == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
+        var user = await _userQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(User));
 
         await _userRepository.ToggleActivationAsync(command.Id, !user.IsEnabled);
 
