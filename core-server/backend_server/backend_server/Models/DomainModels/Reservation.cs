@@ -1,12 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿namespace backend_server.Models.DomainModels;
 
-namespace backend_server.Models.DomainModels;
-
-public class Reservation
+public sealed class Reservation : BaseEntity
 {
-    [BsonId]
-    public Guid Id { get; set; }
-
     public string TrainName { get; set; }
 
     public string StartingStation { get; set; }
@@ -24,8 +19,6 @@ public class Reservation
     public double PerPersonPrice { get; set; }
 
     public DateTime ReservationDate { get; set; }
-
-    public bool IsEnabled { get; set; } = true;
 
     public Guid UserId { get; set; }
 }

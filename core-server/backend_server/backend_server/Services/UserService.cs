@@ -4,7 +4,7 @@ using backend_server.Services.Interfaces;
 
 namespace backend_server.Services;
 
-public class UserService : IUserService
+public sealed class UserService : IUserService
 {
     public string HashPassword(string password)
     {
@@ -14,14 +14,13 @@ public class UserService : IUserService
 
         var builder = new StringBuilder();
 
-        foreach (byte b in hashBytes)
+        foreach (byte hashByte in hashBytes)
         {
-            builder.Append(b.ToString("x2"));
+            builder.Append(hashByte.ToString("x2"));
         }
 
         return builder.ToString();
     }
-
 
     public bool VerifyPassword(string plainPassword, string hashedPassword)
     {
@@ -32,9 +31,9 @@ public class UserService : IUserService
 
         var builder = new StringBuilder();
 
-        foreach (byte b in userHashBytes)
+        foreach (byte userHashByte in userHashBytes)
         {
-            builder.Append(b.ToString("x2"));
+            builder.Append(userHashByte.ToString("x2"));
         }
 
         return builder.ToString() == hashedPassword;

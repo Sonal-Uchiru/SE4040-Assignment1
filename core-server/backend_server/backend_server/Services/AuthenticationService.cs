@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace backend_server.Services;
 
-public class AuthenticationService : IAuthenticationService
+public sealed class AuthenticationService : IAuthenticationService
 {
     private readonly IJwtService _jwtService;
 
