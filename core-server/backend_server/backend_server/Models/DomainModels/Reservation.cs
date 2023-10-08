@@ -2,6 +2,8 @@
 
 public sealed class Reservation : BaseEntity
 {
+    public Guid TrainId { get; set; }
+
     public string TrainName { get; set; }
 
     public string StartingStation { get; set; }

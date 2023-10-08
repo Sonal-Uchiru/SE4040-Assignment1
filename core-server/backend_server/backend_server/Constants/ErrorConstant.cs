@@ -9,5 +9,11 @@ public static class ErrorConstant
         public static readonly string InvalidTimePeriodReservationDeleteError = "Cannot delete the reservation now";
         public static readonly string InvalidTimePeriodReservationUpdateError = "Cannot update the reservation now";
     }
+
+    public static class TrainError
+    {
+        public static readonly string ReservationsContainedTrainCancelError = "Cannot cancel a train with existing reservations";
+        public static readonly string ReservationsContainedTrainDeleteError = "Cannot delete a train with existing reservations";
+    }
 }
 
