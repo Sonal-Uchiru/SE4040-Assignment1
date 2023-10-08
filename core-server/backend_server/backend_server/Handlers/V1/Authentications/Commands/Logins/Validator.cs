@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace backend_server.Handlers.V1.Authentications.Logins;
+namespace backend_server.Handlers.V1.Authentications.Commands.Logins;
 
 public class Validator : AbstractValidator<Command>
 {

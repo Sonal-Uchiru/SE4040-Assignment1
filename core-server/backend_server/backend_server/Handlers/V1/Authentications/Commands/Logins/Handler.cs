@@ -3,7 +3,7 @@ using backend_server.Queries.Interfaces;
 using backend_server.Services.Interfaces;
 using MediatR;
 
-namespace backend_server.Handlers.V1.Authentications.Logins;
+namespace backend_server.Handlers.V1.Authentications.Commands.Logins;
 
 public class Handler : IRequestHandler<Command, Response>
 {
