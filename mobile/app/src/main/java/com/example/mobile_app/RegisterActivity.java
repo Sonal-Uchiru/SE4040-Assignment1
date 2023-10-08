@@ -9,11 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mobile_app.managers.RegistrationManager;
+import com.example.mobile_app.managers.UserManager;
 import com.example.mobile_app.models.NewUser;
 
 public class RegisterActivity extends AppCompatActivity {
-    private RegistrationManager registrationManager;
+    private UserManager userManager;
     EditText ed_firstName, ed_lastName, ed_email, ed_mobile, ed_nic, ed_password;
     Button btnRegister;
     @Override
@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         ed_nic = findViewById(R.id.ed_nic);
         ed_password = findViewById(R.id.ed_password);
         btnRegister = findViewById(R.id.register_btn);
-        registrationManager = RegistrationManager.getInstance();
+        userManager = UserManager.getInstance();
 
         btnRegister.setOnClickListener(view -> {
             register();
@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = ed_password.getText().toString();
 
         NewUser newUser = new NewUser(nic, firstname, lastname, email, password, mobile, 0);
-        registrationManager.register(
+        userManager.register(
                 newUser,
                 () -> registerSuccess(),
                 error -> handleRegisterfailed(error));

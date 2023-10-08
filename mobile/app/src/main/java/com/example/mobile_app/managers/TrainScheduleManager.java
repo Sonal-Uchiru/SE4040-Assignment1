@@ -44,7 +44,7 @@ public class TrainScheduleManager {
                 if (response.isSuccessful()) {
                     TrainScheduleResponse trainScheduleResponse = response.body();
                     if (trainScheduleResponse != null) {
-                        onSuccess.accept(trainScheduleResponse); // Pass the retrieved response to the callback
+                        onSuccess.accept(trainScheduleResponse);
                     } else {
                         onError.accept("Response is empty");
                     }

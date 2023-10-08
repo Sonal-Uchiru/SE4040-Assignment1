@@ -2,6 +2,7 @@ package com.example.mobile_app.service;
 
 import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.response.RegistrationResponse;
+import com.example.mobile_app.response.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,7 +15,7 @@ public interface UserService {
     @POST("users")
     Call<RegistrationResponse> register(@Body NewUser request);
     @GET("users/{id}")
-    Call<RegistrationResponse> getUserDetails(@Path("id") int userId);
+    Call<UserResponse> getUserDetails(@Path("id") String userId);
 
 
 }
