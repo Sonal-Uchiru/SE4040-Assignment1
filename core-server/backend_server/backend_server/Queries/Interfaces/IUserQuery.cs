@@ -4,6 +4,6 @@ namespace backend_server.Queries.Interfaces;
 
 public interface IUserQuery : IBaseQuery<User>
 {
-    Task<User> GetUserByNIC(string nic);
+    Task<User> GetUserByNICAsync(string nic);
 }
 

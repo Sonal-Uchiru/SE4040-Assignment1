@@ -5,6 +5,6 @@ namespace backend_server.Repositories.Interfaces;
 
 public interface IUserRepository : IBaseRepository<User>
 {
-    Task Update(Guid id, UpdateUserDto userDto);
+    Task UpdateAsync(Guid id, UpdateUserDto userDto);
 }
 
