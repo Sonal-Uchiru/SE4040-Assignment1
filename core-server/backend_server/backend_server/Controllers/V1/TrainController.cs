@@ -79,7 +79,7 @@ public class TrainController : ApiBaseController
         return _mediator.Send(new Train.Queries.TrainScheduleList.Query { Id = id });
     }
 
-    [HttpGet("/schedules/list")]
+    [HttpGet("schedules/list")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Train.Queries.ScheduleList.Response))]
     public Task<Train.Queries.ScheduleList.Response> GetScheduleList()
     {
