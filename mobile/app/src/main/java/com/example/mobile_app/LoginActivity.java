@@ -2,7 +2,9 @@ package com.example.mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,17 +13,20 @@ import android.widget.Toast;
 
 import com.example.mobile_app.managers.ContextManager;
 import com.example.mobile_app.managers.LoginManager;
+import com.example.mobile_app.utilities.TokenManager;
 
 public class LoginActivity extends AppCompatActivity {
-
     private LoginManager loginManager;
     EditText ed_nic, ed_password;
     Button btnLogin;
+    TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        tokenManager = new TokenManager(this);
 
         ed_nic = findViewById(R.id.l_ed_nic);
         ed_password = findViewById(R.id.l_ed_password);
@@ -29,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
         ContextManager.getInstance().setApplicationContext(getApplicationContext());
         loginManager = LoginManager.getInstance();
+
+
 
         btnLogin.setOnClickListener(view -> {
             login();
@@ -42,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         loginManager.login(
                 nic,
                 password,
-                () -> onNavigateToHome(),
+                token -> onNavigateToHome(token),
                 error -> handleLoginFailed(error));
     }
 
@@ -57,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onNavigateToHome() {
+    public void onNavigateToHome(String token) {
+        tokenManager.saveToken(token);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
