@@ -33,7 +33,7 @@ public class Handler : IRequestHandler<Command, Response>
             Role = command.Role
         };
 
-        await _userRepository.Add(user);
+        await _userRepository.AddAsync(user);
 
         return new Response
         {

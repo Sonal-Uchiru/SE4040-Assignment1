@@ -1,4 +1,6 @@
-﻿using backend_server.Queries.Interfaces;
+﻿using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
+using backend_server.Queries.Interfaces;
 using MediatR;
 
 namespace backend_server.Handlers.V1.Trains.Queries.TrainScheduleList;
@@ -14,12 +16,8 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id);
-
-        if(train == null)
-        {
-            //
-        }
+        var train = await _trainQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(Train));
 
         return new Response
         {

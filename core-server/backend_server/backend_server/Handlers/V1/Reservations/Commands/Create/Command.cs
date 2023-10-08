@@ -21,6 +21,8 @@ public class Command : IRequest<Response>
 
     public double PerPersonPrice { get; set; }
 
+    public DateTime ReservationDate { get; set; }
+
     [JsonIgnore]
     public Guid UserId { get; set; }
 }

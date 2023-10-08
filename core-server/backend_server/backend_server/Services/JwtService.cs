@@ -2,7 +2,7 @@
 
 namespace backend_server.Services;
 
-public class JwtService : IJwtService
+public sealed class JwtService : IJwtService
 {
     public string? GetToken(HttpContext context)
     {

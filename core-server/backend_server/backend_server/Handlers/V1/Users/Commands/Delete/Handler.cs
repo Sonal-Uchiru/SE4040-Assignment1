@@ -19,7 +19,7 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityById(command.Id);
+        var user = await _userQuery.GetEntityByIdAsync(command.Id);
 
         if(user == null)
         {
@@ -29,7 +29,7 @@ public class Handler : IRequestHandler<Command, Response>
             };
         }
 
-        await _userRepository.Delete(command.Id);
+        await _userRepository.DeleteAsync(command.Id);
 
         return new Response
         {

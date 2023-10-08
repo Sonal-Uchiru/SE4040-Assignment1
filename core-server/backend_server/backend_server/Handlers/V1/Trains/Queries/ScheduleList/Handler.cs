@@ -16,7 +16,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var trains = await _trainQuery.GetEntities();
+        var trains = await _trainQuery.GetEntitiesAsync();
 
         var scheduleListResponse = new List<ScheduleListResponseDto>();
 
