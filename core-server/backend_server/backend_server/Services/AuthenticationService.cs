@@ -10,6 +10,7 @@ namespace backend_server.Services;
 public sealed class AuthenticationService : IAuthenticationService
 {
     private readonly IJwtService _jwtService;
+    private static readonly string secretKey = "8V7n5phLLJj0GYbJHHkqhs2iNlvAvpPp4q9iutGwj24PDDcYK2";
 
     public AuthenticationService(IJwtService jwtService)
     {
@@ -18,7 +19,7 @@ public sealed class AuthenticationService : IAuthenticationService
 
     public string GenerateJWT(Guid userId, UserRoles role)
     {
-        var secretKey = "8V7n5phLLJj0GYbJHHkqhs2iNlvAvpPp4q9iutGwj24PDDcYK2";
+
 
         var claims = new Claim[]
         {
