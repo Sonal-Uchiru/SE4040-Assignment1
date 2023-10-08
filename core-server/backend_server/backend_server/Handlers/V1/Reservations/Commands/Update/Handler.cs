@@ -41,7 +41,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         var updateReservationDot = _mapper.Map<UpdateReservationDto>(command);
 
-        await _reservationRepository.UpdateNoOfPassengers(updateReservationDot);
+        await _reservationRepository.UpdateNoOfPassengersAsync(updateReservationDot);
 
         return new Response
         {

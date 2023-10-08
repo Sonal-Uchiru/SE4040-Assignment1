@@ -12,7 +12,7 @@ public sealed class UserRepository : BaseRepository<User>, IUserRepository
         _dbContext = DataBaseConnection.database.GetCollection<User>("users");
     }
 
-    public Task Update(Guid id, UpdateUserDto userDto)
+    public Task UpdateAsync(Guid id, UpdateUserDto userDto)
     {
         var filter = Builders<User>.Filter.Eq(i => i.Id, id);
         var update = Builders<User>.Update

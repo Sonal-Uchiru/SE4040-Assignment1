@@ -37,7 +37,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         var updateUserDto = _mapper.Map<UpdateUserDto>(command);
 
-        await _userRepository.Update(command.Id, updateUserDto);
+        await _userRepository.UpdateAsync(command.Id, updateUserDto);
 
         return new Response
         {

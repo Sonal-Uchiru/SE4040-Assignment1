@@ -11,7 +11,7 @@ public sealed class ReservationQuery : BaseQuery<Reservation>, IReservationQuery
         _dbContext = DataBaseConnection.database.GetCollection<Reservation>("reservations");
     }
 
-    public Task<List<Reservation>> GetUserEntities(Guid id)
+    public Task<List<Reservation>> GetUserEntitiesAsync(Guid id)
     {
         var filter = Builders<Reservation>.Filter.Eq(i => i.UserId, id);
         return _dbContext.Find(filter).ToListAsync();

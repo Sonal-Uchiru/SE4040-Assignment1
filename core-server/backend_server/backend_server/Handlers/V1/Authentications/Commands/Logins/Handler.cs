@@ -20,7 +20,7 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetUserByNIC(command.Nic);
+        var user = await _userQuery.GetUserByNICAsync(command.Nic);
 
         if (user == null || !_userService.VerifyPassword(command.Password, user.PasswordHash))
         {
