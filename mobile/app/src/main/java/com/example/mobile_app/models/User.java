@@ -1,18 +1,17 @@
 package com.example.mobile_app.models;
 
 public class User {
-    private String nic, firstName, lastName, email;
+    private String nic, firstName, lastName, email, password;
     private int mobile, role;
-    private boolean isEnabled;
 
-    public User(String nic, String firstName, String lastName, String email, int mobile, int role, boolean isEnabled) {
+    public User(String nic, String firstName, String lastName, String email, String password, int mobile, int role) {
         this.nic = nic;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.mobile = mobile;
         this.role = role;
-        this.isEnabled = isEnabled;
     }
 
     public String getNic() {
@@ -39,7 +38,7 @@ public class User {
         return role;
     }
 
-    public boolean isEnabled() {
-        return isEnabled;
+    public String getPassword() {
+        return password;
     }
 }

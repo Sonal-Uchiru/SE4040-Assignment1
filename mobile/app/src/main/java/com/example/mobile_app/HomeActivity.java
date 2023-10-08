@@ -45,6 +45,9 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragement(new ProfileFragement());
             } else if (item.getItemId() == R.id.reservations) {
                 replaceFragement(new ReservationFragement());
+            } else if (item.getItemId() == R.id.logout) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
             }
 
             return true;

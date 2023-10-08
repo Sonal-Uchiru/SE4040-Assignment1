@@ -1,5 +1,7 @@
 package com.example.mobile_app.managers;
 
+import android.util.Log;
+
 import com.example.mobile_app.models.Login;
 import com.example.mobile_app.models.User;
 import com.example.mobile_app.response.LoginResponse;
@@ -37,7 +39,6 @@ public class RegistrationManager {
             onError.accept("No internet connectivity");
             return;
         }
-
         registrationService.register(user)
                 .enqueue(new Callback<RegistrationResponse>() {
                     @Override
@@ -45,7 +46,7 @@ public class RegistrationManager {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
-                            onError.accept("NIC or password is Incorrect");
+                            onError.accept("Something Went wrong");
                         }
                     }
 

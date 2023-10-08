@@ -23,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ed_nic = findViewById(R.id.ed_nic);
-        ed_password = findViewById(R.id.ed_password);
+        ed_nic = findViewById(R.id.l_ed_nic);
+        ed_password = findViewById(R.id.l_ed_password);
         btnLogin = findViewById(R.id.login_btn);
 
         ContextManager.getInstance().setApplicationContext(getApplicationContext());
@@ -33,15 +33,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             login();
         });
-
-
     }
 
     private void login(){
         String nic = ed_nic.getText().toString();
         String password = ed_password.getText().toString();
 
-//        onNavigateToHome();
         loginManager.login(
                 nic,
                 password,
