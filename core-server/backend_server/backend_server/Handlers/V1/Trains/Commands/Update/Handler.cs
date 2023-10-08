@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend_server.Models.Commons.Exceptions;
 using backend_server.Models.DomainModels;
 using backend_server.Queries.Interfaces;
 using backend_server.Repositories.Interfaces;
@@ -21,15 +22,8 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id);
-
-        if(train == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
+        var train = await _trainQuery.GetEntityById(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(Train));
 
         var updatedTrain = _mapper.Map<Train>(command);
 

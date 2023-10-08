@@ -4,4 +4,3 @@ public class ErrorResponse : BaseResponse
 {
 	public string Message { get; set; }
 }
-

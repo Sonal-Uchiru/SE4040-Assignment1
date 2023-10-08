@@ -1,6 +1,6 @@
 ﻿namespace backend_server.Models.DomainModels;
 
-public class TrainSchedule
+public sealed class TrainSchedule
 {
     public string Frequency { get; set; }
 
