@@ -11,33 +11,30 @@ interface IProp {
 
 class ReservationData {
   trainName: string;
-  startingStation: string;
-  endingStation: string;
   departureDate: string;
   arrivalTime: string;
   departureTime: string;
   noOfPassengers: string;
   perPersonPrice: string;
+  totalPrice: string;
 
   constructor(
     trainName: string,
-    startingStation: string,
-    endingStation: string,
     departureDate: string,
     arrivalTime: string,
     departureTime: string,
     noOfPassengers: string,
-    perPersonPrice: string
+    perPersonPrice: string,
+    totalPrice: string
   ) {
     {
       this.trainName = trainName;
-      this.startingStation = startingStation;
-      this.endingStation = endingStation;
       this.departureDate = departureDate;
       this.arrivalTime = arrivalTime;
       this.departureTime = departureTime;
       this.noOfPassengers = noOfPassengers;
       this.perPersonPrice = perPersonPrice;
+      this.totalPrice = totalPrice;
     }
   }
 }
@@ -55,13 +52,12 @@ export default function ReservationDetailsDataTable({}: IProp) {
           (item: any) =>
             new ReservationData(
               item.trainName,
-              item.startingStation,
-              item.endingStation,
               item.departureDate,
-              item.arrivalTime,
               item.departureTime,
+              item.arrivalTime,
               item.noOfPassengers,
-              item.perPersonPrice
+              item.perPersonPrice,
+              `${item.noOfPassengers * item.perPersonPrice}`
             )
         );
         setReservations(res.data.items);
@@ -78,6 +74,7 @@ export default function ReservationDetailsDataTable({}: IProp) {
     responsive: "standard",
     rowsPerPageOptions: [5, 10, 15, 20],
     rowsPerPage: 10,
+    selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
       console.log(action);

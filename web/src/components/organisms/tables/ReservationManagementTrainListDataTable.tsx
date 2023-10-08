@@ -24,6 +24,7 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
     responsive: "standard",
     rowsPerPageOptions: [5, 10, 15, 20],
     rowsPerPage: 10,
+    selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
       console.log(action);

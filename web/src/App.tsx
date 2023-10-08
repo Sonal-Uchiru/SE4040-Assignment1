@@ -31,7 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         {/* <LoginPage /> */}
-        <TravelersDetailsPage />
+        <ReservationDetailsPage />
       </Router>
     </ThemeProvider>
   );
