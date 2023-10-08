@@ -1,5 +1,7 @@
 package com.example.mobile_app.managers;
 
+import android.util.Log;
+
 import com.example.mobile_app.models.Login;
 import com.example.mobile_app.response.LoginResponse;
 import com.example.mobile_app.response.TrainScheduleResponse;
@@ -53,6 +55,7 @@ public class TrainScheduleManager {
 
             @Override
             public void onFailure(Call<TrainScheduleResponse> call, Throwable t) {
+                Log.d("MyApp", "This is a debug message." + t.getMessage());
                 onError.accept("Network request failed: " + t.getMessage());
             }
         });

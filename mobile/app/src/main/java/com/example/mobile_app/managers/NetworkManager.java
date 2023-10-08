@@ -12,7 +12,7 @@ public class NetworkManager {
     private static NetworkManager singleton;
 
     private Retrofit retrofit;
-    private final String baseUrl = "https://api.publicapis.org/";
+    private final String baseUrl = "http://localhost:5040/";
     private ConnectivityManager connectivityManager;
 
     public static NetworkManager getInstance(){
