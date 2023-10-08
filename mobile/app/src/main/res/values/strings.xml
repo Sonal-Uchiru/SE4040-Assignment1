@@ -30,4 +30,6 @@
     <string name="user_profile">User Profile</string>
     <string name="reservation_history">Reservation History</string>
     <string name="reservation_details">Reservation Details</string>
+    <string name="update">Update</string>
+
 </resources>

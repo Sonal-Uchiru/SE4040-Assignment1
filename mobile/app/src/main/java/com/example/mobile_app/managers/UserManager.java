@@ -6,8 +6,12 @@ import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.models.User;
 import com.example.mobile_app.response.RegistrationResponse;
 import com.example.mobile_app.response.TrainScheduleResponse;
+import com.example.mobile_app.response.UpadateUserRespose;
 import com.example.mobile_app.response.UserResponse;
 import com.example.mobile_app.service.UserService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.function.Consumer;
 
@@ -57,7 +61,7 @@ public class UserManager {
                 });
     }
 
-    public void getList(
+    public void getUserDetails(
             String id,
             Consumer<UserResponse> onSuccess,
             Consumer<String> onError
@@ -88,5 +92,41 @@ public class UserManager {
                 onError.accept("Network request failed: " + t.getMessage());
             }
         });
+    }
+
+    public void updateUser(
+            String id,
+            String firstName,
+            String lastName,
+            int mobile,
+            Runnable onSuccess,
+            Consumer<String> onError
+    ) throws JSONException {
+        if (!NetworkManager.getInstance().isNetworkAvailable()){
+            onError.accept("No internet connectivity");
+            return;
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("firstName", firstName);
+        jsonObject.put("lastName", lastName);
+        jsonObject.put("mobile", mobile);
+
+
+        userService.updateUser(id, jsonObject)
+                .enqueue(new Callback<UpadateUserRespose>() {
+                    @Override
+                    public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {
+                        if (response.body() != null && response.body().id != null) {
+                            onSuccess.run();
+                        }else{
+                            onError.accept("Something Went wrong");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpadateUserRespose> call, Throwable t) {
+                        onError.accept("Unknown :" + t.getMessage());
+                    }
+                });
     }
 }
