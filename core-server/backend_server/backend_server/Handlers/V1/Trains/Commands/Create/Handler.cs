@@ -24,7 +24,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         train.Id = id;
 
-        await _trainRepository.Add(train);
+        await _trainRepository.AddAsync(train);
 
         return new Response
         {

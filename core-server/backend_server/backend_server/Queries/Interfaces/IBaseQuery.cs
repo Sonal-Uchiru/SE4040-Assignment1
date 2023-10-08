@@ -2,8 +2,7 @@
 
 public interface IBaseQuery<T>
 {
-    Task<T> GetEntityById(Guid id);
+    Task<T> GetEntityByIdAsync(Guid id);
 
-    Task<List<T>> GetEntities();
+    Task<List<T>> GetEntitiesAsync();
 }
-

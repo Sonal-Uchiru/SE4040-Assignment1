@@ -19,10 +19,10 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var train = await _trainQuery.GetEntityById(command.Id)
+        var train = await _trainQuery.GetEntityByIdAsync(command.Id)
             ?? throw new NotFoundException(command.Id, nameof(Train));
 
-        await _trainRepository.Delete(command.Id);
+        await _trainRepository.DeleteAsync(command.Id);
 
         return new Response
         {

@@ -2,11 +2,11 @@
 
 public interface IBaseRepository<T>
 {
-    Task Add(T entity);
+    Task AddAsync(T entity);
 
-    Task ToggleActivation(Guid id, bool activation);
+    Task ToggleActivationAsync(Guid id, bool activation);
 
-    Task Replace(T entity);
+    Task ReplaceAsync(T entity);
 
-    Task Delete(Guid id);
+    Task DeleteAsync(Guid id);
 }

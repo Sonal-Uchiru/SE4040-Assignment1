@@ -8,13 +8,13 @@ public class BaseQuery<T> : IBaseQuery<T> where T: BaseEntity
 {
     public  static IMongoCollection<T> _dbContext;
 
-    public Task<T> GetEntityById(Guid id)
+    public Task<T> GetEntityByIdAsync(Guid id)
     {
         var filter = Builders<T>.Filter.Eq(i => i.Id, id);
         return _dbContext.Find(filter).SingleOrDefaultAsync();
     }
 
-    public Task<List<T>> GetEntities()
+    public Task<List<T>> GetEntitiesAsync()
     {
         var filter = Builders<T>.Filter.Empty;
         return _dbContext.Find(filter).ToListAsync();

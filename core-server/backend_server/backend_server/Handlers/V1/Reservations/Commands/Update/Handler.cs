@@ -29,7 +29,7 @@ public class Handler : IRequestHandler<Command, Response>
             throw new ValidationException(errorReason: ReservationError.MaximumPasengersError);
         }
 
-        var reservation = await _reservationQuery.GetEntityById(command.Id)
+        var reservation = await _reservationQuery.GetEntityByIdAsync(command.Id)
             ?? throw new NotFoundException(command.Id, nameof(Reservation));
 
         TimeSpan difference = reservation.ReservationDate - DateTime.Now;
