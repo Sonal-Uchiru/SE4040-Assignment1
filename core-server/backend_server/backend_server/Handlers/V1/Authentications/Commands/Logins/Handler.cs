@@ -29,6 +29,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         return new Response
         {
+            UserId = user.Id,
             Token = _authenticationService.GenerateJWT(user.Id, user.Role)
         };
     }

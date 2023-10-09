@@ -23,7 +23,6 @@ public class ExceptionHandler
         {
             context.Response.ContentType = "application/json";
             await _next(context);
-
         }
         catch (UnauthorizedException unauthorizedException)
         {
@@ -56,4 +55,3 @@ public class ExceptionHandler
         }
     }
 }
-
