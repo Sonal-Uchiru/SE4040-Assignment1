@@ -9,23 +9,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.mobile_app.adapters.TrainScheduleAdapter;
 import com.example.mobile_app.adapters.UserReservationAdapter;
 import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 import com.example.mobile_app.databinding.FragmentReservationFragementBinding;
 import com.example.mobile_app.databinding.SearchBottomSheetBinding;
+import com.example.mobile_app.managers.ReservationManager;
+import com.example.mobile_app.managers.TrainScheduleManager;
 import com.example.mobile_app.models.TrainSchedule;
 import com.example.mobile_app.models.UserReservation;
-import com.example.mobile_app.utilities.DatabaseTypeConverters;
+import com.example.mobile_app.utilities.TokenManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ReservationFragement extends Fragment {
 
     FragmentReservationFragementBinding binding;
+    TokenManager tokenManager;
+
+    private ReservationManager reservationManager;
+
     UserReservationAdapter listAdapter;
     ArrayList<UserReservation> dataList = new ArrayList<>();
 
@@ -37,8 +45,11 @@ public class ReservationFragement extends Fragment {
             Bundle savedInstanceState) {
         Context context = requireContext();
 
+        tokenManager = new TokenManager(requireContext());
         binding = FragmentReservationFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        reservationManager = ReservationManager.getInstance();
         loadTrainScheduleData();
 
         listAdapter = new UserReservationAdapter(requireContext(), dataList);
@@ -53,12 +64,13 @@ public class ReservationFragement extends Fragment {
                 showDetailsFragment(clickedItem);
             }
         });
+
+
         return view;
     }
 
     public void showDetailsFragment(UserReservation item) {
-        Date departureDate = item.getDepartureDate();
-        String formattedDate = DatabaseTypeConverters.dateToString(departureDate);
+        String departureDate = item.getDepartureDate();
 
         Bundle bundle = new Bundle();
         bundle.putString("trainName", item.getTrainName());
@@ -66,10 +78,10 @@ public class ReservationFragement extends Fragment {
         bundle.putString("arrivalTime", item.getArrivalTime());
         bundle.putString("startingStation", item.getStartingStation());
         bundle.putString("endingStation", item.getEndingStation());
-        bundle.putInt("reservedSeats", item.getReservedSeats());
-        bundle.putFloat("totalPrice", item.getTotalPrice());
+        bundle.putInt("reservedSeats", item.getNoOfPassengers());
+//        bundle.putFloat("totalPrice", item.getTotalPrice());
         bundle.putFloat("perPersonPrice", item.getPerPersonPrice());
-        bundle.putString("departureDate", formattedDate);
+        bundle.putString("departureDate", departureDate);
 
         // Date departureDate;
         ReservationDetailsFragement fragment = new ReservationDetailsFragement();
@@ -83,11 +95,21 @@ public class ReservationFragement extends Fragment {
     }
 
     private void loadTrainScheduleData() {
-        userReservation = new UserReservation("1", "Sudu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate,
-                5, 500, 100);
-        dataList.add(userReservation);
-        userReservation = new UserReservation("1", "Kalu Manika", "7.20", "8.20", "Dankotu", "Polonnaru", currentDate,
-                5, 500, 100);
-        dataList.add(userReservation);
+        String token = tokenManager.getToken();
+
+        reservationManager.fetchReservationList(
+                token,
+                userReservationResponse -> {
+                    List<UserReservation> entries = userReservationResponse.getItems();
+                    for (UserReservation entry : entries) {
+                        dataList.add(entry);
+                    }
+                    listAdapter.notifyDataSetChanged();
+                },
+                error -> handleFailed(error)
+        );
+    }
+    private void handleFailed(String error){
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
     }
 }

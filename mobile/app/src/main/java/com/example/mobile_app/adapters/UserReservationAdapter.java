@@ -36,13 +36,12 @@ public class UserReservationAdapter extends ArrayAdapter<UserReservation> {
         TextView totalPrice = view.findViewById(R.id.l_list_total_price);
         TextView reservations = view.findViewById(R.id.r_list_reservations);
 
-        Date departureDate = userReservation.getDepartureDate();
-        String formattedDate = DatabaseTypeConverters.dateToString(departureDate);
+        String departureDate = userReservation.getDepartureDate();
 
-        scheduleDate.setText(formattedDate);
+        scheduleDate.setText(departureDate);
         trainName.setText(userReservation.getTrainName());
-        totalPrice.setText(String.valueOf(userReservation.getTotalPrice()));
-        reservations.setText(String.valueOf(userReservation.getReservedSeats()));
+        totalPrice.setText(String.valueOf(userReservation.getPerPersonPrice()));
+        reservations.setText(String.valueOf(userReservation.getNoOfPassengers()));
 
         return view;
     }
