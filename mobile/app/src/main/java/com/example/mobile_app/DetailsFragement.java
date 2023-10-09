@@ -1,6 +1,7 @@
 package com.example.mobile_app;
 
 import android.content.Intent;
+import android.content.SyncRequest;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,23 +15,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobile_app.databinding.FragmentDetailsFragementBinding;
 import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
+import com.example.mobile_app.managers.ReservationManager;
+import com.example.mobile_app.managers.UserManager;
+import com.example.mobile_app.models.NewReservation;
+
+import java.util.Date;
 
 public class DetailsFragement extends Fragment {
 
     FragmentDetailsFragementBinding binding;
+    private ReservationManager reservationManager;
+
     Bundle args;
     EditText dEdPersons;
     TextView dTotalPrice;
     Double totalPrice = 0.0;
+    String trainId, trainName, driverName, startingStation, endingStation, depatureTime, arrivalTime, model, frequency;
+    int numberOfSeats, contact;
+    int noOfPassengers;
+    double price;
+    Date currentDate = new Date();
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        reservationManager = ReservationManager.getInstance();
         dEdPersons = view.findViewById(R.id.d_ed_persons);
         dTotalPrice = view.findViewById(R.id.d_totalprice);
 
@@ -60,20 +77,21 @@ public class DetailsFragement extends Fragment {
 
         args = getArguments();
         if (args != null) {
-            String trainName = args.getString("trainName");
-            String driverName = args.getString("driverName");
-            String startingStation = args.getString("startingStation");
-            String endingStation = args.getString("endingStation");
-            String depatureTime = args.getString("depatureTime");
-            String arrivalTime = args.getString("arrivalTime");
-            String model = args.getString("model");
-            String frequency = args.getString("frequency");
+            trainId = args.getString("trainId");
+            trainName = args.getString("trainName");
+            driverName = args.getString("driverName");
+            startingStation = args.getString("startingStation");
+            endingStation = args.getString("endingStation");
+            depatureTime = args.getString("depatureTime");
+            arrivalTime = args.getString("arrivalTime");
+            model = args.getString("model");
+            frequency = args.getString("frequency");
 
-            int numberOfSeats = args.getInt("numberOfSeats");
-            int contact = args.getInt("contactNumber");
+            numberOfSeats = args.getInt("numberOfSeats");
+            contact = args.getInt("contactNumber");
             String contactStr = Integer.toString(contact);
 
-            double price = args.getDouble("price");
+            price = args.getDouble("price");
             String priceStr = Double.toString(price);
 
             Log.d("MyApp", "Activity created." + driverName); // Debug message
@@ -94,9 +112,30 @@ public class DetailsFragement extends Fragment {
         return view;
     }
 
+    private void addNewReservation() {
+        String passengers = String.valueOf(dEdPersons.getText());
+        int noOfPassengers = Integer.parseInt(passengers);
+
+        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, depatureTime, depatureTime, arrivalTime, noOfPassengers, currentDate, price);
+        reservationManager.addNewReservation(
+                reservation,
+                () -> handleSuccess(),
+                error -> handleFailed(error));
+    }
+
     private void calculateTotal(int tickets){
         double price = args.getDouble("price");
         totalPrice = price * tickets;
 
     }
+
+    private void handleSuccess(){
+        Toast.makeText(requireContext(), "User updated sucessfully", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(requireContext(), HomeFragement.class);
+        startActivity(intent);
+    }
+    private void handleFailed(String error){
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
+    }
+
 }

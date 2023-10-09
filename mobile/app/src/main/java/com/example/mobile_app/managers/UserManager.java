@@ -3,16 +3,11 @@ package com.example.mobile_app.managers;
 import android.util.Log;
 
 import com.example.mobile_app.models.NewUser;
-import com.example.mobile_app.models.User;
 import com.example.mobile_app.models.UserUpdateModel;
 import com.example.mobile_app.response.RegistrationResponse;
-import com.example.mobile_app.response.TrainScheduleResponse;
-import com.example.mobile_app.response.UpadateUserRespose;
+import com.example.mobile_app.response.CommanResponse;
 import com.example.mobile_app.response.UserResponse;
 import com.example.mobile_app.service.UserService;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.function.Consumer;
 
@@ -112,9 +107,9 @@ public class UserManager {
 
         UserUpdateModel user = new UserUpdateModel(firstName, lastName, mobile);
         userService.updateSelectedUser(id, user)
-                .enqueue(new Callback<UpadateUserRespose>() {
+                .enqueue(new Callback<CommanResponse>() {
                     @Override
-                    public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {
+                    public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -123,7 +118,7 @@ public class UserManager {
                     }
 
                     @Override
-                    public void onFailure(Call<UpadateUserRespose> call, Throwable t) {
+                    public void onFailure(Call<CommanResponse> call, Throwable t) {
                         onError.accept("Unknown :" + t.getMessage());
                     }
                 });
@@ -140,9 +135,9 @@ public class UserManager {
         }
 
         userService.deactivateAccount(id)
-                .enqueue(new Callback<UpadateUserRespose>() {
+                .enqueue(new Callback<CommanResponse>() {
                     @Override
-                    public void onResponse(Call<UpadateUserRespose> call, Response<UpadateUserRespose> response) {
+                    public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -151,7 +146,7 @@ public class UserManager {
                     }
 
                     @Override
-                    public void onFailure(Call<UpadateUserRespose> call, Throwable t) {
+                    public void onFailure(Call<CommanResponse> call, Throwable t) {
                         onError.accept("Unknown :" + t.getMessage());
                     }
                 });

@@ -1,10 +1,7 @@
 package com.example.mobile_app.response;
 
-import com.example.mobile_app.models.User;
-
-public class UpadateUserRespose {
+public class CommanResponse {
     public String time;
     public String id;
-    public String message;
 
 }
