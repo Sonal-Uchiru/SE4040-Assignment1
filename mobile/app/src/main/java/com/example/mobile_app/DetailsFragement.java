@@ -123,7 +123,7 @@ public class DetailsFragement extends Fragment {
     }
 
     private void addNewReservation() {
-        String token = tokenManager.getToken();
+        String token = "Bearer " + tokenManager.getToken();
         String passengers = String.valueOf(dEdPersons.getText());
         int noOfPassengers = Integer.parseInt(passengers);
 

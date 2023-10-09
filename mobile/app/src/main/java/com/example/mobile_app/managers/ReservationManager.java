@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.mobile_app.models.NewReservation;
 import com.example.mobile_app.models.NewUser;
 import com.example.mobile_app.models.UserReservation;
+import com.example.mobile_app.models.UserUpdateModel;
 import com.example.mobile_app.response.CommanResponse;
 import com.example.mobile_app.response.RegistrationResponse;
 import com.example.mobile_app.response.TrainScheduleResponse;
@@ -13,6 +14,11 @@ import com.example.mobile_app.service.ReservationService;
 import com.example.mobile_app.service.TrainScheduleService;
 import com.example.mobile_app.utilities.TokenManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.function.Consumer;
 
 import retrofit2.Call;
@@ -95,5 +101,79 @@ public class ReservationManager {
         });
     }
 
+    public void toggleUserReservation(
+            String token,
+            String id,
+            Runnable onSuccess,
+            Consumer<String> onError
+    ){
+        if (!NetworkManager.getInstance().isNetworkAvailable()){
+            onError.accept("No internet connectivity");
+            return;
+        }
+
+        reservationService.toggleUserReservation(token, id)
+                .enqueue(new Callback<CommanResponse>() {
+                    @Override
+                    public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        if (response.body() != null && response.body().id != null) {
+                            onSuccess.run();
+                        }else{
+                            onError.accept("Something Went wrong");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommanResponse> call, Throwable t) {
+                        onError.accept("Unknown :" + t.getMessage());
+                    }
+                });
+    }
+
+    public void updateReservation(
+            String token,
+            int noOfPassengers,
+            int mobile,
+            Runnable onSuccess,
+            Consumer<String> onError
+    ) {
+        if (!NetworkManager.getInstance().isNetworkAvailable()) {
+            onError.accept("No internet connectivity");
+            return;
+        }
+
+        String encodedJsonStr;
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("noOfPassengers", noOfPassengers);
+
+            String jsonStr = jsonObject.toString();
+            encodedJsonStr = URLEncoder.encode(jsonStr, "UTF-8");
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        reservationService.updateReservation(token, jsonObject)
+                .enqueue(new Callback<CommanResponse>() {
+                    @Override
+                    public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        if (response.body() != null && response.body().id != null) {
+                            onSuccess.run();
+                        } else {
+                            onError.accept("Something Went wrong");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommanResponse> call, Throwable t) {
+                        onError.accept("Unknown :" + t.getMessage());
+                    }
+                });
+    }
 
 }

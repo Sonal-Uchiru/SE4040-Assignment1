@@ -200,6 +200,27 @@
                     android:layout_toEndOf="@id/r_label_details_total_price"
                     android:layout_marginTop="8dp" />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/cancel_reservation"
+                    android:text="@string/reservation_cancel"
+                    android:textSize="18sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@+id/r_label_details_total_price"
+                    android:backgroundTint="@color/primary"
+                    app:cornerRadius="20dp"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/update_reservation"
+                    android:text="@string/reservation_update"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/cancel_reservation"
+                    android:backgroundTint="@color/primary"
+                    app:cornerRadius="20dp"/>
+
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 

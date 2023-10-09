@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +96,8 @@ public class ReservationFragement extends Fragment {
     }
 
     private void loadTrainScheduleData() {
-        String token = tokenManager.getToken();
+        String token = "Bearer " + tokenManager.getToken();
+        Log.d("MyApp", "This is a debug message." + token);
 
         reservationManager.fetchReservationList(
                 token,
