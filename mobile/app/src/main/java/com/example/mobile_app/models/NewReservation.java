@@ -60,18 +60,18 @@ public class NewReservation {
         return perPersonPrice;
     }
 
-//    @Override
-//    public String toString() {
-//        return "NewReservation{" +
-//                "trainId='" + trainId + '\'' +
-//                ", trainName='" + trainName + '\'' +
-//                ", startingStation='" + startingStation + '\'' +
-//                ", endingStation='" + endingStation + '\'' +
-//                ", departureDate='" + departureDate + '\'' +
-//                ", departureTime='" + departureTime + '\'' +
-//                ", arrivalTime='" + arrivalTime + '\'' +
-//                ", noOfPassengers=" + noOfPassengers +
-//                ", price=" + perPersonPrice +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "NewReservation{" +
+                "trainId='" + trainId + '\'' +
+                ", trainName='" + trainName + '\'' +
+                ", startingStation='" + startingStation + '\'' +
+                ", endingStation='" + endingStation + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", arrivalTime='" + arrivalTime + '\'' +
+                ", noOfPassengers=" + noOfPassengers +
+                ", price=" + perPersonPrice +
+                '}';
+    }
 }

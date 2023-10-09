@@ -1,10 +1,13 @@
 package com.example.mobile_app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SyncRequest;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.InputFilter;
@@ -127,9 +130,7 @@ public class DetailsFragement extends Fragment {
         String passengers = String.valueOf(dEdPersons.getText());
         int noOfPassengers = Integer.parseInt(passengers);
 
-        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, arrivalTime, price);
-
-//        Log.d("MyApp", "This is a debug message." + reservation);
+        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, "2023-10-09T17:46:54.103Z", price);
 
         reservationManager.addNewReservation(
                 token,
@@ -146,11 +147,23 @@ public class DetailsFragement extends Fragment {
 
     private void handleSuccess(){
         Toast.makeText(requireContext(), "Ticket booked sucessfully", Toast.LENGTH_LONG).show();
-//        Intent intent = new Intent(requireContext(), HomeFragement.class);
-//        startActivity(intent);
+        HomeFragement homeFragement = new HomeFragement();
+        replaceFragement(homeFragement);
     }
     private void handleFailed(String error){
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    private void replaceFragement(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+
+        fragmentTransaction.addToBackStack(null);
+
+        fragmentTransaction.commit();
     }
 
 }
