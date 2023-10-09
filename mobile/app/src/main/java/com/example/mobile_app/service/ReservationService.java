@@ -10,6 +10,7 @@ import com.example.mobile_app.response.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
@@ -23,8 +24,8 @@ public interface ReservationService {
     @GET("users/reservations/list")
     Call<UserReservationResponse> fetchUserReservations(@Header("Authorization") String authToken);
 
-    @PATCH("users/{id}/toggleactivation")
-    Call<CommanResponse> toggleUserReservation(@Header("Authorization") String authToken, @Path("id") String userId);
+    @DELETE("reservations/{id}")
+    Call<CommanResponse> deleteUserReservation(@Header("Authorization") String authToken, @Path("id") String userId);
 
     @PATCH("reservations/{id}")
     Call<CommanResponse> updateReservation(@Path("id") String userId, Object obj);

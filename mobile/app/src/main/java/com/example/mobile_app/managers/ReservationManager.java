@@ -101,7 +101,7 @@ public class ReservationManager {
         });
     }
 
-    public void toggleUserReservation(
+    public void deleteUserReservation(
             String token,
             String id,
             Runnable onSuccess,
@@ -112,14 +112,14 @@ public class ReservationManager {
             return;
         }
 
-        reservationService.toggleUserReservation(token, id)
+        reservationService.deleteUserReservation(token, id)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
-                            onError.accept("Something Went wrong");
+                            onError.accept("Cannot delete the reservation now");
                         }
                     }
 

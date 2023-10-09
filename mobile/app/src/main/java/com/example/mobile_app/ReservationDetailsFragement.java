@@ -3,14 +3,20 @@ package com.example.mobile_app;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mobile_app.databinding.FragmentDetailsFragementBinding;
 import com.example.mobile_app.databinding.FragmentReservationDetailsFragementBinding;
+import com.example.mobile_app.managers.ReservationManager;
+import com.example.mobile_app.utilities.TokenManager;
 
 import java.util.Date;
 
@@ -18,6 +24,9 @@ public class ReservationDetailsFragement extends Fragment {
 
     FragmentReservationDetailsFragementBinding binding;
     Button cancelBtn, updateBtn;
+    private ReservationManager reservationManager;
+    TokenManager tokenManager;
+
 
     String reservationId, trainName, departureTime, arrivalTime, startingStation, endingStation, departureDate;
     int reservedSeats;
@@ -28,9 +37,11 @@ public class ReservationDetailsFragement extends Fragment {
 
         binding = FragmentReservationDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        reservationManager = ReservationManager.getInstance();
+        tokenManager = new TokenManager(requireContext());
 
-        updateBtn = view.findViewById(R.id.cancel_reservation);
-        cancelBtn = view.findViewById(R.id.update_reservation);
+        updateBtn = view.findViewById(R.id.update_reservation);
+        cancelBtn = view.findViewById(R.id.cancel_reservation);
 
         updateBtn.setOnClickListener(v -> {
             updateReservation();
@@ -65,6 +76,8 @@ public class ReservationDetailsFragement extends Fragment {
     }
 
     private void updateReservation() {
+        String token = "Bearer " + tokenManager.getToken();
+
 //        userManager.toggleUserAccount(
 //                userId,
 //                () -> handleToggleSuccess(),
@@ -72,9 +85,29 @@ public class ReservationDetailsFragement extends Fragment {
     }
 
     private void cancelReservation() {
-//        userManager.toggleUserAccount(
-//                userId,
-//                () -> handleToggleSuccess(),
-//                error -> handleFailed(error));
+        String token = "Bearer " + tokenManager.getToken();
+        reservationManager.deleteUserReservation(
+                token,
+                reservationId,
+                () -> handleSuccess(),
+                error -> handleFailed(error));
+    }
+
+    private void handleFailed(String error){
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    private void handleSuccess(){
+        Toast.makeText(requireContext(), "Reservation cancelled sucessfully", Toast.LENGTH_LONG).show();
+        ReservationFragement reservationFragement = new ReservationFragement();
+        replaceFragement(reservationFragement);
+    }
+
+    private void replaceFragement(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

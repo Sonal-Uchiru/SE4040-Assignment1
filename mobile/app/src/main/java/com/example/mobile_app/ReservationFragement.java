@@ -74,6 +74,7 @@ public class ReservationFragement extends Fragment {
         String departureDate = item.getDepartureDate();
 
         Bundle bundle = new Bundle();
+        bundle.putString("reservationId", item.getId());
         bundle.putString("trainName", item.getTrainName());
         bundle.putString("departureTime", item.getDepartureTime());
         bundle.putString("arrivalTime", item.getArrivalTime());
@@ -97,7 +98,6 @@ public class ReservationFragement extends Fragment {
 
     private void loadTrainScheduleData() {
         String token = "Bearer " + tokenManager.getToken();
-        Log.d("MyApp", "This is a debug message." + token);
 
         reservationManager.fetchReservationList(
                 token,
