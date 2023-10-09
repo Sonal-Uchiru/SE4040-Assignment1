@@ -281,7 +281,7 @@ export default function AddNewTrainPage() {
 
               <Grid item xs={12} lg={6} md={6}>
                 <div style={{ paddingRight: 20, paddingLeft: 20 }}>
-                  <TrainScheduleModalTable />
+                  <TrainScheduleModalTable trainID={undefined} />
                 </div>
               </Grid>
             </Grid>

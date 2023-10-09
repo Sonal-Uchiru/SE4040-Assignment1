@@ -38,8 +38,8 @@ class TrainProtectedApi {
       Versions.V1,
       `${ModelConstants.TRAIN}/list`
     );
-        
-    }
+
+}
 
 public async getScheduleListAsync(): Promise<AxiosResponse> {
   return await protectedApiAsync(
@@ -47,8 +47,16 @@ public async getScheduleListAsync(): Promise<AxiosResponse> {
     Versions.V1,
     `${ModelConstants.TRAIN}/schedules/list`
   );
-        
-    }
+}
+
+public async getTrainScheduleListAsync(id: string): Promise<AxiosResponse> {
+  return await protectedApiAsync(
+      HttpMethods.Get,
+      Versions.V1,
+    `${ModelConstants.TRAIN}/${id}/schedules/list`
+  );
+}
+
 }
 
 export default new TrainProtectedApi();

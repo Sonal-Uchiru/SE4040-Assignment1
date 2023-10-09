@@ -31,7 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<ReservationDetailsPage />} />
+          <Route path="/" element={<TrainDetailsPage />} />
 
           {/* Back Officer */}
 

@@ -4,6 +4,7 @@ import MUIDataTable from "mui-datatables";
 import * as React from "react";
 import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import ViewTrainScheduleModal from "../../modals/train/ViewTrainScheduleModal";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -40,6 +41,9 @@ class TrainData {
 export default function TrainDetailsDataTable({}: IProp) {
   const [trains, setTrains] = React.useState<any[]>([]);
   const [dataTableTrains, setDataTableTrains] = React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedTrain, setSelectedTrain] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
 
   React.useEffect(() => {
     TrainProtectedApi.getListAsync()
@@ -65,7 +69,7 @@ export default function TrainDetailsDataTable({}: IProp) {
         err as AxiosError;
         console.log(err);
       });
-  }, []);
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
@@ -79,11 +83,12 @@ export default function TrainDetailsDataTable({}: IProp) {
     },
   };
 
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
+  const [isOpenSchedules, setIsOpenSchedules] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(trainId: any, train: any) {
+    setSelectedTrain(train);
+    setIsOpenSchedules(!isOpenSchedules);
+    setId(trainId); // Set the selected item ID
   }
 
   const columns = [
@@ -98,6 +103,7 @@ export default function TrainDetailsDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const trainId = dataTableTrains[tableMeta.rowIndex][0];
           return (
             <div
               style={{
@@ -109,7 +115,7 @@ export default function TrainDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    handleClick(trainId, trains[tableMeta.rowIndex]);
                   }}
                 >
                   <img
@@ -121,11 +127,19 @@ export default function TrainDetailsDataTable({}: IProp) {
                     }}
                   />
                 </IconButton>
+                {isOpenSchedules && id === trainId && (
+                  <ViewTrainScheduleModal
+                    handleCancel={() => {
+                      handleClick(trainId, trains[tableMeta.rowIndex]);
+                    }}
+                    train={selectedTrain}
+                  />
+                )}
               </div>
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img
@@ -141,7 +155,7 @@ export default function TrainDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img
@@ -158,7 +172,7 @@ export default function TrainDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img
