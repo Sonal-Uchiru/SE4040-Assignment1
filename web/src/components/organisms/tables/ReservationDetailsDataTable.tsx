@@ -4,6 +4,7 @@ import * as React from "react";
 import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import { AxiosError } from "axios";
+import UpdateReservationModal from "../../modals/reservation/UpdateReservationModal";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -43,6 +44,9 @@ export default function ReservationDetailsDataTable({}: IProp) {
   const [reservations, setReservations] = React.useState<any[]>([]);
   const [dataTableReservations, setDataTableReservations] =
     React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedReservation, setSelectedReservation] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
 
   React.useEffect(() => {
     ReservationProtectedApi.getListAsync()
@@ -68,7 +72,7 @@ export default function ReservationDetailsDataTable({}: IProp) {
         err as AxiosError;
         console.log(err);
       });
-  }, []);
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
@@ -83,12 +87,12 @@ export default function ReservationDetailsDataTable({}: IProp) {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(reservationId: any, reservation: any) {
+    setSelectedReservation(reservation);
+    setIsOpen(!isOpen);
+    setId(reservationId); // Set the selected item ID
   }
-
   const columns = [
     "Train Name",
     "Departure Date",
@@ -101,6 +105,7 @@ export default function ReservationDetailsDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const reservationId = dataTableReservations[tableMeta.rowIndex][0];
           return (
             <div
               style={{
@@ -112,7 +117,10 @@ export default function ReservationDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    handleClick(
+                      reservationId,
+                      reservations[tableMeta.rowIndex]
+                    );
                   }}
                 >
                   <img
@@ -124,11 +132,25 @@ export default function ReservationDetailsDataTable({}: IProp) {
                     }}
                   />
                 </IconButton>
+                {isOpen && id === reservationId && (
+                  <UpdateReservationModal
+                    handleCancel={() => {
+                      handleClick(
+                        reservationId,
+                        reservations[tableMeta.rowIndex]
+                      );
+                    }}
+                    handleSave={() => {
+                      setIsUpdateSuccess(!isUpdateSuccess);
+                    }}
+                    reservation={selectedReservation}
+                  />
+                )}
               </div>
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img

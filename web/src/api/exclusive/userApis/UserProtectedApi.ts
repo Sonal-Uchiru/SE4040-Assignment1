@@ -6,11 +6,11 @@ import { protectedApiAsync } from "../../ProtectedApi";
 import { protectedListApiAsync } from "../../ProtectedListApi";
 
 class UserProtectedApi {
-  public async updateAsync(data: any): Promise<AxiosResponse> {
+  public async updateAsync(data: any,  id: string): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Put,
       Versions.V1,
-      ModelConstants.USERS,
+      `${ModelConstants.USERS}/${id}`,
       data
     );
   }

@@ -4,6 +4,7 @@ import * as React from "react";
 import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
 import { AxiosError } from "axios";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import UpdateTravelersDetailsModal from "../../modals/user/UpdateTravelersDetailsModal";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -34,6 +35,9 @@ class TravelersData {
 export default function TravelersDetailsDataTable({}: IProp) {
   const [travelers, setTravelers] = React.useState<any[]>([]);
   const [dataTableTravelers, setDataTableTravelers] = React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedTraveler, setSelectedTraveler] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
 
   React.useEffect(() => {
     UserProtectedApi.getListAsync()
@@ -57,7 +61,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
         err as AxiosError;
         console.log(err);
       });
-  }, []);
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
@@ -72,12 +76,12 @@ export default function TravelersDetailsDataTable({}: IProp) {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(travelerId: any, traveler: any) {
+    setSelectedTraveler(traveler);
+    setIsOpen(!isOpen);
+    setId(travelerId); // Set the selected item ID
   }
-
   const columns = [
     "NIC",
     "First Name",
@@ -88,6 +92,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const travelerId = dataTableTravelers[tableMeta.rowIndex][0];
           return (
             <div
               style={{
@@ -99,7 +104,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    handleClick(travelerId, travelers[tableMeta.rowIndex]);
                   }}
                 >
                   <img
@@ -111,11 +116,22 @@ export default function TravelersDetailsDataTable({}: IProp) {
                     }}
                   />
                 </IconButton>
+                {isOpen && id === travelerId && (
+                  <UpdateTravelersDetailsModal
+                    handleCancel={() => {
+                      handleClick(travelerId, travelers[tableMeta.rowIndex]);
+                    }}
+                    handleSave={() => {
+                      setIsUpdateSuccess(!isUpdateSuccess);
+                    }}
+                    traveler={selectedTraveler}
+                  />
+                )}
               </div>
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img
