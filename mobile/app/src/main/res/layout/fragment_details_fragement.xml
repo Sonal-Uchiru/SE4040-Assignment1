@@ -271,7 +271,6 @@
                     android:textColor="@color/black"
                     android:textColorHighlight="@color/secondary"
                     android:layout_marginTop="30dp"
-                    android:inputType="number"
                     />
 
                 <Button

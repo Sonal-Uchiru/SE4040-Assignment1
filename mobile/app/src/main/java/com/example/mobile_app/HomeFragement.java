@@ -88,10 +88,10 @@ public class HomeFragement extends Fragment {
         bundle.putString("endingStation", item.getEndingStation());
         bundle.putString("depatureTime", item.getDepartureTime());
         bundle.putString("arrivalTime", item.getArrivalTime());
-        bundle.putInt("numberOfSeats", item.getNoOfSeats());
         bundle.putString("frequency", item.getFrequency());
-        bundle.putDouble("price", item.getPrice());
         bundle.putString("model", item.getModel());
+        bundle.putDouble("price", item.getPrice());
+        bundle.putInt("noOfSeats", item.getNoOfSeats());
 
         DetailsFragement fragment = new DetailsFragement();
         fragment.setArguments(bundle);
