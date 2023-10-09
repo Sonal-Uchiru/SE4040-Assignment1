@@ -12,7 +12,7 @@ interface IProp {
 }
 
 class ScheduleData {
-  trainName: string;
+  name: string;
   startingStation: string;
   endingStation: string;
   arrivalTime: string;
@@ -21,7 +21,7 @@ class ScheduleData {
   price: string;
 
   constructor(
-    trainName: string,
+    name: string,
     startingStation: string,
     endingStation: string,
     arrivalTime: string,
@@ -30,7 +30,7 @@ class ScheduleData {
     price: string
   ) {
     {
-      this.trainName = trainName;
+      this.name = name;
       this.startingStation = startingStation;
       this.endingStation = endingStation;
       this.arrivalTime = arrivalTime;
@@ -52,7 +52,7 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
         const scheduleList = res.data.items.map(
           (item: any) =>
             new ScheduleData(
-              item.trainName,
+              item.name,
               item.startingStation,
               item.endingStation,
               item.arrivalTime,

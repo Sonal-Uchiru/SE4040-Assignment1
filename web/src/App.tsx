@@ -31,7 +31,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<TrainDetailsPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/travelersDetails" element={<TravelersDetailsPage />} />
+          <Route path="/trainDetails" element={<TrainDetailsPage />} />
+          <Route path="/addNewTrain" element={<AddNewTrainPage />} />
+          <Route path="/updateTrain" element={<UpdateTrainDetailsPage />} />
+          <Route
+            path="/reservationManagement"
+            element={<ReservationManagementPage />}
+          />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route
+            path="/reservationDetails"
+            element={<ReservationDetailsPage />}
+          />
 
           {/* Back Officer */}
 
