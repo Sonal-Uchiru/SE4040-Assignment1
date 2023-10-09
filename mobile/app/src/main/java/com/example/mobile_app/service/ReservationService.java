@@ -7,9 +7,10 @@ import com.example.mobile_app.response.RegistrationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ReservationService {
     @POST("reservations")
-    Call<CommanResponse> addReservation(@Body NewReservation reservation);
+    Call<CommanResponse> addReservation(@Header("Authorization") String authToken, @Body NewReservation reservation);
 }

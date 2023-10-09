@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,12 +23,15 @@ import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 import com.example.mobile_app.managers.ReservationManager;
 import com.example.mobile_app.managers.UserManager;
 import com.example.mobile_app.models.NewReservation;
+import com.example.mobile_app.utilities.TokenManager;
 
 import java.util.Date;
 
 public class DetailsFragement extends Fragment {
 
     FragmentDetailsFragementBinding binding;
+    TokenManager tokenManager;
+
     private ReservationManager reservationManager;
 
     Bundle args;
@@ -39,6 +43,7 @@ public class DetailsFragement extends Fragment {
     int noOfPassengers;
     double price;
     Date currentDate = new Date();
+    Button btnBookTicket;
 
 
     @Override
@@ -46,7 +51,9 @@ public class DetailsFragement extends Fragment {
             Bundle savedInstanceState) {
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        btnBookTicket = view.findViewById(R.id.book_ticket_btn);
 
+        tokenManager = new TokenManager(requireContext());
         reservationManager = ReservationManager.getInstance();
         dEdPersons = view.findViewById(R.id.d_ed_persons);
         dTotalPrice = view.findViewById(R.id.d_totalprice);
@@ -109,15 +116,20 @@ public class DetailsFragement extends Fragment {
             // binding.model.setText(model);
         }
 
+        btnBookTicket.setOnClickListener(v -> {
+            addNewReservation();
+        });
         return view;
     }
 
     private void addNewReservation() {
+        String token = tokenManager.getToken();
         String passengers = String.valueOf(dEdPersons.getText());
         int noOfPassengers = Integer.parseInt(passengers);
 
-        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, depatureTime, depatureTime, arrivalTime, noOfPassengers, currentDate, price);
+        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, depatureTime, depatureTime, arrivalTime, noOfPassengers, arrivalTime, price);
         reservationManager.addNewReservation(
+                token,
                 reservation,
                 () -> handleSuccess(),
                 error -> handleFailed(error));
@@ -130,9 +142,9 @@ public class DetailsFragement extends Fragment {
     }
 
     private void handleSuccess(){
-        Toast.makeText(requireContext(), "User updated sucessfully", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(requireContext(), HomeFragement.class);
-        startActivity(intent);
+        Toast.makeText(requireContext(), "Ticket booked sucessfully", Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(requireContext(), HomeFragement.class);
+//        startActivity(intent);
     }
     private void handleFailed(String error){
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();

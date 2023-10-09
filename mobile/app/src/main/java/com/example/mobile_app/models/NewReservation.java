@@ -3,12 +3,11 @@ package com.example.mobile_app.models;
 import java.util.Date;
 
 public class NewReservation {
-    private String trainId, trainName, startingStation, endingStation, departureDate, departureTime, arrivalTime;
+    private String trainId, trainName, startingStation, endingStation, departureDate, departureTime, arrivalTime, reservationDate;
     private int noOfPassengers;
-    private Date reservationDate;
     private double  perPersonPrice;
 
-    public NewReservation(String trainId, String trainName, String startingStation, String endingStation, String departureDate, String departureTime, String arrivalTime, int noOfPassengers, Date reservationDate, double perPersonPrice) {
+    public NewReservation(String trainId, String trainName, String startingStation, String endingStation, String departureDate, String departureTime, String arrivalTime, int noOfPassengers, String reservationDate, double perPersonPrice) {
         this.trainId = trainId;
         this.trainName = trainName;
         this.startingStation = startingStation;
@@ -53,7 +52,7 @@ public class NewReservation {
         return noOfPassengers;
     }
 
-    public Date getReservationDate() {
+    public String getReservationDate() {
         return reservationDate;
     }
 

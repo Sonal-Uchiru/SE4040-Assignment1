@@ -6,6 +6,7 @@ import com.example.mobile_app.response.CommanResponse;
 import com.example.mobile_app.response.RegistrationResponse;
 import com.example.mobile_app.service.ReservationService;
 import com.example.mobile_app.service.TrainScheduleService;
+import com.example.mobile_app.utilities.TokenManager;
 
 import java.util.function.Consumer;
 
@@ -14,6 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationManager {
+
     private static ReservationManager singleton;
     private ReservationService reservationService;
 
@@ -28,6 +30,7 @@ public class ReservationManager {
     }
 
     public void addNewReservation(
+            String token,
             NewReservation reservation,
             Runnable onSuccess,
             Consumer<String> onError
@@ -36,7 +39,7 @@ public class ReservationManager {
             onError.accept("No internet connectivity");
             return;
         }
-        reservationService.addReservation(reservation)
+        reservationService.addReservation(token, reservation)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
