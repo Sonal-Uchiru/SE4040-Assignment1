@@ -127,7 +127,10 @@ public class DetailsFragement extends Fragment {
         String passengers = String.valueOf(dEdPersons.getText());
         int noOfPassengers = Integer.parseInt(passengers);
 
-        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, depatureTime, depatureTime, arrivalTime, noOfPassengers, arrivalTime, price);
+        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, arrivalTime, price);
+
+//        Log.d("MyApp", "This is a debug message." + reservation);
+
         reservationManager.addNewReservation(
                 token,
                 reservation,
