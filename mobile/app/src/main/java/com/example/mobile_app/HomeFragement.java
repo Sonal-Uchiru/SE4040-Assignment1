@@ -122,17 +122,13 @@ public class HomeFragement extends Fragment {
 
     private void resetSchedules() {
         dataList.clear();
-        TrainSchedule[] dataArray = dataHolder.toArray(new TrainSchedule[dataHolder.size()]);
-
-        Gson gson = new Gson();
-
-        // Convert the array of TrainSchedule objects to a JSON array
-        String jsonArray = gson.toJson(dataArray);
-
-        Log.d("SearchFunction", "JSON Array: " + jsonArray);
 
         dataList.addAll(dataHolder);
+        if (dataList.isEmpty()) {
+            Toast.makeText(requireContext(), "There are no available schedules", Toast.LENGTH_LONG).show();
+        }
         listAdapter.notifyDataSetChanged();
+        hideDialog();
 
     }
 
@@ -148,6 +144,9 @@ public class HomeFragement extends Fragment {
             }
         }
         dataList.addAll(filteredList);
+        if (dataList.isEmpty()) {
+            Toast.makeText(requireContext(), "There are no available schedules", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void loadTrainScheduleData() {
@@ -157,6 +156,9 @@ public class HomeFragement extends Fragment {
                     for (TrainSchedule entry : entries) {
                         dataList.add(entry);
                         dataHolder.add(entry);
+                    }
+                    if (dataList.isEmpty()) {
+                        Toast.makeText(requireContext(), "There are no available schedules", Toast.LENGTH_LONG).show();
                     }
                     listAdapter.notifyDataSetChanged();
                 },

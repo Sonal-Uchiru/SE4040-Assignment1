@@ -106,6 +106,9 @@ public class ReservationFragement extends Fragment {
                     for (UserReservation entry : entries) {
                         dataList.add(entry);
                     }
+                    if (dataList.isEmpty()) {
+                        Toast.makeText(requireContext(), "There are no available reservations", Toast.LENGTH_LONG).show();
+                    }
                     listAdapter.notifyDataSetChanged();
                 },
                 error -> handleFailed(error)
