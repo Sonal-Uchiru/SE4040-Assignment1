@@ -111,12 +111,17 @@ public class HomeFragement extends Fragment {
 
         String trainStartingPoint = edStartnName.getText().toString().trim();
         String trainDestinationPoint = edDestinationName.getText().toString().trim();
-        int noOfPassengers = Integer.parseInt(edPassengers.getText().toString().trim());
+        String passengers = String.valueOf(edPassengers.getText());
+        int noOfPassengers = Integer.parseInt(passengers);
+
+        if(passengers.equals("")){
+            Toast.makeText(requireContext(), "Number of pessengers cannot be empty", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         filterDataList(trainStartingPoint, trainDestinationPoint, noOfPassengers);
         listAdapter.notifyDataSetChanged();
 
-//        hideDialog();
         Toast.makeText(requireContext(), "Searched Successfully", Toast.LENGTH_SHORT).show();
     }
 

@@ -179,6 +179,14 @@ public class DetailsFragement extends Fragment {
             Toast.makeText(requireContext(), "Please select a valid reservation date", Toast.LENGTH_LONG).show();
             return;
         }
+
+        if(noOfPassengers > 4){
+            Toast.makeText(requireContext(), "You cannot book more than 4 tickets at a time", Toast.LENGTH_LONG).show();
+            return;
+        }else if(noOfPassengers < 0){
+            Toast.makeText(requireContext(), "Reserved tickets cannot be negative", Toast.LENGTH_LONG).show();
+            return;
+        }
         NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, formattedDate, price);
 
         reservationManager.addNewReservation(

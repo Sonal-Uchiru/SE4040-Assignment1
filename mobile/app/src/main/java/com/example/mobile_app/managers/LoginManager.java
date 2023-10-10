@@ -43,7 +43,7 @@ public class LoginManager {
     public void login(
             String nic,
             String password,
-            Consumer<String> onSuccess,
+            Consumer<LoginResponse> onSuccess,
             Consumer<String> onError
     ){
         if (!NetworkManager.getInstance().isNetworkAvailable()){
@@ -57,7 +57,7 @@ public class LoginManager {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.body() != null && response.body().token != null) {
-                            onSuccess.accept(response.body().token);
+                            onSuccess.accept(response.body());
                         }else{
                             onError.accept("NIC or password is Incorrect");
                         }

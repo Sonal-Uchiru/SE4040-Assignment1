@@ -152,7 +152,7 @@ public class ReservationManager {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         } else {
-                            onError.accept("Cannot update the reservation now." + response.code());
+                            onError.accept("Cannot update the reservation now.");
                         }
                     }
 

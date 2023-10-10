@@ -3,6 +3,8 @@ package com.example.mobile_app.utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.mobile_app.response.LoginResponse;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -19,8 +21,11 @@ public class TokenManager {
         editor = sharedPreferences.edit();
     }
 
-    public void saveToken(String token) {
-        editor.putString("token", token);
+    public void saveToken(LoginResponse loginResponse) {
+        editor.putString("token", loginResponse.token);
+        // To Do - Uncomment this
+//        editor.putString("userId", loginResponse.userId);
+
         editor.apply();
     }
 
@@ -28,26 +33,6 @@ public class TokenManager {
         return sharedPreferences.getString("token", "");
     }
     public String getUserId() {
-        try {
-            String token = getToken();
-
-            Claims claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token)
-                    .getBody();
-
-            String userId = claims.get("user_id", String.class);
-            return userId;
-
-        }catch (ExpiredJwtException eje) {
-            return "ExpiredJwtException" + eje.getMessage();
-        } catch (SignatureException se) {
-            String token = getToken();
-
-            return token + "SignatureException" + se.getMessage();
-        }  catch (Exception e) {
-            return "Exception" + e.getMessage();
-
-        }
+        return sharedPreferences.getString("userId", "");
     }
 }

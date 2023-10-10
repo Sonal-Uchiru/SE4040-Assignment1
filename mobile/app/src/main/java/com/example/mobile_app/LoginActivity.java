@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.mobile_app.managers.ContextManager;
 import com.example.mobile_app.managers.LoginManager;
+import com.example.mobile_app.response.LoginResponse;
 import com.example.mobile_app.utilities.TokenManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         loginManager.login(
                 nic,
                 password,
-                token -> onNavigateToHome(token),
+                loginResponse -> onNavigateToHome(loginResponse),
                 error -> handleLoginFailed(error));
     }
 
@@ -64,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onNavigateToHome(String token) {
-        tokenManager.saveToken(token);
+    public void onNavigateToHome(LoginResponse loginResponse) {
+        tokenManager.saveToken(loginResponse);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
