@@ -145,7 +145,6 @@ public class ReservationManager {
 
         UpdateReservation obj = new UpdateReservation(noOfPassengers);
 
-
         reservationService.updateReservation(token, reservationId, obj)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
@@ -153,13 +152,13 @@ public class ReservationManager {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         } else {
-                            onError.accept("Cannot update the reservation now.");
+                            onError.accept("Cannot update the reservation now." + response.code());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<CommanResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }

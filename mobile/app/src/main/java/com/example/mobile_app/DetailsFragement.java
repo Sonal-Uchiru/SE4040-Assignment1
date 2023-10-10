@@ -174,6 +174,11 @@ public class DetailsFragement extends Fragment {
         String formattedDate = DatabaseTypeConverters.formatToDateTime(selectedDate);
         int noOfPassengers = Integer.parseInt(passengers);
 
+        Log.d("MyApp", "Activity created." + selectedDate);
+        if(selectedDate.equals("Reservation Date")){
+            Toast.makeText(requireContext(), "Please select a valid reservation date", Toast.LENGTH_LONG).show();
+            return;
+        }
         NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, formattedDate, price);
 
         reservationManager.addNewReservation(

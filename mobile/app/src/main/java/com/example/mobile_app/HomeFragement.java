@@ -116,7 +116,7 @@ public class HomeFragement extends Fragment {
         filterDataList(trainStartingPoint, trainDestinationPoint, noOfPassengers);
         listAdapter.notifyDataSetChanged();
 
-        hideDialog();
+//        hideDialog();
         Toast.makeText(requireContext(), "Searched Successfully", Toast.LENGTH_SHORT).show();
     }
 
