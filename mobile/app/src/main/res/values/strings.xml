@@ -35,5 +35,7 @@
     <string name="activate">Activate Account</string>
     <string name="reservation_cancel">Cancel Reservation</string>
     <string name="reservation_update">Update</string>
+    <string name="no_of_reservations">No of Reservations</string>
+
 
 </resources>

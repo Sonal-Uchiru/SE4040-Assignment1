@@ -200,6 +200,19 @@
                     android:layout_toEndOf="@id/r_label_details_total_price"
                     android:layout_marginTop="8dp" />
 
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/rd_ed_nopersons"
+                    android:drawablePadding="8dp"
+                    android:hint="@string/no_of_reservations"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/secondary"
+                    android:layout_below="@+id/r_label_details_person_price"
+                    android:layout_marginTop="20dp"
+                    />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
@@ -207,9 +220,10 @@
                     android:text="@string/reservation_cancel"
                     android:textSize="18sp"
                     android:layout_marginTop="30dp"
-                    android:layout_below="@+id/r_label_details_total_price"
+                    android:layout_below="@+id/rd_ed_nopersons"
                     android:backgroundTint="@color/primary"
                     app:cornerRadius="20dp"/>
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"

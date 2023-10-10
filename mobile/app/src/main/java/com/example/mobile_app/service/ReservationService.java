@@ -28,5 +28,5 @@ public interface ReservationService {
     Call<CommanResponse> deleteUserReservation(@Header("Authorization") String authToken, @Path("id") String userId);
 
     @PATCH("reservations/{id}")
-    Call<CommanResponse> updateReservation(@Path("id") String userId, Object obj);
+    Call<CommanResponse> updateReservation(@Header("Authorization") String authToken, @Path("id") String userId, @Body Object obj);
 }

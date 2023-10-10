@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.mobile_app.models.NewReservation;
 import com.example.mobile_app.models.NewUser;
+import com.example.mobile_app.models.UpdateReservation;
 import com.example.mobile_app.models.UserReservation;
 import com.example.mobile_app.models.UserUpdateModel;
 import com.example.mobile_app.response.CommanResponse;
@@ -131,9 +132,9 @@ public class ReservationManager {
     }
 
     public void updateReservation(
+            String reservationId,
             String token,
             int noOfPassengers,
-            int mobile,
             Runnable onSuccess,
             Consumer<String> onError
     ) {
@@ -142,30 +143,17 @@ public class ReservationManager {
             return;
         }
 
-        String encodedJsonStr;
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject();
-            jsonObject.put("noOfPassengers", noOfPassengers);
-
-            String jsonStr = jsonObject.toString();
-            encodedJsonStr = URLEncoder.encode(jsonStr, "UTF-8");
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        UpdateReservation obj = new UpdateReservation(noOfPassengers);
 
 
-        reservationService.updateReservation(token, jsonObject)
+        reservationService.updateReservation(token, reservationId, obj)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         } else {
-                            onError.accept("Something Went wrong");
+                            onError.accept("Cannot update the reservation now.");
                         }
                     }
 

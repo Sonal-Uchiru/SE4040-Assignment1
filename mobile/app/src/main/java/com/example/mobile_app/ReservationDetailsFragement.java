@@ -6,11 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobile_app.databinding.FragmentDetailsFragementBinding;
@@ -31,6 +36,9 @@ public class ReservationDetailsFragement extends Fragment {
     String reservationId, trainName, departureTime, arrivalTime, startingStation, endingStation, departureDate;
     int reservedSeats;
     float totalPrice, perPersonPrice;
+    EditText dEdPersons;
+    TextView dTotalPrice;
+    Bundle args;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -42,6 +50,10 @@ public class ReservationDetailsFragement extends Fragment {
 
         updateBtn = view.findViewById(R.id.update_reservation);
         cancelBtn = view.findViewById(R.id.cancel_reservation);
+        dEdPersons = view.findViewById(R.id.rd_ed_nopersons);
+        dTotalPrice = view.findViewById(R.id.r_details_total_price);
+
+        dEdPersons.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
 
         updateBtn.setOnClickListener(v -> {
             updateReservation();
@@ -49,7 +61,7 @@ public class ReservationDetailsFragement extends Fragment {
         cancelBtn.setOnClickListener(v -> {
             cancelReservation();
         });
-        Bundle args = getArguments();
+        args = getArguments();
         if (args != null) {
             reservationId = args.getString("reservationId");
             trainName = args.getString("trainName");
@@ -62,6 +74,7 @@ public class ReservationDetailsFragement extends Fragment {
             totalPrice = args.getFloat("totalPrice");
             perPersonPrice = args.getFloat("perPersonPrice");
 
+            String reservedSeatsStr = String.valueOf(reservedSeats);
             binding.rDetailsScheduleDate.setText(departureDate);
             binding.rDetailsTrainName.setText(trainName);
             binding.rDetailsDepartureTime.setText(departureTime);
@@ -70,18 +83,46 @@ public class ReservationDetailsFragement extends Fragment {
             binding.rDetailsEndingStation.setText(endingStation);
             binding.rDetailsTotalPrice.setText(String.valueOf(totalPrice));
             binding.rDetailsPersonPrice.setText(String.valueOf(perPersonPrice));
+            dEdPersons.setText(reservedSeatsStr);
+
+            calculateTotal(reservedSeats);
+            String totalStr = Double.toString(totalPrice);
+            dTotalPrice.setText(totalStr);
         }
+
+        dEdPersons.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String enteredText = s.toString();
+                if (!enteredText.isEmpty()) {
+                    int enteredNumber = Integer.parseInt(enteredText);
+                    calculateTotal(enteredNumber);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String totalStr = Double.toString(totalPrice);
+                dTotalPrice.setText(totalStr);
+            }
+        });
 
         return view;
     }
 
     private void updateReservation() {
         String token = "Bearer " + tokenManager.getToken();
-
-//        userManager.toggleUserAccount(
-//                userId,
-//                () -> handleToggleSuccess(),
-//                error -> handleFailed(error));
+        int noOfPersons = Integer.parseInt(String.valueOf(dEdPersons.getText()));
+        reservationManager.updateReservation(
+                reservationId,
+                token,
+                noOfPersons,
+                () -> handleUpdateSuccess(),
+                error -> handleFailed(error));
     }
 
     private void cancelReservation() {
@@ -96,6 +137,12 @@ public class ReservationDetailsFragement extends Fragment {
     private void handleFailed(String error){
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
     }
+    private void handleUpdateSuccess(){
+        Toast.makeText(requireContext(), "Reservation updated sucessfully", Toast.LENGTH_LONG).show();
+        ReservationFragement reservationFragement = new ReservationFragement();
+        replaceFragement(reservationFragement);
+    }
+
 
     private void handleSuccess(){
         Toast.makeText(requireContext(), "Reservation cancelled sucessfully", Toast.LENGTH_LONG).show();
@@ -109,5 +156,11 @@ public class ReservationDetailsFragement extends Fragment {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void calculateTotal(int tickets){
+        float price = args.getFloat("perPersonPrice");
+        totalPrice = price * tickets;
+
     }
 }
