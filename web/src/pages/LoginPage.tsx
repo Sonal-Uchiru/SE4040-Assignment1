@@ -11,7 +11,6 @@ import ParagraphBold from "../components/atoms/typographies/ParagraphBold";
 import theme from "../theme/hooks/CreateTheme";
 import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
-import ReservationProtectedApi from "../api/exclusive/ReservationProtectedApi";
 import React from "react";
 import { UserRoles } from "../types/enums/UserRoles";
 import { useNavigate } from "react-router-dom";
@@ -33,15 +32,8 @@ export default function LoginPage() {
     setLoginErrorMessage("");
     UserAuthenticationApi.loginAsync({ nic: nic, password: password })
       .then((res) => {
-        try {
-          BrowserLocalStorage.SetAccessToken(res.data?.token);
-          console.log(BrowserLocalStorage.GetAccessToken());
-          const userRole = BrowserLocalStorage.GetUserRole();
-          console.log(userRole);
-          //navigate("/travelersDetails");
-        } catch (err) {
-          console.log(err);
-        }
+        BrowserLocalStorage.SetAccessToken(res.data?.token);
+        navigate("/travelersDetails");
       })
       .catch((err: any) => {
         setLoginErrorMessage(err?.response?.data?.message);
