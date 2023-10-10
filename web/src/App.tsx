@@ -31,8 +31,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/travelersDetails" element={<TravelersDetailsPage />} />
+          <Route path="/" element={<TrainDetailsPage />} />
+          <Route path="/updateTrain/:id" element={<UpdateTrainDetailsPage />} />
+          {/* <Route path="/travelersDetails" element={<TravelersDetailsPage />} />
           <Route path="/trainDetails" element={<TrainDetailsPage />} />
           <Route path="/addNewTrain" element={<AddNewTrainPage />} />
           <Route path="/updateTrain" element={<UpdateTrainDetailsPage />} />
@@ -44,7 +45,7 @@ function App() {
           <Route
             path="/reservationDetails"
             element={<ReservationDetailsPage />}
-          />
+          /> */}
 
           {/* Back Officer */}
 
