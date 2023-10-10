@@ -33,6 +33,13 @@
                 android:textStyle="bold"
                 android:textColor="@color/primary"/>
 
+            <ImageView
+                android:src="@drawable/baseline_train_24"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -44,7 +51,7 @@
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/secondary"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 />
             <EditText
                 android:layout_width="match_parent"

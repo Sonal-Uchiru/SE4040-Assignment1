@@ -36,6 +36,7 @@
     <string name="reservation_cancel">Cancel Reservation</string>
     <string name="reservation_update">Update</string>
     <string name="no_of_reservations">No of Reservations</string>
+    <string name="person_price">Per person Price</string>
 
 
 </resources>

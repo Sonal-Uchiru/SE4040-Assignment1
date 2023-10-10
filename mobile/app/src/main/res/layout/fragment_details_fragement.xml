@@ -68,6 +68,7 @@
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,6 +91,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_model"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,6 +115,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_driver"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,6 +139,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_contact"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -159,6 +163,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_startingstation"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -181,6 +186,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_endingstation"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -203,6 +209,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_departuretime"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -225,6 +232,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_arrivaltime"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -247,6 +255,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_below="@+id/d_label_personprice"
                         android:layout_marginTop="8dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"

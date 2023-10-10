@@ -41,13 +41,17 @@ public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
         }
 
         TextView trainName = view.findViewById(R.id.list_train_name);
-        TextView scheduleDate = view.findViewById(R.id.list_schedule_date);
+        TextView personPrice = view.findViewById(R.id.list_person_price);
         TextView availableSeats = view.findViewById(R.id.list_available_seats);
-//        TextView price = view.findViewById(R.id.list_train_name);
+        TextView startingStation = view.findViewById(R.id.list_starting_station);
+        TextView endingStation = view.findViewById(R.id.list_ending_station);
 
         trainName.setText(trainSchedule.getName());
-        scheduleDate.setText(formattedDate);
+        personPrice.setText("Rs." + String.valueOf(trainSchedule.getPrice()));
         availableSeats.setText(String.valueOf(trainSchedule.getNoOfSeats()));
+        startingStation.setText(trainSchedule.getStartingStation());
+        endingStation.setText(trainSchedule.getEndingStation());
+
 //        price.setText(trainSchedule.trainName);
 
         return view;
