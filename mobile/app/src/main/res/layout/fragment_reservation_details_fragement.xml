@@ -221,7 +221,7 @@
                     android:textSize="18sp"
                     android:layout_marginTop="30dp"
                     android:layout_below="@+id/rd_ed_nopersons"
-                    android:backgroundTint="@color/primary"
+                    android:backgroundTint="@color/danger"
                     app:cornerRadius="20dp"/>
 
                 <Button
