@@ -67,7 +67,7 @@ export default function SelectField({
           {placeholder}
         </MenuItem>
         {options.map((option, index) => (
-          <MenuItem key={index} value={`${option.label}-${option.value}`}>
+          <MenuItem key={index} value={`${option.value}`}>
             {option.label}
           </MenuItem>
         ))}

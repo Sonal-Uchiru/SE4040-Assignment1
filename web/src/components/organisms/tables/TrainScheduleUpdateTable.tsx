@@ -51,7 +51,7 @@ export default function TrainScheduleUpdateTable() {
                 >
                   <img
                     alt="Edit Icon"
-                    src="./images/editing.png"
+                    src="/images/trash.png"
                     style={{
                       width: 25,
                       height: 25,

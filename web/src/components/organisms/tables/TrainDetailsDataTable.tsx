@@ -5,6 +5,7 @@ import * as React from "react";
 import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import ViewTrainScheduleModal from "../../modals/train/ViewTrainScheduleModal";
+import { useNavigate } from "react-router-dom";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -39,6 +40,7 @@ class TrainData {
 }
 
 export default function TrainDetailsDataTable({}: IProp) {
+  const navigate = useNavigate();
   const [trains, setTrains] = React.useState<any[]>([]);
   const [dataTableTrains, setDataTableTrains] = React.useState<any>(null);
   const [id, setId] = React.useState(null);
@@ -139,7 +141,7 @@ export default function TrainDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    console.log("hi");
+                    navigate(`/updateTrain/${trains[tableMeta.rowIndex].id}`);
                   }}
                 >
                   <img

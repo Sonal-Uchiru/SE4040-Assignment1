@@ -6,11 +6,22 @@ import ModelConstants from "../../constants/ModelConstants";
 import { protectedListApiAsync } from "../ProtectedListApi";
 
 class TrainProtectedApi {
-  public async updateAsync(data: any): Promise<AxiosResponse> {
+
+  public async saveAsync(data: any): Promise<AxiosResponse> {
+    return await protectedApiAsync(
+      HttpMethods.Post,
+      Versions.V1,
+      ModelConstants.TRAIN,
+      data
+    );
+  }
+
+
+  public async updateAsync(data: any, id:any): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Put,
       Versions.V1,
-      ModelConstants.TRAIN,
+      `${ModelConstants.TRAIN}/${id}`,
       data
     );
   }
@@ -23,11 +34,11 @@ class TrainProtectedApi {
     );
   }
 
-  public async getAsync(): Promise<AxiosResponse> {
+  public async getAsync(id:any): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Get,
       Versions.V1,
-      ModelConstants.TRAIN
+      `${ModelConstants.TRAIN}/${id}`
     );
   }
 
