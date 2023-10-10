@@ -8,7 +8,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // import { PasswordStrengthMeter } from "../../../extensions/form_fields/PasswordMeter";
 import FormHelperText from "@mui/material/FormHelperText";
-import { useTranslation } from "react-i18next";
+
 
 interface IProps {
   width?: number;
@@ -41,7 +41,7 @@ export default function PasswordInputField({
   name = "password",
   size = "medium",
 }: IProps) {
-  const { t } = useTranslation();
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = React.useState(value || "");
 
@@ -74,7 +74,7 @@ export default function PasswordInputField({
       size={size}
     >
       <InputLabel htmlFor="outlined-adornment-password" style={labelStyles}>
-        {t(label)}
+        {label}
       </InputLabel>
       <OutlinedInput
         name={name}
@@ -82,7 +82,7 @@ export default function PasswordInputField({
         error={error}
         onChange={handlePasswordChange}
         onBlur={onBlur}
-        placeholder={t(placeholder) ?? ""}
+        placeholder={placeholder ?? ""}
         id="outlined-adornment-password"
         type={showPassword ? "text" : "password"}
         endAdornment={
@@ -101,7 +101,7 @@ export default function PasswordInputField({
       />
       {error && (
         <FormHelperText id="component-error-text" style={styles.error}>
-          {t(helperText)}
+          {helperText}
         </FormHelperText>
       )}
       {/* {showMeter ? <PasswordStrengthMeter password={password} /> : <></>} */}

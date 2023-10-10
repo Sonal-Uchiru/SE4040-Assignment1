@@ -10,7 +10,6 @@ import InputField from "../../atoms/inputFields/InputField";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
 import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
 import { AxiosError } from "axios";
-import { use } from "i18next";
 
 interface IProps {
   handleCancel(): void;

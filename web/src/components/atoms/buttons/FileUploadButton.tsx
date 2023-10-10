@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
-import { useTranslation } from 'react-i18next'
 import theme from '../../../theme/hooks/CreateTheme'
 import ButtonLoadingBar from '../Loadings/ButtonLoadingBar'
 
@@ -23,7 +22,6 @@ export default function FileUploadButton({
     backgroundColor,
     onChange,
 }: IProps) {
-    const { t } = useTranslation()
     const inputRef = React.useRef<HTMLInputElement>(null)
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +56,7 @@ export default function FileUploadButton({
                 onClick={handleClick} // Trigger input click
                 disabled={isLoading}
             >
-                {isLoading ? <ButtonLoadingBar /> : t(title)}
+                {isLoading ? <ButtonLoadingBar /> : title}
             </Button>
             <input
                 ref={inputRef}
