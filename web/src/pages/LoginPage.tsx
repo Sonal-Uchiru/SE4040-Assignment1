@@ -16,7 +16,6 @@ import React from "react";
 import { UserRoles } from "../types/enums/UserRoles";
 import { useNavigate } from "react-router-dom";
 
-// TODO : incomplete implementation (sample only) (Kaveen)
 export default function LoginPage() {
   const navigate = useNavigate();
   const [nic, setNic] = React.useState<string>("");
@@ -33,27 +32,18 @@ export default function LoginPage() {
   const handleClick = () => {
     setLoginErrorMessage("");
     UserAuthenticationApi.loginAsync({ nic: nic, password: password })
-      .then(async (res) => {
-        BrowserLocalStorage.SetAccessToken(res.data?.token);
-        await ReservationProtectedApi.getListAsync();
-        console.log(res.data);
-        const userRole = BrowserLocalStorage.GetUserRole();
-        switch (userRole) {
-          case UserRoles.BackOfficer:
-            navigate("/travelersDetails");
-            break;
-          case UserRoles.TravelAgent:
-            navigate("/");
-            break;
-          case UserRoles.Traveller:
-            navigate("/");
-            break;
-          default:
-            throw new Error(`Unsupported user role - ${userRole}`);
+      .then((res) => {
+        try {
+          BrowserLocalStorage.SetAccessToken(res.data?.token);
+          console.log(BrowserLocalStorage.GetAccessToken());
+          const userRole = BrowserLocalStorage.GetUserRole();
+          console.log(userRole);
+          //navigate("/travelersDetails");
+        } catch (err) {
+          console.log(err);
         }
       })
       .catch((err: any) => {
-        // console.log(err.response?.data.message);
         setLoginErrorMessage(err?.response?.data?.message);
       });
   };

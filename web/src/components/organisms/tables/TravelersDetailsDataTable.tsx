@@ -5,6 +5,8 @@ import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
 import { AxiosError } from "axios";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import UpdateTravelersDetailsModal from "../../modals/user/UpdateTravelersDetailsModal";
+import BrowserLocalStorage from "../../../utils/localStorage/BrowserLocalStorage";
+import { UserRoles } from "../../../types/enums/UserRoles";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -128,22 +130,24 @@ export default function TravelersDetailsDataTable({}: IProp) {
                   />
                 )}
               </div>
-              <div>
-                <IconButton
-                  onClick={() => {
-                    console.log("hi");
-                  }}
-                >
-                  <img
-                    alt="Edit Icon"
-                    src="./images/trash.png"
-                    style={{
-                      width: 25,
-                      height: 25,
+              {BrowserLocalStorage.GetUserRole() == UserRoles.BackOfficer && (
+                <div>
+                  <IconButton
+                    onClick={() => {
+                      console.log("hi");
                     }}
-                  />
-                </IconButton>
-              </div>
+                  >
+                    <img
+                      alt="Edit Icon"
+                      src="./images/trash.png"
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                    />
+                  </IconButton>
+                </div>
+              )}
             </div>
           );
         },

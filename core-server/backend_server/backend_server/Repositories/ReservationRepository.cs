@@ -22,5 +22,3 @@ public sealed class ReservationRepository : BaseRepository<Reservation>, IReserv
         return _dbContext.UpdateOneAsync(filter, update);
     }
 }
-
-
