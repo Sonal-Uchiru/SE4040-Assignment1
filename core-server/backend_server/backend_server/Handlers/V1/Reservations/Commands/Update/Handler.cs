@@ -39,9 +39,9 @@ public class Handler : IRequestHandler<Command, Response>
             throw new ValidationException(errorReason: ReservationError.InvalidTimePeriodReservationUpdateError);
         }
 
-        var updateReservationDot = _mapper.Map<UpdateReservationDto>(command);
+        var updateReservationDto = _mapper.Map<UpdateReservationDto>(command);
 
-        await _reservationRepository.UpdateNoOfPassengersAsync(updateReservationDot);
+        await _reservationRepository.UpdateNoOfPassengersAsync(updateReservationDto);
 
         return new Response
         {

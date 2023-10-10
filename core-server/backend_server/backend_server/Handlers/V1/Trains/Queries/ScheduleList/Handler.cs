@@ -22,30 +22,31 @@ public class Handler : IRequestHandler<Query, Response>
 
         foreach(var train in trains)
         {
-            var tempTrainDetails = new ScheduleListResponseDto
-            {
-                Id = train.Id,
-                Name = train.Name,
-                Model = train.Model,
-                DriverName = train.DriverName,
-                Contact = train.Contact,
-                NoOfSeats = train.NoOfSeats,
-                StartingStation = train.StartingStation,
-                EndingStation = train.EndingStation,
-                IsEnabled = train.IsEnabled
-            };
-
+            var tempScheduleList = new List<ScheduleListResponseDto>(trains.Count);
             foreach (var schedule in train.Schedules)
             {
-                var scheduleWithTrain = tempTrainDetails;
-                scheduleWithTrain.Frequency = schedule.Frequency;
-                scheduleWithTrain.ArrivalTime = schedule.ArrivalTime;
-                scheduleWithTrain.DepartureTime = schedule.DepartureTime;
-                scheduleWithTrain.IsReturnTrip = schedule.IsReturnTrip;
-                scheduleWithTrain.Price = schedule.Price;
+                var tempTrainDetails = new ScheduleListResponseDto
+                {
+                    Id = train.Id,
+                    Name = train.Name,
+                    Model = train.Model,
+                    DriverName = train.DriverName,
+                    Contact = train.Contact,
+                    NoOfSeats = train.NoOfSeats,
+                    StartingStation = train.StartingStation,
+                    EndingStation = train.EndingStation,
+                    IsEnabled = train.IsEnabled,
+                    Frequency = schedule.Frequency,
+                    ArrivalTime = schedule.ArrivalTime,
+                    DepartureTime = schedule.DepartureTime,
+                    IsReturnTrip = schedule.IsReturnTrip,
+                    Price = schedule.Price
+                };
 
-                scheduleListResponse.Add(scheduleWithTrain);
+                tempScheduleList.Add(tempTrainDetails);
             }
+
+            scheduleListResponse.AddRange(tempScheduleList);
         }
 
         return new Response
