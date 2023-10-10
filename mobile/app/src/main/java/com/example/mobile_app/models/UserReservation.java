@@ -4,10 +4,11 @@ import java.util.Date;
 
 public class UserReservation {
      String id, created, modified, trainId, trainName, startingStation, endingStation, departureDate, arrivalTime, departureTime, reservationDate, userId;
-     int noOfPassengers, perPersonPrice;
+     int noOfPassengers;
+     double perPersonPrice;
      boolean isEnabled;
 
-    public UserReservation(String id, String created, String modified, String trainId, String trainName, String startingStation, String endingStation, String departureDate, String arrivalTime, String departureTime, String reservationDate, String userId, int noOfPassengers, int perPersonPrice, boolean isEnabled) {
+    public UserReservation(String id, String created, String modified, String trainId, String trainName, String startingStation, String endingStation, String departureDate, String arrivalTime, String departureTime, String reservationDate, String userId, int noOfPassengers, double perPersonPrice, boolean isEnabled) {
         this.id = id;
         this.created = created;
         this.modified = modified;
@@ -77,7 +78,7 @@ public class UserReservation {
         return noOfPassengers;
     }
 
-    public int getPerPersonPrice() {
+    public double getPerPersonPrice() {
         return perPersonPrice;
     }
 

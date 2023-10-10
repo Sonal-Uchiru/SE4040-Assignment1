@@ -35,7 +35,7 @@ public class ReservationDetailsFragement extends Fragment {
 
     String reservationId, trainName, departureTime, arrivalTime, startingStation, endingStation, departureDate;
     int reservedSeats;
-    float totalPrice, perPersonPrice;
+    double perPersonPrice, totalPrice;
     EditText dEdPersons;
     TextView dTotalPrice;
     Bundle args;
@@ -71,8 +71,8 @@ public class ReservationDetailsFragement extends Fragment {
             endingStation = args.getString("endingStation");
             departureDate = args.getString("departureDate");
             reservedSeats = args.getInt("reservedSeats");
-            totalPrice = args.getFloat("totalPrice");
-            perPersonPrice = args.getFloat("perPersonPrice");
+            totalPrice = args.getDouble("totalPrice");
+            perPersonPrice = args.getDouble("perPersonPrice");
 
             String reservedSeatsStr = String.valueOf(reservedSeats);
             binding.rDetailsScheduleDate.setText(departureDate);
@@ -159,7 +159,7 @@ public class ReservationDetailsFragement extends Fragment {
     }
 
     private void calculateTotal(int tickets){
-        float price = args.getFloat("perPersonPrice");
+        double price = args.getDouble("perPersonPrice");
         totalPrice = price * tickets;
 
     }

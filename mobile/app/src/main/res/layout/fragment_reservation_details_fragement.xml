@@ -24,8 +24,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            android:layout_margin="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            android:background="@drawable/custom_edittext">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -220,19 +222,8 @@
                     android:textColorHighlight="@color/secondary"
                     android:layout_below="@+id/r_label_details_person_price"
                     android:layout_marginTop="20dp"
+                    android:layout_centerInParent="true"
                     />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:id="@+id/cancel_reservation"
-                    android:text="@string/reservation_cancel"
-                    android:textSize="18sp"
-                    android:layout_marginTop="30dp"
-                    android:layout_below="@+id/rd_ed_nopersons"
-                    android:backgroundTint="@color/danger"
-                    app:cornerRadius="20dp"/>
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
@@ -242,7 +233,21 @@
                     android:layout_marginTop="5dp"
                     android:layout_below="@+id/cancel_reservation"
                     android:backgroundTint="@color/primary"
+                    android:layout_centerInParent="true"
                     app:cornerRadius="20dp"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/cancel_reservation"
+                    android:text="@string/reservation_cancel"
+                    android:textSize="18sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@+id/rd_ed_nopersons"
+                    android:backgroundTint="@color/danger"
+                    android:layout_centerInParent="true"
+                    app:cornerRadius="20dp"/>
+
+
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

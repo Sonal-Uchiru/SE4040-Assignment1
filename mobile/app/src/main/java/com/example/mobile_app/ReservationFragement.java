@@ -82,7 +82,7 @@ public class ReservationFragement extends Fragment {
         bundle.putString("endingStation", item.getEndingStation());
         bundle.putInt("reservedSeats", item.getNoOfPassengers());
 //        bundle.putFloat("totalPrice", item.getTotalPrice());
-        bundle.putFloat("perPersonPrice", item.getPerPersonPrice());
+        bundle.putDouble("perPersonPrice", item.getPerPersonPrice());
         bundle.putString("departureDate", departureDate);
 
         // Date departureDate;
