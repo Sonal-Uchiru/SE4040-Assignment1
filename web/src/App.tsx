@@ -59,7 +59,7 @@ function App() {
           <Route
             path="/reservationDetails"
             element={<ReservationDetailsPage />}
-          /> */}
+          />
 
           <Route path="/payment" element={<PaymentPage />} />
         </Routes>
