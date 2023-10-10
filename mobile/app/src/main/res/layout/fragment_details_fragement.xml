@@ -19,23 +19,18 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_lock_24"
-                android:layout_gravity="center_horizontal"
-                android:padding="16dp"
-                android:layout_marginTop="16dp" />
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            android:background="@drawable/custom_edittext">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,21 +38,36 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 >
-                <TextView
-                    android:id="@+id/trainName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Train Name"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    />
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_trainName"
+                        android:text="Train:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+
+                        />
+                    <TextView
+                        android:id="@+id/trainName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/d_label_model"
+                        android:layout_marginTop="8dp"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -68,6 +78,7 @@
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
+                        android:layout_below="@+id/d_label_trainName"
                         android:textStyle="bold"
                         />
                     <TextView
@@ -78,6 +89,7 @@
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_trainName"
                         android:layout_toEndOf="@id/d_label_model"
                         android:layout_marginTop="8dp"
                         />
@@ -271,7 +283,7 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:id="@+id/d_ed_persons"
                     android:drawablePadding="8dp"
@@ -280,6 +292,7 @@
                     android:textColor="@color/black"
                     android:textColorHighlight="@color/secondary"
                     android:layout_marginTop="30dp"
+                    android:layout_centerInParent="true"
                     />
                 <TextView
                     android:id="@+id/d_selected_date"
