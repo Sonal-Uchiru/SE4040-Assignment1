@@ -281,29 +281,42 @@
                     android:textColorHighlight="@color/secondary"
                     android:layout_marginTop="30dp"
                     />
-
-                <DatePicker
-                    android:id="@+id/d_date_picker"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/d_selected_date"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:datePickerMode="calendar"
+                    android:layout_above="@id/idBtnPickDate"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Reservation Date"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_below="@+id/d_label_totalprice"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/book_ticket_btn"
                     android:text="@string/btn_ticket_book"
                     android:textSize="18sp"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/primary"
                     android:onClick="onNavigateToHome"
+                    android:layout_centerInParent="true"
                     app:cornerRadius="20dp"
                     />
+
+                <Button
+                    android:id="@+id/idBtnPickDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:text="Pick Reservation Date"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

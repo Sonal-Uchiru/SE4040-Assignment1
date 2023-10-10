@@ -1,6 +1,7 @@
 package com.example.mobile_app;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SyncRequest;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +28,10 @@ import com.example.mobile_app.databinding.FragmentHomeFragementBinding;
 import com.example.mobile_app.managers.ReservationManager;
 import com.example.mobile_app.managers.UserManager;
 import com.example.mobile_app.models.NewReservation;
+import com.example.mobile_app.utilities.DatabaseTypeConverters;
 import com.example.mobile_app.utilities.TokenManager;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class DetailsFragement extends Fragment {
@@ -47,7 +51,8 @@ public class DetailsFragement extends Fragment {
     double price;
     Date currentDate = new Date();
     Button btnBookTicket;
-
+    private Button pickDateBtn;
+    private TextView selectedDateTV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +65,43 @@ public class DetailsFragement extends Fragment {
         reservationManager = ReservationManager.getInstance();
         dEdPersons = view.findViewById(R.id.d_ed_persons);
         dTotalPrice = view.findViewById(R.id.d_totalprice);
+        pickDateBtn = view.findViewById(R.id.idBtnPickDate);
+        selectedDateTV = view.findViewById(R.id.d_selected_date);
+
+        pickDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting
+                // the instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting
+                // our day, month and year.
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // on below line we are creating a variable for date picker dialog.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        // on below line we are passing context.
+                        requireContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // on below line we are setting date to our text view.
+                                selectedDateTV.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        },
+                        // on below line we are passing year,
+                        // month and day for selected date in our date picker.
+                        year, month, day);
+                // at last we are calling show to
+                // display our date picker dialog.
+                datePickerDialog.show();
+            }
+        });
 
         dEdPersons.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
         dEdPersons.setText("1");
@@ -128,9 +170,11 @@ public class DetailsFragement extends Fragment {
     private void addNewReservation() {
         String token = "Bearer " + tokenManager.getToken();
         String passengers = String.valueOf(dEdPersons.getText());
+        String selectedDate = String.valueOf(selectedDateTV.getText());
+        String formattedDate = DatabaseTypeConverters.formatToDateTime(selectedDate);
         int noOfPassengers = Integer.parseInt(passengers);
 
-        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, "2023-10-09T17:46:54.103Z", price);
+        NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, formattedDate, price);
 
         reservationManager.addNewReservation(
                 token,
