@@ -38,7 +38,9 @@ public class DetailsFragement extends Fragment {
 
     FragmentDetailsFragementBinding binding;
     TokenManager tokenManager;
+
     private ReservationManager reservationManager;
+
     Bundle args;
     EditText dEdPersons;
     TextView dTotalPrice;
@@ -59,8 +61,8 @@ public class DetailsFragement extends Fragment {
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         btnBookTicket = view.findViewById(R.id.book_ticket_btn);
-
         // Initialize token manager and reservation manager.
+        tokenManager = new TokenManager(requireContext());
         reservationManager = ReservationManager.getInstance();
 
         // Initialize UI elements.
@@ -69,13 +71,7 @@ public class DetailsFragement extends Fragment {
         pickDateBtn = view.findViewById(R.id.idBtnPickDate);
         selectedDateTV = view.findViewById(R.id.d_selected_date);
 
-
         // Set an OnClickListener for the date btnBookTicket button.
-        btnBookTicket.setOnClickListener(v -> {
-            addNewReservation();
-        });
-
-        // Set an OnClickListener for the date picker button.
         pickDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +89,6 @@ public class DetailsFragement extends Fragment {
                                                   int monthOfYear, int dayOfMonth) {
                                 // Set the selected date to the text view.
                                 selectedDateTV.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
                             }
                         },
                         year, month, day);
@@ -105,7 +100,6 @@ public class DetailsFragement extends Fragment {
         // Configure the number of characters allowed in the EditText.
         dEdPersons.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
         dEdPersons.setText("1");
-
 
         // Add a TextWatcher to the EditText to calculate the total price dynamically.
         dEdPersons.addTextChangedListener(new TextWatcher() {
@@ -160,6 +154,9 @@ public class DetailsFragement extends Fragment {
             binding.dTotalprice.setText(priceStr);
         }
 
+        btnBookTicket.setOnClickListener(v -> {
+            addNewReservation();
+        });
         return view;
     }
 
@@ -200,6 +197,7 @@ public class DetailsFragement extends Fragment {
     private void calculateTotal(int tickets){
         double price = args.getDouble("price");
         totalPrice = price * tickets;
+
     }
 
     private void handleSuccess(){

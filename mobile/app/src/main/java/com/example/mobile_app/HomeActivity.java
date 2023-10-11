@@ -22,22 +22,24 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
-    TrainScheduleAdapter listAdapter;
-    ArrayList<TrainSchedule> dataList = new ArrayList<>();
-    TrainSchedule trainSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Inflating the layout using view binding.
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Set a transparent background for the bottom navigation view.
         binding.bottomNavigationView.setBackground(null);
         if (savedInstanceState == null) {
+            // If it's the first time, replace the default fragment with the HomeFragment.
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_layout, new HomeFragement())
                     .commit();
         }
+
+        // Set a listener for item selection in the bottom navigation view and replacing the necessary fragments
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragement(new HomeFragement());
@@ -51,14 +53,16 @@ public class HomeActivity extends AppCompatActivity {
             }
             return true;
         });
-
     }
 
     private void replaceFragement(Fragment fragment) {
+        // Get the fragment manager for managing fragment transactions.
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        // Replace the current fragment with the new fragment in the specified layout container.
         fragmentTransaction.replace(R.id.frame_layout, fragment);
+        // Commit the transaction to apply the replacement.
         fragmentTransaction.commit();
     }
 }

@@ -31,8 +31,6 @@ public class ReservationDetailsFragement extends Fragment {
     Button cancelBtn, updateBtn;
     private ReservationManager reservationManager;
     TokenManager tokenManager;
-
-
     String reservationId, trainName, departureTime, arrivalTime, startingStation, endingStation, departureDate;
     int reservedSeats;
     double perPersonPrice, totalPrice;
@@ -43,24 +41,30 @@ public class ReservationDetailsFragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
+        // Inflating the layout and initializing view components.
         binding = FragmentReservationDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        // Initializing necessary managers and views.
         reservationManager = ReservationManager.getInstance();
         tokenManager = new TokenManager(requireContext());
-
         updateBtn = view.findViewById(R.id.update_reservation);
         cancelBtn = view.findViewById(R.id.cancel_reservation);
         dEdPersons = view.findViewById(R.id.rd_ed_nopersons);
         dTotalPrice = view.findViewById(R.id.r_details_total_price);
 
+        // Set a maximum length for the number of persons input.
         dEdPersons.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
 
+        // Register click listeners for update and cancel buttons.
         updateBtn.setOnClickListener(v -> {
             updateReservation();
         });
         cancelBtn.setOnClickListener(v -> {
             cancelReservation();
         });
+
+        // Retrieve arguments passed to this fragment (reservation details).
         args = getArguments();
         if (args != null) {
             reservationId = args.getString("reservationId");
@@ -74,6 +78,7 @@ public class ReservationDetailsFragement extends Fragment {
             totalPrice = args.getDouble("totalPrice");
             perPersonPrice = args.getDouble("perPersonPrice");
 
+            // Display values in the views.
             String reservedSeatsStr = String.valueOf(reservedSeats);
             binding.rDetailsScheduleDate.setText(departureDate);
             binding.rDetailsTrainName.setText(trainName);
@@ -85,11 +90,13 @@ public class ReservationDetailsFragement extends Fragment {
             binding.rDetailsPersonPrice.setText(String.valueOf(perPersonPrice));
             dEdPersons.setText(reservedSeatsStr);
 
+            // Calculate and display the total price based on the number of persons.
             calculateTotal(reservedSeats);
             String totalStr = Double.toString(totalPrice);
             dTotalPrice.setText(totalStr);
         }
 
+        // Register a text change listener for the number of persons input.
         dEdPersons.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -115,8 +122,12 @@ public class ReservationDetailsFragement extends Fragment {
     }
 
     private void updateReservation() {
+        // Obtain the user's authorization token.
         String token = "Bearer " + tokenManager.getToken();
+        // Parse the number of persons from the user input.
         int noOfPersons = Integer.parseInt(String.valueOf(dEdPersons.getText()));
+
+        // Call the reservationManager to update the reservation.
         reservationManager.updateReservation(
                 reservationId,
                 token,
@@ -126,7 +137,10 @@ public class ReservationDetailsFragement extends Fragment {
     }
 
     private void cancelReservation() {
+        // Obtain the user's authorization token.
         String token = "Bearer " + tokenManager.getToken();
+
+        // Call the reservationManager to delete the user's reservation.
         reservationManager.deleteUserReservation(
                 token,
                 reservationId,

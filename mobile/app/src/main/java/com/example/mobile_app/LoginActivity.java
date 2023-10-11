@@ -25,19 +25,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the content view to the login layout.
         setContentView(R.layout.activity_login);
 
+        // Initialize TokenManager for managing authentication tokens.
         tokenManager = new TokenManager(this);
 
+        // Find and reference the NIC and password input fields and login button.
         ed_nic = findViewById(R.id.l_ed_nic);
         ed_password = findViewById(R.id.l_ed_password);
         btnLogin = findViewById(R.id.login_btn);
 
+        // Set the application context using ContextManager for global access.
         ContextManager.getInstance().setApplicationContext(getApplicationContext());
         loginManager = LoginManager.getInstance();
 
-
-
+        // Set a click listener for the login button to trigger the login process.
         btnLogin.setOnClickListener(view -> {
             login();
         });
@@ -53,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginResponse -> onNavigateToHome(loginResponse),
                 error -> handleLoginFailed(error));
     }
-
 
     private void handleLoginFailed(String error){
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();

@@ -37,10 +37,13 @@ public class ProfileFragement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        // Inflating the profile fragment layout using data binding.
         binding = FragmentProfileFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        // Initialize TokenManager to manage user authentication tokens.
         tokenManager = new TokenManager(requireContext());
+        // Find and reference the update and deactivate buttons in the layout.
         updateBtn = view.findViewById(R.id.p_update_btn);
         deactivateBtn = view.findViewById(R.id.p_deactivate_btn);
 
@@ -49,7 +52,9 @@ public class ProfileFragement extends Fragment {
         String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
 
 
+        // Initialize UserManager for handling user-related operations.
         userManager = UserManager.getInstance();
+        // Load the user details based on the provided user ID.
         loadUserDetails(userId);
 
         updateBtn.setOnClickListener(v -> {

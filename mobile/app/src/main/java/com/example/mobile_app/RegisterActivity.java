@@ -18,9 +18,13 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Call the superclass's onCreate method.
         super.onCreate(savedInstanceState);
+
+        // Set the activity's content view to the registration layout.
         setContentView(R.layout.activity_register);
 
+        // Find and reference the EditText fields and the registration button.
         ed_firstName = findViewById(R.id.ed_firstname);
         ed_lastName = findViewById(R.id.ed_last_name);
         ed_email = findViewById(R.id.ed_email);
@@ -28,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
         ed_nic = findViewById(R.id.ed_nic);
         ed_password = findViewById(R.id.ed_password);
         btnRegister = findViewById(R.id.register_btn);
+
+        // Initialize UserManager to manage user-related operations.
         userManager = UserManager.getInstance();
 
         btnRegister.setOnClickListener(view -> {
@@ -36,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
+        // Retrieve user input data from EditText fields.
         String firstname = ed_firstName.getText().toString();
         String lastname = ed_lastName.getText().toString();
         String email = ed_email.getText().toString();
@@ -44,7 +51,10 @@ public class RegisterActivity extends AppCompatActivity {
         String nic = ed_nic.getText().toString();
         String password = ed_password.getText().toString();
 
+        // Create a NewUser object with the user's registration data.
         NewUser newUser = new NewUser(nic, firstname, lastname, email, password, mobile, 0);
+
+        // Call UserManager's register method to initiate the registration process.
         userManager.register(
                 newUser,
                 () -> registerSuccess(),
