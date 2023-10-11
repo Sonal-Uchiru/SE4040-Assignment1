@@ -21,12 +21,15 @@ public class UserManager {
 
 
     public static UserManager getInstance() {
+        // Check if the 'singleton' instance is null
         if (singleton == null)
             singleton = new UserManager();
+        //Returing instance
         return singleton;
     }
 
     private UserManager() {
+        // Create an instance of the 'UserService' by using 'NetworkManager'
         userService = NetworkManager.getInstance().createService(UserService.class);
     }
 
@@ -35,14 +38,18 @@ public class UserManager {
             Runnable onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
+
+        // Call the 'userService' service and handle the response
         userService.register(newUser)
                 .enqueue(new Callback<RegistrationResponse>() {
                     @Override
                     public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
+                        // Check if the response body is not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -62,15 +69,18 @@ public class UserManager {
             Consumer<UserResponse> onSuccess,
             Consumer<String> onError
     ) {
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()) {
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Call the 'userService' service and handle the response
         userService.getUserDetails(id).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
+                    // Check if the response body is not null
                     UserResponse userResponse = response.body();
                     if (userResponse != null) {
                         onSuccess.accept(userResponse);
@@ -98,18 +108,22 @@ public class UserManager {
             Runnable onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
 
 
-
+        // Create a 'UserUpdateModel' object
         UserUpdateModel user = new UserUpdateModel(firstName, lastName, mobile);
+
+        // Call the 'userService' service and handle the response
         userService.updateSelectedUser(id, user)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        // Check if the response body is not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -129,15 +143,18 @@ public class UserManager {
             Runnable onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Call the 'userService' service and handle the response
         userService.deactivateAccount(id)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        // Check if the response body is not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{

@@ -32,12 +32,15 @@ public class ReservationManager {
     private ReservationService reservationService;
 
     public static ReservationManager getInstance() {
+        // Check if the 'singleton' instance is null
         if (singleton == null)
             singleton = new ReservationManager();
+        //Returing instance
         return singleton;
     }
 
     private ReservationManager() {
+        // Create an instance of the 'ReservationService' by using 'NetworkManager'
         reservationService = NetworkManager.getInstance().createService(ReservationService.class);
     }
 
@@ -47,14 +50,18 @@ public class ReservationManager {
             Runnable onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
+
+        // Call the 'reservationService' service and handle the response
         reservationService.addReservation(token, reservation)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        // Check if the response body and id are not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -74,17 +81,22 @@ public class ReservationManager {
             Consumer<UserReservationResponse> onSuccess,
             Consumer<String> onError
     ) {
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()) {
             onError.accept("No internet connectivity");
             return;
         }
 
+
+        // Call the 'reservationService' service and handle the response
         reservationService.fetchUserReservations(userToken).enqueue(new Callback<UserReservationResponse>() {
             @Override
             public void onResponse(Call<UserReservationResponse> call, Response<UserReservationResponse> response) {
                 if (response.isSuccessful()) {
+                    // Handle a successful response
                     UserReservationResponse userReservationResponse = response.body();
                     if (userReservationResponse != null) {
+                        // Call the onSuccess consumer with the response data
                         onSuccess.accept(userReservationResponse);
                     } else {
                         onError.accept("Response is empty");
@@ -96,7 +108,6 @@ public class ReservationManager {
 
             @Override
             public void onFailure(Call<UserReservationResponse> call, Throwable t) {
-                Log.d("MyApp", "This is a debug message." + t.getMessage());
                 onError.accept("Network request failed: " + t.getMessage());
             }
         });
@@ -108,15 +119,18 @@ public class ReservationManager {
             Runnable onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Call the 'reservationService' service and handle the response
         reservationService.deleteUserReservation(token, id)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        // Check if the response body and id are not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         }else{
@@ -138,17 +152,21 @@ public class ReservationManager {
             Runnable onSuccess,
             Consumer<String> onError
     ) {
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()) {
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Create a 'UpdateReservation' object with NIC and password
         UpdateReservation obj = new UpdateReservation(noOfPassengers);
 
+        // Call the 'reservationService' service and handle the response
         reservationService.updateReservation(token, reservationId, obj)
                 .enqueue(new Callback<CommanResponse>() {
                     @Override
                     public void onResponse(Call<CommanResponse> call, Response<CommanResponse> response) {
+                        // Check if the response body and id are not null
                         if (response.body() != null && response.body().id != null) {
                             onSuccess.run();
                         } else {

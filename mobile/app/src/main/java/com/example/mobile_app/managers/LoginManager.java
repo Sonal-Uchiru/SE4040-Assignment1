@@ -17,27 +17,18 @@ import retrofit2.Response;
 public class LoginManager {
     private static LoginManager singleton;
     private LoginService loginService;
-    private final String loginStateFile = "loginstate";
-    private final String isLoggedInKey = "logged_in";
 
     public static LoginManager getInstance() {
+        // Check if the 'singleton' instance is null
         if (singleton == null)
             singleton = new LoginManager();
+        //Returing instance
         return singleton;
     }
 
     private LoginManager() {
+        // Create an instance of the 'LoginService' by using 'NetworkManager'
         loginService = NetworkManager.getInstance().createService(LoginService.class);
-    }
-
-    public Boolean validateCredentials(String nic, String password) {
-        if (nic == null || nic.length() == 0)
-            return false;
-
-        if (password == null || password.length() == 0)
-            return false;
-
-        return true;
     }
 
     public void login(
@@ -46,16 +37,21 @@ public class LoginManager {
             Consumer<LoginResponse> onSuccess,
             Consumer<String> onError
     ){
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()){
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Create a 'Login' object with NIC and password
         Login body = new Login(nic, password);
+
+        // Call the 'login' service and handle the response
         loginService.login(body)
                 .enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        // Check if the response body and token are not null
                         if (response.body() != null && response.body().token != null) {
                             onSuccess.accept(response.body());
                         }else{
@@ -69,19 +65,5 @@ public class LoginManager {
                     }
                 });
     }
-
-    public void setLoggedInState(boolean isLoggedIn){
-        Context context = ContextManager.getInstance().getApplicationContext();
-        SharedPreferences.Editor editor = context.getSharedPreferences(loginStateFile, Context.MODE_PRIVATE).edit();
-        editor.putBoolean(isLoggedInKey, isLoggedIn);
-        editor.apply();
-    }
-
-    public boolean getIsLoggedIn(){
-        Context context = ContextManager.getInstance().getApplicationContext();
-        SharedPreferences prefs = context.getSharedPreferences(loginStateFile, Context.MODE_PRIVATE);
-        return prefs.getBoolean(isLoggedInKey, false);
-    }
-
 
 }

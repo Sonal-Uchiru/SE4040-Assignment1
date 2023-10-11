@@ -20,12 +20,15 @@ public class TrainScheduleManager {
     private TrainScheduleService trainScheduleService;
 
     public static TrainScheduleManager getInstance() {
+        // Check if the 'singleton' instance is null
         if (singleton == null)
             singleton = new TrainScheduleManager();
+        //Returing instance
         return singleton;
     }
 
     private TrainScheduleManager() {
+        // Create an instance of the 'TrainScheduleService' by using 'NetworkManager'
         trainScheduleService = NetworkManager.getInstance().createService(TrainScheduleService.class);
     }
 
@@ -33,16 +36,19 @@ public class TrainScheduleManager {
             Consumer<TrainScheduleResponse> onSuccess,
             Consumer<String> onError
     ) {
+        // Check if there is no internet connectivity
         if (!NetworkManager.getInstance().isNetworkAvailable()) {
             onError.accept("No internet connectivity");
             return;
         }
 
+        // Call the 'trainScheduleService' service and handle the response
         trainScheduleService.fetch().enqueue(new Callback<TrainScheduleResponse>() {
             @Override
             public void onResponse(Call<TrainScheduleResponse> call, Response<TrainScheduleResponse> response) {
                 if (response.isSuccessful()) {
                     TrainScheduleResponse trainScheduleResponse = response.body();
+                    // Check if the response body is not null
                     if (trainScheduleResponse != null) {
                         onSuccess.accept(trainScheduleResponse);
                     } else {
