@@ -12,7 +12,7 @@ public sealed class ReservationRepository : BaseRepository<Reservation>, IReserv
         _dbContext = DataBaseConnection.database.GetCollection<Reservation>("reservations");
     }
 
-    public Task UpdateNoOfPassengers(UpdateReservationDto reservationDto)
+    public Task UpdateNoOfPassengersAsync(UpdateReservationDto reservationDto)
     {
         var filter = Builders<Reservation>.Filter.Eq(i => i.Id, reservationDto.Id);
         var update = Builders<Reservation>.Update

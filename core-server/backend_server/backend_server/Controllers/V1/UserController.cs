@@ -29,7 +29,6 @@ public class UserController : ApiBaseController
         return _mediator.Send(command);
     }
 
-    [Authorize]
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User.Commands.Update.Response))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResponse))]
@@ -40,7 +39,6 @@ public class UserController : ApiBaseController
         return _mediator.Send(command);
     }
 
-    [Authorize]
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(User.Commands.Delete.Response))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResponse))]

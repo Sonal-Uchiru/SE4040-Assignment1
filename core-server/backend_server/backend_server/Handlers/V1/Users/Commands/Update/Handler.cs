@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend_server.Models.Commons.Exceptions;
 using backend_server.Models.DomainModels;
 using backend_server.Models.Dtos.Users;
 using backend_server.Queries.Interfaces;
@@ -25,19 +26,12 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityByIdAsync(command.Id);
-
-        if(user == null)
-        {
-            return new Response
-            {
-                Id = command.Id
-            };
-        }
+        _ = await _userQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(User));
 
         var updateUserDto = _mapper.Map<UpdateUserDto>(command);
 
-        await _userRepository.Update(command.Id, updateUserDto);
+        await _userRepository.UpdateAsync(command.Id, updateUserDto);
 
         return new Response
         {

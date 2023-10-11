@@ -30,4 +30,13 @@
     <string name="user_profile">User Profile</string>
     <string name="reservation_history">Reservation History</string>
     <string name="reservation_details">Reservation Details</string>
+    <string name="update">Update</string>
+    <string name="deactivate">Deactivate Account</string>
+    <string name="activate">Activate Account</string>
+    <string name="reservation_cancel">Cancel Reservation</string>
+    <string name="reservation_update">Update</string>
+    <string name="no_of_reservations">No of Reservations</string>
+    <string name="person_price">Per person Price</string>
+
+
 </resources>

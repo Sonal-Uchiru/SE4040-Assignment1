@@ -5,5 +5,5 @@ namespace backend_server.Repositories.Interfaces;
 
 public interface IReservationRepository : IBaseRepository<Reservation>
 {
-    Task UpdateNoOfPassengers(UpdateReservationDto reservationDto);
+    Task UpdateNoOfPassengersAsync(UpdateReservationDto reservationDto);
 }

@@ -2,7 +2,7 @@
 using backend_server.Models.Commons.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Authentication = backend_server.Handlers.V1.Authentications.Logins;
+using Authentication = backend_server.Handlers.V1.Authentications.Commands.Logins;
 
 namespace backend_server.Controllers.V1;
 

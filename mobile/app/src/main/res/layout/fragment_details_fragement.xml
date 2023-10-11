@@ -16,142 +16,322 @@
         app:title="@string/schedule_details"
         app:titleTextColor="@android:color/white"
         />
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_lock_24"
-                android:layout_gravity="center_horizontal"
-                android:padding="16dp"
-                android:layout_marginTop="16dp" />
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            android:background="@drawable/custom_edittext">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                >
 
-                <TextView
-                    android:id="@+id/trainName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Train Name"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
 
-                <TextView
-                    android:id="@+id/model"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Model: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/driverName"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Driver: "
-                    android:layout_marginTop="8dp" />
+                    android:padding="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_trainName"
+                        android:text="Train:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
 
-                <TextView
-                    android:id="@+id/contactNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Number: "
-                    android:layout_marginTop="8dp" />
+                        />
+                    <TextView
+                        android:id="@+id/trainName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/d_label_model"
+                        android:layout_marginTop="8dp"
+                        />
 
-                <TextView
-                    android:id="@+id/startingStation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Starting Station: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/endingStation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ending Station: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/depatureTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Departure Time: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/arrivalTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Arrival Time: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/numberOfSeats"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Number of Seats: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/frequency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Frequency: "
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Price: "
-                    android:layout_marginTop="8dp"
-                    />
-
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_model"
+                        android:text="Model:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_below="@+id/d_label_trainName"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_model"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_trainName"
+                        android:layout_toEndOf="@id/d_label_model"
+                        android:layout_marginTop="8dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_driver"
+                        android:text="Driver:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_model"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_driver"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/d_label_driver"
+                        android:layout_below="@+id/d_label_model"
+                        android:layout_marginTop="8dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_contact"
+                        android:text="Contact No:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_driver"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_contact"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_driver"
+                        android:layout_toEndOf="@id/d_label_contact"
+                        android:layout_marginTop="8dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_startingstation"
+                        android:text="Starting Station:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_contact"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_startingstation"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_contact"
+                        android:layout_toEndOf="@id/d_label_startingstation"
+                        android:layout_marginTop="8dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_endingstation"
+                        android:text="Ending Station:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_startingstation"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_endingstation"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_startingstation"
+                        android:layout_toEndOf="@id/d_label_endingstation"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_departuretime"
+                        android:text="Departure Time:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_endingstation"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_departuretime"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_endingstation"
+                        android:layout_toEndOf="@id/d_label_departuretime"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_arrivaltime"
+                        android:text="Arrival Time:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_departuretime"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_arrivaltime"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_departuretime"
+                        android:layout_toEndOf="@id/d_label_arrivaltime"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_personprice"
+                        android:text="Per Person Price:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_arrivaltime"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_personprice"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_arrivaltime"
+                        android:layout_toEndOf="@id/d_label_personprice"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_label_totalprice"
+                        android:text="Total Price:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_personprice"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/d_totalprice"
+                        android:text="Train Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_below="@+id/d_label_personprice"
+                        android:layout_toEndOf="@id/d_label_totalprice"
+                        android:layout_marginTop="8dp" />
+                </RelativeLayout>
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:id="@+id/ed_nic"
+                    android:id="@+id/d_ed_persons"
                     android:drawablePadding="8dp"
                     android:hint="@string/enter_passengers"
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:textColorHighlight="@color/secondary"
                     android:layout_marginTop="30dp"
+                    android:layout_centerInParent="true"
                     />
+                <TextView
+                    android:id="@+id/d_selected_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/idBtnPickDate"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Reservation Date"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:id="@+id/login_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/book_ticket_btn"
                     android:text="@string/btn_ticket_book"
                     android:textSize="18sp"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/primary"
                     android:onClick="onNavigateToHome"
-                    app:cornerRadius="20dp"/>
+                    android:layout_centerInParent="true"
+                    app:cornerRadius="20dp"
+                    />
+
+                <Button
+                    android:id="@+id/idBtnPickDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:text="Pick Reservation Date"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
-
-
-
         </androidx.cardview.widget.CardView>
-
     </FrameLayout>
 </RelativeLayout>

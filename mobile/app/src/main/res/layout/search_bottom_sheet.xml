@@ -58,20 +58,6 @@
         android:inputType="number"
         android:defaultValue="1"
         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ed_search_date"
-        android:background="@drawable/custom_edittext"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:drawablePadding="8dp"
-        android:hint="@string/date"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:textColorHighlight="@color/secondary"
-        android:layout_marginTop="20dp"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

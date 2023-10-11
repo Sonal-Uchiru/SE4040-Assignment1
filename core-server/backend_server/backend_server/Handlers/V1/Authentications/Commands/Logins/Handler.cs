@@ -3,7 +3,7 @@ using backend_server.Queries.Interfaces;
 using backend_server.Services.Interfaces;
 using MediatR;
 
-namespace backend_server.Handlers.V1.Authentications.Logins;
+namespace backend_server.Handlers.V1.Authentications.Commands.Logins;
 
 public class Handler : IRequestHandler<Command, Response>
 {
@@ -20,7 +20,7 @@ public class Handler : IRequestHandler<Command, Response>
 
     public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetUserByNIC(command.Nic);
+        var user = await _userQuery.GetUserByNICAsync(command.Nic);
 
         if (user == null || !_userService.VerifyPassword(command.Password, user.PasswordHash))
         {
@@ -29,6 +29,7 @@ public class Handler : IRequestHandler<Command, Response>
 
         return new Response
         {
+            UserId = user.Id,
             Token = _authenticationService.GenerateJWT(user.Id, user.Role)
         };
     }
