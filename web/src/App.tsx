@@ -11,21 +11,28 @@ import { Private } from "./private/PrivateRoute";
 import theme from "./theme/hooks/CreateTheme";
 import { UserRoles } from "./types/enums/UserRoles";
 import TrainDetailsPage from "./pages/TrainDetailsPage";
+import NavigationAppBar from "./components/organisms/navigations/AppBar";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-
+          <Route path="/" element={<TrainDetailsPage />} />
           <Route
-            path="/addNewTraveler"
+            path="//updateTrain/:id"
+            element={<UpdateTrainDetailsPage />}
+          />
+          {/* <Route
+            path="/addNewTrain"
             element={
-              <Private
-                Component={AddNewTrainPage}
-                Role={UserRoles.BackOfficer}
-              />
+              <>
+                <NavigationAppBar />
+                <Private
+                  Component={AddNewTrainPage}
+                  Role={UserRoles.BackOfficer}
+                />
+              </>
             }
           />
 
@@ -49,7 +56,15 @@ function App() {
             }
           />
 
-          <Route path="/travelersDetails" element={<TravelersDetailsPage />} />
+          <Route
+            path="/travelersDetails"
+            element={
+              <>
+                <NavigationAppBar />
+                <TravelersDetailsPage />
+              </>
+            }
+          />
 
           <Route
             path="/reservationManagement"
@@ -61,7 +76,7 @@ function App() {
             element={<ReservationDetailsPage />}
           />
 
-          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/payment" element={<PaymentPage />} /> */}
         </Routes>
       </Router>
     </ThemeProvider>

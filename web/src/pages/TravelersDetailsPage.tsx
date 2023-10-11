@@ -43,9 +43,8 @@ export default function TravelersDetailsPage() {
           </div>
         </div>
 
-        <div>
-          <TravelersDetailsDataTable isDataUpdated={false} />
-        </div>
+        <TravelersDetailsDataTable isDataUpdated={false} />
+
         {isOpen && (
           <AddNewTravelerModal
             handleCancel={() => {

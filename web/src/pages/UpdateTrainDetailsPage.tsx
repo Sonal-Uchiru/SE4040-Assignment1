@@ -47,15 +47,16 @@ export default function UpdateTrainDetailsPage() {
         setTrainName(res.data.item.name);
         setModel(res.data.item.model);
         setDriverName(res.data.item.driverName);
-        setContactNumber(res.data.item.contactNumber);
+        setContactNumber(res.data.item.contact);
         setNoOfSeats(res.data.item.noOfSeats);
         setStartingStation(res.data.item.startingStation);
         setEndingStation(res.data.item.endingStation);
         setFrequencies(res.data.item.frequencies);
         setDepartureTime(res.data.item.departureTime);
         setArrivalTime(res.data.item.arrivalTime);
-        setPrice(res.data.item.schedules.price);
+        setPrice(res.data.item.schedules[0].price);
         setSchedules(res.data.item.schedules);
+        console.log(schedules);
       })
       .catch((err) => {
         err as AxiosError;
@@ -78,15 +79,15 @@ export default function UpdateTrainDetailsPage() {
       price,
       schedules,
     };
-    console.log(updateTrain);
-    // TrainProtectedApi.updateAsync(updateTrain, id)
-    //   .then((res) => {
-    //     console.log("Train details updated successfully");
-    //   })
-    //   .catch((err) => {
-    //     err as AxiosError;
-    //     console.log(err);
-    //   });
+    // console.log(updateTrain);
+    TrainProtectedApi.updateAsync(updateTrain, id)
+      .then((res) => {
+        console.log("Train details updated successfully");
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
   };
 
   const addSchedule = () => {
@@ -106,6 +107,13 @@ export default function UpdateTrainDetailsPage() {
     };
     setSchedules([...schedules, newSchedule]);
     console.log(schedules);
+  };
+
+  const handleRemoveSchedule = (indexToRemove: number) => {
+    // Create a copy of the schedules array and remove the schedule at the specified index
+    const updatedSchedules = [...schedules];
+    updatedSchedules.splice(indexToRemove, 1);
+    setSchedules(updatedSchedules);
   };
 
   const stations = [
@@ -437,7 +445,10 @@ export default function UpdateTrainDetailsPage() {
 
               <Grid item xs={12} lg={6} md={6}>
                 <div style={{ paddingRight: 20, paddingLeft: 20 }}>
-                  <TrainScheduleUpdateTable />
+                  <TrainScheduleUpdateTable
+                    schedules={schedules}
+                    onRemoveSchedule={handleRemoveSchedule}
+                  />
                 </div>
               </Grid>
             </Grid>
@@ -460,6 +471,7 @@ export default function UpdateTrainDetailsPage() {
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.primary.main}
                 width={150}
+                onClick={addSchedule}
               />
             </div>
 

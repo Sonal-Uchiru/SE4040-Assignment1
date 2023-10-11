@@ -18,7 +18,7 @@ export default function TrainScheduleTable({ schedules }: IProp) {
   const options: any = {
     responsive: "standard",
     rowsPerPageOptions: [3],
-    rowsPerPage: 3,
+    rowsPerPage: 5,
     selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
