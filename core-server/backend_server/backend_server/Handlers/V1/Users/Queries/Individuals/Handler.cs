@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using backend_server.Models.Commons.Exceptions;
+using backend_server.Models.DomainModels;
 using backend_server.Models.Dtos.Users;
 using backend_server.Queries.Interfaces;
 using MediatR;
@@ -18,15 +20,13 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
-        var user = await _userQuery.GetEntityByIdAsync(command.Id);
-
-        if(user == null)
-        {
-            // not found response
-        }
+        // Attempt to retrieve a user by the provided ID; if not found, throw a NotFoundException.
+        var user = await _userQuery.GetEntityByIdAsync(command.Id)
+            ?? throw new NotFoundException(command.Id, nameof(User));
 
         return new Response
         {
+            // Map the user entity to a UserResponseDto.
             Item = _mapper.Map<UserResponseDto>(user)
         };
     }
