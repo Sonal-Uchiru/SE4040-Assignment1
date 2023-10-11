@@ -38,9 +38,7 @@ public class DetailsFragement extends Fragment {
 
     FragmentDetailsFragementBinding binding;
     TokenManager tokenManager;
-
     private ReservationManager reservationManager;
-
     Bundle args;
     EditText dEdPersons;
     TextView dTotalPrice;
@@ -57,55 +55,59 @@ public class DetailsFragement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        // Inflates the layout for this fragment.
         binding = FragmentDetailsFragementBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         btnBookTicket = view.findViewById(R.id.book_ticket_btn);
 
-        tokenManager = new TokenManager(requireContext());
+        // Initialize token manager and reservation manager.
         reservationManager = ReservationManager.getInstance();
+
+        // Initialize UI elements.
         dEdPersons = view.findViewById(R.id.d_ed_persons);
         dTotalPrice = view.findViewById(R.id.d_totalprice);
         pickDateBtn = view.findViewById(R.id.idBtnPickDate);
         selectedDateTV = view.findViewById(R.id.d_selected_date);
 
+
+        // Set an OnClickListener for the date btnBookTicket button.
+        btnBookTicket.setOnClickListener(v -> {
+            addNewReservation();
+        });
+
+        // Set an OnClickListener for the date picker button.
         pickDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // on below line we are getting
-                // the instance of our calendar.
+                // Create a date picker dialog.
                 final Calendar c = Calendar.getInstance();
-
-                // on below line we are getting
-                // our day, month and year.
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
 
-                // on below line we are creating a variable for date picker dialog.
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        // on below line we are passing context.
                         requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                // on below line we are setting date to our text view.
+                                // Set the selected date to the text view.
                                 selectedDateTV.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
                             }
                         },
-                        // on below line we are passing year,
-                        // month and day for selected date in our date picker.
                         year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
+                // Show the date picker dialog.
                 datePickerDialog.show();
             }
         });
 
+        // Configure the number of characters allowed in the EditText.
         dEdPersons.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
         dEdPersons.setText("1");
 
+
+        // Add a TextWatcher to the EditText to calculate the total price dynamically.
         dEdPersons.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -129,6 +131,7 @@ public class DetailsFragement extends Fragment {
 
         args = getArguments();
         if (args != null) {
+            // Extracting data from the arguments bundle.
             trainId = args.getString("trainId");
             trainName = args.getString("trainName");
             driverName = args.getString("driverName");
@@ -138,15 +141,13 @@ public class DetailsFragement extends Fragment {
             arrivalTime = args.getString("arrivalTime");
             model = args.getString("model");
             frequency = args.getString("frequency");
-
             numberOfSeats = args.getInt("numberOfSeats");
             contact = args.getInt("contactNumber");
             String contactStr = Integer.toString(contact);
-
             price = args.getDouble("price");
             String priceStr = Double.toString(price);
 
-            Log.d("MyApp", "Activity created." + driverName); // Debug message
+            // Set the extracted data to UI elements using the data binding.
             binding.trainName.setText(trainName);
             binding.dDriver.setText(driverName);
             binding.dModel.setText(model);
@@ -157,29 +158,26 @@ public class DetailsFragement extends Fragment {
             binding.dArrivaltime.setText(arrivalTime);
             binding.dPersonprice.setText(priceStr);
             binding.dTotalprice.setText(priceStr);
-
-            // binding.model.setText(model);
         }
 
-        btnBookTicket.setOnClickListener(v -> {
-            addNewReservation();
-        });
         return view;
     }
 
     private void addNewReservation() {
+        // Retrieve the user's authentication token.
         String token = "Bearer " + tokenManager.getToken();
         String passengers = String.valueOf(dEdPersons.getText());
         String selectedDate = String.valueOf(selectedDateTV.getText());
         String formattedDate = DatabaseTypeConverters.formatToDateTime(selectedDate);
         int noOfPassengers = Integer.parseInt(passengers);
 
-        Log.d("MyApp", "Activity created." + selectedDate);
+        // Check if the selected date is the default "Reservation Date".
         if(selectedDate.equals("Reservation Date")){
             Toast.makeText(requireContext(), "Please select a valid reservation date", Toast.LENGTH_LONG).show();
             return;
         }
 
+        // Check the number of passengers and display appropriate messages for invalid values.
         if(noOfPassengers > 4){
             Toast.makeText(requireContext(), "You cannot book more than 4 tickets at a time", Toast.LENGTH_LONG).show();
             return;
@@ -187,8 +185,11 @@ public class DetailsFragement extends Fragment {
             Toast.makeText(requireContext(), "Reserved tickets cannot be negative", Toast.LENGTH_LONG).show();
             return;
         }
+
+        // Create a new reservation object.
         NewReservation reservation = new NewReservation(trainId, trainName, startingStation, endingStation, frequency, depatureTime, arrivalTime, noOfPassengers, formattedDate, price);
 
+        // Call the reservation manager to add the new reservation.
         reservationManager.addNewReservation(
                 token,
                 reservation,
@@ -199,7 +200,6 @@ public class DetailsFragement extends Fragment {
     private void calculateTotal(int tickets){
         double price = args.getDouble("price");
         totalPrice = price * tickets;
-
     }
 
     private void handleSuccess(){
@@ -212,14 +212,15 @@ public class DetailsFragement extends Fragment {
     }
 
     private void replaceFragement(Fragment fragment) {
+        // Get the FragmentManager from the parent activity.
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
+        // Start a new transaction for replacing the fragment.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+        // Replace the existing fragment with the new fragment.
         fragmentTransaction.replace(R.id.frame_layout, fragment);
-
+        // Add the transaction to the back stack for navigation.
         fragmentTransaction.addToBackStack(null);
-
+        // Commit the transaction to apply the fragment replacement.
         fragmentTransaction.commit();
     }
 
