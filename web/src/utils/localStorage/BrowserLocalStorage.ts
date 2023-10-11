@@ -20,7 +20,7 @@ class BrowserLocalStorage {
 
         if (accessToken) {
             const decoded: {
-                _id: string
+                userId: string
                 role: UserRoles
                 iat: number
                 exp: number

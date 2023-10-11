@@ -1,6 +1,5 @@
 import * as React from 'react'
 import theme from '../../../theme/hooks/CreateTheme'
-import { useTranslation } from 'react-i18next'
 
 interface IProps {
     text: string
@@ -17,7 +16,6 @@ export default function Information({
     fontSize = theme.typography.S2.fontSize,
     fontFamily = theme.typography.fontFamily1.fontFamily,
 }: IProps) {
-    const { t } = useTranslation()
     return (
         <div
             style={{
@@ -27,7 +25,7 @@ export default function Information({
                 fontFamily: fontFamily,
             }}
         >
-            {t(text)}
+            {text}
         </div>
     )
 }
