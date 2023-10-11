@@ -2,13 +2,14 @@
 
 namespace backend_server.Utills.FlutentValidations;
 
+// CustomValidation class with extension methods for setting maximum and minimum length rules on numeric types.
 public static class CustomValidation
 {
-    public static IRuleBuilderOptions<T, short> MaximumLength<T>(this IRuleBuilder<T, short> rule, int maximumLength) =>rule
+    public static IRuleBuilderOptions<T, short> MaximumLength<T>(this IRuleBuilder<T, short> rule, int maximumLength) => rule
         .Must(n => Math.Log10(Math.Abs((double)n)) <= maximumLength)
         .WithMessage("The length of '{PropertyName}' must be '" + maximumLength + "' Digit or fewer.");
 
-    public static IRuleBuilderOptions<T, short?> MaximumLength<T>(this IRuleBuilder<T, short?> rule, int maximumLength) =>rule
+    public static IRuleBuilderOptions<T, short?> MaximumLength<T>(this IRuleBuilder<T, short?> rule, int maximumLength) => rule
         .Must(n => Math.Log10(Math.Abs((double)n.Value)) <= maximumLength)
         .WithMessage("The length of '{PropertyName}' must be '" + maximumLength + "' Digit or fewer.");
 
@@ -86,4 +87,3 @@ public static class CustomValidation
         .Must(n => Math.Log10(Math.Abs(n.Value)) >= minimumLength)
         .WithMessage("The length of '{PropertyName}' must be at least '" + minimumLength + "' digits.");
 }
-

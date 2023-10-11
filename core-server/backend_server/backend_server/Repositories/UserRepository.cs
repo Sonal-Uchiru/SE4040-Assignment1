@@ -5,13 +5,16 @@ using MongoDB.Driver;
 
 namespace backend_server.Repositories;
 
+// UserRepository class for specific repository operations related to User entities.
 public sealed class UserRepository : BaseRepository<User>, IUserRepository
 {
+    // Constructor that initializes the database context for User entities.
     public UserRepository()
     {
         _dbContext = DataBaseConnection.database.GetCollection<User>("users");
     }
 
+    // Updates user information in the database based on the provided user ID and user data.
     public Task UpdateAsync(Guid id, UpdateUserDto userDto)
     {
         var filter = Builders<User>.Filter.Eq(i => i.Id, id);

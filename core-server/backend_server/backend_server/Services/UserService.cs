@@ -4,8 +4,10 @@ using backend_server.Services.Interfaces;
 
 namespace backend_server.Services;
 
+// UserService class for handling password hashing and verification.
 public sealed class UserService : IUserService
 {
+    // Hashes the provided password using SHA-256.
     public string HashPassword(string password)
     {
         var passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -22,6 +24,7 @@ public sealed class UserService : IUserService
         return builder.ToString();
     }
 
+    // Verifies a plain password against a hashed password.
     public bool VerifyPassword(string plainPassword, string hashedPassword)
     {
 
@@ -39,4 +42,3 @@ public sealed class UserService : IUserService
         return builder.ToString() == hashedPassword;
     }
 }
-

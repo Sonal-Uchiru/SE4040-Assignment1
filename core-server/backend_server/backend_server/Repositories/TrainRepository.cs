@@ -10,5 +10,3 @@ public sealed class TrainRepository : BaseRepository<Train>, ITrainRepository
         _dbContext = DataBaseConnection.database.GetCollection<Train>("trains");
     }
 }
-
-

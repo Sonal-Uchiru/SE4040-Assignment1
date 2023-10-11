@@ -5,5 +5,6 @@ namespace backend_server.Handlers.V1.Users.Queries.Lists;
 
 public class Response : BaseResponse
 {
-	public required List<UserResponseDto> Items { get; init; }
+    // Define a list of UserResponseDto items as part of the response.
+    public required List<UserResponseDto> Items { get; init; }
 }
