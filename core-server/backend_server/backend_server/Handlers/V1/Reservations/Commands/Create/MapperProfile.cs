@@ -2,6 +2,7 @@
 
 namespace backend_server.Handlers.V1.Reservations.Commands.Create;
 
+// Mapper profile for mapping Command objects to Reservation objects.
 public class MapperProfile : BaseMapperProfile
 {
     public MapperProfile()
@@ -9,4 +10,3 @@ public class MapperProfile : BaseMapperProfile
         CreateMap<Command, Reservation>();
     }
 }
-

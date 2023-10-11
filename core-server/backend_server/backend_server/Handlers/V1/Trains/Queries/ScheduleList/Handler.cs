@@ -4,10 +4,10 @@ using MediatR;
 
 namespace backend_server.Handlers.V1.Trains.Queries.ScheduleList;
 
+// Handler class for processing and handling queries to retrieve a list of 'Train' schedules.
 public class Handler : IRequestHandler<Query, Response>
 {
     private readonly ITrainQuery _trainQuery;
-    
 
     public Handler(ITrainQuery trainQuery)
     {
@@ -16,13 +16,16 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
+        // Retrieve a list of 'Train' entities.
         var trains = await _trainQuery.GetEntitiesAsync();
 
         var scheduleListResponse = new List<ScheduleListResponseDto>();
 
-        foreach(var train in trains)
+        foreach (var train in trains)
         {
-            var tempScheduleList = new List<ScheduleListResponseDto>(trains.Count);
+            // Create a list of 'ScheduleListResponseDto' items based on train schedules.
+            var tempScheduleList = new List<ScheduleListResponseDto>(train.Schedules.Count);
+
             foreach (var schedule in train.Schedules)
             {
                 var tempTrainDetails = new ScheduleListResponseDto
@@ -49,6 +52,7 @@ public class Handler : IRequestHandler<Query, Response>
             scheduleListResponse.AddRange(tempScheduleList);
         }
 
+        // Return a response containing the list of 'ScheduleListResponseDto' items.
         return new Response
         {
             Items = scheduleListResponse

@@ -20,7 +20,7 @@ public class Handler : IRequestHandler<Query, Response>
     {
         var user = await _userQuery.GetEntityByIdAsync(command.Id);
 
-        if(user == null)
+        if (user == null)
         {
             // not found response
         }

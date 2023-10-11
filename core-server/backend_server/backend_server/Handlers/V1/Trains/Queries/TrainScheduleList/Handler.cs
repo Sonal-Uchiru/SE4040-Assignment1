@@ -5,6 +5,7 @@ using MediatR;
 
 namespace backend_server.Handlers.V1.Trains.Queries.TrainScheduleList;
 
+// Handles the query to retrieve 'TrainSchedule' items by their unique identifier.
 public class Handler : IRequestHandler<Query, Response>
 {
     private readonly ITrainQuery _trainQuery;
@@ -16,6 +17,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
+        // Retrieve the 'TrainSchedule' items associated with the provided unique identifier.
         var train = await _trainQuery.GetEntityByIdAsync(command.Id)
             ?? throw new NotFoundException(command.Id, nameof(Train));
 

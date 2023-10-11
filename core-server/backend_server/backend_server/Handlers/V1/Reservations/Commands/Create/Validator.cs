@@ -3,6 +3,7 @@ using FluentValidation;
 
 namespace backend_server.Handlers.V1.Reservations.Commands.Create;
 
+// Validator class for validating Command objects related to train reservations.
 public class Validator : AbstractValidator<Command>
 {
     public Validator()

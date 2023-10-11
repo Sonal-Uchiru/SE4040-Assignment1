@@ -6,6 +6,10 @@ using Train = backend_server.Handlers.V1.Trains;
 
 namespace backend_server.Controllers.V1;
 
+// This controller handles train-related API endpoints for version 1 of the API.
+// It provides functionality to create, update, delete, list, and manage train schedules.
+// The controller uses the Mediator pattern to process train commands and queries,
+// and it defines the expected response types for each action.
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class TrainController : ApiBaseController
@@ -86,4 +90,3 @@ public class TrainController : ApiBaseController
         return _mediator.Send(new Train.Queries.ScheduleList.Query());
     }
 }
-

@@ -2,6 +2,7 @@
 
 namespace backend_server.Handlers.V1.Authentications.Commands.Logins;
 
+// Validator class for validating Command objects.
 public class Validator : AbstractValidator<Command>
 {
     public Validator()
