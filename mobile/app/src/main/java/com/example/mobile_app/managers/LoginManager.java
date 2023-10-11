@@ -61,7 +61,7 @@ public class LoginManager {
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }

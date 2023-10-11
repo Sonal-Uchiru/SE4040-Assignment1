@@ -59,7 +59,7 @@ public class UserManager {
 
                     @Override
                     public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }
@@ -133,7 +133,7 @@ public class UserManager {
 
                     @Override
                     public void onFailure(Call<CommanResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }
@@ -164,7 +164,7 @@ public class UserManager {
 
                     @Override
                     public void onFailure(Call<CommanResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }

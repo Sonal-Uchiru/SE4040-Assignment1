@@ -71,7 +71,7 @@ public class ReservationManager {
 
                     @Override
                     public void onFailure(Call<CommanResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }
@@ -140,7 +140,7 @@ public class ReservationManager {
 
                     @Override
                     public void onFailure(Call<CommanResponse> call, Throwable t) {
-                        onError.accept("Unknown :" + t.getMessage());
+                        onError.accept("Unknown Error:" + t.getMessage());
                     }
                 });
     }
