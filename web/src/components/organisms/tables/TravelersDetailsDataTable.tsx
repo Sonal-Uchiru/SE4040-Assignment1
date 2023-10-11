@@ -48,11 +48,11 @@ export default function TravelersDetailsDataTable({}: IProp) {
         const travelerList = res.data.items.map(
           (item: any) =>
             new TravelersData(
-              item.nic,
-              item.firstName,
-              item.lastName,
-              item.email,
-              item.mobile
+              item.nic ? item.nic : "Not Available",
+              item.firstName ? item.firstName : "Not Available",
+              item.lastName ? item.lastName : "Not Available",
+              item.email ? item.email : "Not Available",
+              item.mobile ? item.mobile : "Not Available"
             )
         );
         setTravelers(res.data.items);

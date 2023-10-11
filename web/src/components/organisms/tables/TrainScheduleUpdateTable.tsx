@@ -1,22 +1,40 @@
 import { Box, IconButton } from "@mui/material";
 import MUIDataTable from "mui-datatables";
+import * as React from "react";
+interface IProp {
+  schedules: any[];
+  onRemoveSchedule: (indexToRemove: number) => void;
+}
 
-export default function TrainScheduleUpdateTable() {
-  const data = [
-    ["Daily", "06:55 AM", "06:00 PM", "True"],
-    ["Week Days", "06:55 AM", "06:00 PM", "True"],
-    ["Week Ends", "06:55 AM", "06:00 PM", "True"],
-    ["Daily", "06:55 AM", "06:00 PM", "True"],
-  ];
+export default function TrainScheduleUpdateTable({
+  schedules,
+  onRemoveSchedule,
+}: IProp) {
+  const [visibleSchedules, setVisibleSchedules] = React.useState(schedules); // Initialize with all schedules
 
-  function handleClick() {
-    console.log("clicked");
+  function removeSchedule(indexToRemove: number) {
+    const updatedSchedules = visibleSchedules.filter(
+      (_, index) => index !== indexToRemove
+    );
+    onRemoveSchedule(indexToRemove);
+    setVisibleSchedules(updatedSchedules);
+    console.log(updatedSchedules);
   }
+  React.useEffect(() => {
+    setVisibleSchedules(schedules); // Update the visibleSchedules when the prop changes
+  }, [schedules]);
+
+  const formattedData = visibleSchedules.map((schedule) => ({
+    Frequency: schedule.frequency,
+    "Departure Time": schedule.departureTime,
+    "Arrival Time": schedule.arrivalTime,
+    "Return Trip": schedule.isReturnTrip ? "True" : "False",
+  }));
 
   const options: any = {
     responsive: "standard",
     rowsPerPageOptions: [3],
-    rowsPerPage: 3,
+    rowsPerPage: 5,
     selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
@@ -44,11 +62,7 @@ export default function TrainScheduleUpdateTable() {
               }}
             >
               <div>
-                <IconButton
-                  onClick={() => {
-                    handleClick();
-                  }}
-                >
+                <IconButton onClick={() => removeSchedule(tableMeta.rowIndex)}>
                   <img
                     alt="Edit Icon"
                     src="/images/trash.png"
@@ -70,8 +84,8 @@ export default function TrainScheduleUpdateTable() {
     <>
       <Box sx={styles.table}>
         <MUIDataTable
-          title={"Train Schedule"}
-          data={data}
+          title={"Train Schedules"}
+          data={formattedData}
           columns={columns}
           options={options}
         />
