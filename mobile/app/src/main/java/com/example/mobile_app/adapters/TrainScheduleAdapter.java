@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.example.mobile_app.R;
 import com.example.mobile_app.models.Train;
 import com.example.mobile_app.models.TrainSchedule;
+import com.example.mobile_app.utilities.DatabaseTypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,8 +25,7 @@ public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
     Calendar calendar = Calendar.getInstance();
 
     Date currentDate = calendar.getTime();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDate = dateFormat.format(currentDate);
+    String formattedDate = DatabaseTypeConverters.dateToString(currentDate);
 
     public TrainScheduleAdapter(@NonNull Context context, ArrayList<TrainSchedule> dataArrayList) {
         super(context, R.layout.list_item, dataArrayList);
@@ -41,13 +41,17 @@ public class TrainScheduleAdapter extends ArrayAdapter<TrainSchedule> {
         }
 
         TextView trainName = view.findViewById(R.id.list_train_name);
-        TextView scheduleDate = view.findViewById(R.id.list_schedule_date);
+        TextView personPrice = view.findViewById(R.id.list_person_price);
         TextView availableSeats = view.findViewById(R.id.list_available_seats);
-//        TextView price = view.findViewById(R.id.list_train_name);
+        TextView startingStation = view.findViewById(R.id.list_starting_station);
+        TextView endingStation = view.findViewById(R.id.list_ending_station);
 
-        trainName.setText(trainSchedule.trainName);
-        scheduleDate.setText(formattedDate);
-        availableSeats.setText(String.valueOf(trainSchedule.numberOfSeats));
+        trainName.setText(trainSchedule.getName());
+        personPrice.setText("Rs." + String.valueOf(trainSchedule.getPrice()));
+        availableSeats.setText(String.valueOf(trainSchedule.getNoOfSeats()));
+        startingStation.setText(trainSchedule.getStartingStation());
+        endingStation.setText(trainSchedule.getEndingStation());
+
 //        price.setText(trainSchedule.trainName);
 
         return view;

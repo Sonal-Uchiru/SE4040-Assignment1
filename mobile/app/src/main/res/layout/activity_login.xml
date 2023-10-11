@@ -33,10 +33,17 @@
                 android:textStyle="bold"
                 android:textColor="@color/primary"/>
 
+            <ImageView
+                android:src="@drawable/baseline_train_24"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/ed_nic"
+                android:id="@+id/l_ed_nic"
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="8dp"
@@ -44,12 +51,12 @@
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/secondary"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/ed_password"
+                android:id="@+id/l_ed_password"
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
@@ -68,7 +75,6 @@
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/primary"
-                android:onClick="onNavigateToHome"
                 app:cornerRadius="20dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

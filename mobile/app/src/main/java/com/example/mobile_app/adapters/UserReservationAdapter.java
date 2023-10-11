@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.example.mobile_app.R;
 import com.example.mobile_app.models.TrainSchedule;
 import com.example.mobile_app.models.UserReservation;
+import com.example.mobile_app.utilities.DatabaseTypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,14 +36,15 @@ public class UserReservationAdapter extends ArrayAdapter<UserReservation> {
         TextView totalPrice = view.findViewById(R.id.l_list_total_price);
         TextView reservations = view.findViewById(R.id.r_list_reservations);
 
-        Date departureDate = userReservation.getDepartureDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = dateFormat.format(departureDate);
+        int passengers = userReservation.getNoOfPassengers();
+        double perpersonprice = userReservation.getPerPersonPrice();
 
+        double fullPrice = perpersonprice * passengers;
+        String formattedDate = DatabaseTypeConverters.stringDateFormatter(userReservation.getReservationDate());
         scheduleDate.setText(formattedDate);
         trainName.setText(userReservation.getTrainName());
-        totalPrice.setText(String.valueOf(userReservation.getTotalPrice()));
-        reservations.setText(String.valueOf(userReservation.getReservedSeats()));
+        totalPrice.setText("Rs." + String.valueOf(fullPrice));
+        reservations.setText(String.valueOf(userReservation.getNoOfPassengers()));
 
         return view;
     }
