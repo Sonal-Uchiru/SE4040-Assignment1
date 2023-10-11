@@ -18,12 +18,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<TrainDetailsPage />} />
+          <Route path="/" element={<LoginPage />} />
+          {/* <Route path="/updateTrain/:id" element={<UpdateTrainDetailsPage />} /> */}
           <Route
-            path="//updateTrain/:id"
-            element={<UpdateTrainDetailsPage />}
-          />
-          {/* <Route
             path="/addNewTrain"
             element={
               <>
@@ -39,20 +36,27 @@ function App() {
           <Route
             path="/trainDetails"
             element={
-              <Private
-                Component={TrainDetailsPage}
-                Role={UserRoles.BackOfficer}
-              />
+              <>
+                <NavigationAppBar />
+                <Private
+                  Component={TrainDetailsPage}
+                  Role={UserRoles.BackOfficer}
+                />
+              </>
             }
           />
 
           <Route
             path="/updateTrain/:id"
             element={
-              <Private
-                Component={UpdateTrainDetailsPage}
-                Role={UserRoles.BackOfficer}
-              />
+              <>
+                {" "}
+                <NavigationAppBar />
+                <Private
+                  Component={UpdateTrainDetailsPage}
+                  Role={UserRoles.BackOfficer}
+                />
+              </>
             }
           />
 
@@ -68,15 +72,33 @@ function App() {
 
           <Route
             path="/reservationManagement"
-            element={<ReservationManagementPage />}
+            element={
+              <>
+                <NavigationAppBar />
+                <ReservationManagementPage />
+              </>
+            }
           />
 
           <Route
             path="/reservationDetails"
-            element={<ReservationDetailsPage />}
+            element={
+              <>
+                <NavigationAppBar />
+                <ReservationDetailsPage />
+              </>
+            }
           />
 
-          <Route path="/payment" element={<PaymentPage />} /> */}
+          <Route
+            path="/payment"
+            element={
+              <>
+                <NavigationAppBar />
+                <PaymentPage />
+              </>
+            }
+          />
         </Routes>
       </Router>
     </ThemeProvider>

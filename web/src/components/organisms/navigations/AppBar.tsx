@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import theme from "../../../theme/hooks/CreateTheme";
 import { useNavigate } from "react-router-dom";
 import { UserRoles } from "../../../types/enums/UserRoles";
+import BrowserLocalStorage from "../../../utils/localStorage/BrowserLocalStorage";
 
 const pages = [
   "Travelers Details",
@@ -25,12 +26,58 @@ const pages = [
 const settings = ["Logout"];
 
 function NavigationAppBar() {
+  const [value, setValue] = React.useState("one");
+  const [selectedPage, setSelectedPage] = React.useState<null | string>();
+  const [userRole, setUserRole] = React.useState(UserRoles.Unspecified);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
+  const handleSelectPage = (page: string) => {
+    setSelectedPage(page); // Update the selected page when changed
+    if (userRole == UserRoles.BackOfficer) {
+      if (getPages().indexOf(page) === 1) {
+        navigate("/travelersDetails");
+      }
+    } else {
+      if (getPages().indexOf(page) === 2) {
+        navigate("/travelersDetails");
+      } else if (getPages().indexOf(page) === 3) {
+        navigate("/reservationManagement");
+      } else {
+        navigate("/*");
+      }
+    }
+  };
+
+  const getPages = () => {
+    if (userRole == UserRoles.BackOfficer) {
+      return [
+        "Travelers Details",
+        "Reservation Details",
+        "Reservation Management",
+        "Train Details",
+      ];
+    }
+
+    if (userRole == UserRoles.TravelAgent) {
+      return [
+        "Travelers Details",
+        "Reservation Details",
+        "Reservation Management",
+      ];
+    }
+
+    return [];
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -47,12 +94,12 @@ function NavigationAppBar() {
     setAnchorElUser(null);
   };
 
-  const navigate = useNavigate();
+  const handleLogOut = () => {
+    BrowserLocalStorage.RemoveAccessToken();
+    navigate("/");
+  };
 
-  const [value, setValue] = React.useState("one");
-  const [selectedLanguage, setSelectedLanguage] = React.useState("en");
-  const [selectedPage, setSelectedPage] = React.useState<null | string>();
-  const [userRole, setUserRole] = React.useState(UserRoles.Unspecified);
+  const navigate = useNavigate();
 
   return (
     <AppBar position="static">
@@ -93,19 +140,25 @@ function NavigationAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {getPages().map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography
+                    textAlign="center"
+                    textTransform={"capitalize"}
+                    onClick={() => handleSelectPage(page)}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {getPages().map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleSelectPage(page)}
                 sx={{
                   my: 2,
                   color: theme.palette.white.main,
@@ -145,7 +198,7 @@ function NavigationAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={handleLogOut}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

@@ -10,14 +10,13 @@ interface IProps {
   height?: number;
   size?: "small" | "medium";
   label: string;
-  onChange?: (event: React.ChangeEvent<any>) => void;
+  onChange?: any;
   onBlur?(event: React.FocusEvent<any>): void;
   required?: boolean;
   error?: boolean | undefined;
-  helperText?: string;
   defaultValue?: string;
   name?: string;
-  value?: string;
+  value?: any;
   readOnly?: boolean;
 }
 
@@ -31,27 +30,26 @@ export default function CalenderField({
   size = "medium",
   required = false,
   error = false,
-  helperText = "",
-  defaultValue = "",
+
   name = "",
   readOnly = false,
 }: IProps) {
   const [values, setValue] = React.useState<Dayjs | null>(dayjs(""));
-  const showHelperText = helperText;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label={label}
-        value={values}
-        onChange={(newValue) => setValue(newValue)}
+        value={value}
+        onChange={onChange}
         slotProps={{
           textField: {
-            helperText: showHelperText,
             size: size,
+
             error: error,
             required: required,
-            onBlur: onBlur,
+            // value: value,
+
             variant: "outlined",
             style: { width: width, height: height },
             InputLabelProps: {

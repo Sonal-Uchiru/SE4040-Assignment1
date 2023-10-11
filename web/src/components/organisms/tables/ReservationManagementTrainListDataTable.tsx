@@ -6,6 +6,7 @@ import ContainedButton from "../../atoms/buttons/ContainedButton";
 import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import { AxiosError } from "axios";
+import DisplaySummaryModal from "../../modals/reservation/DisplaySummaryModal";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -44,6 +45,9 @@ class ScheduleData {
 export default function ReservationManagementTrainListDataTable({}: IProp) {
   const [schedules, setSchedules] = React.useState<any[]>([]);
   const [dataTableSchedules, setDataTableSchedules] = React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedTrain, setSelectedTrain] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
 
   React.useEffect(() => {
     TrainProtectedApi.getScheduleListAsync()
@@ -69,7 +73,7 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
         err as AxiosError;
         console.log(err);
       });
-  }, []);
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
@@ -84,10 +88,11 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(trainId: any, train: any) {
+    setSelectedTrain(train);
+    setIsOpen(!isOpen);
+    setId(trainId); // Set the selected item ID
   }
 
   const columns = [
@@ -102,6 +107,7 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const trainId = dataTableSchedules[tableMeta.rowIndex][0];
           return (
             <div style={{ justifyContent: "center" }}>
               <div>
@@ -109,7 +115,21 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
                   title={"Book"}
                   backgroundColor={theme.palette.primary.main}
                   width={90}
+                  onClick={() => {
+                    handleClick(trainId, schedules[tableMeta.rowIndex]);
+                  }}
                 />
+                {isOpen && id === trainId && (
+                  <DisplaySummaryModal
+                    handleCancel={() => {
+                      handleClick(trainId, schedules[tableMeta.rowIndex]);
+                    }}
+                    train={selectedTrain}
+                    handleConfirm={() => {
+                      setIsUpdateSuccess(!isUpdateSuccess);
+                    }}
+                  />
+                )}
               </div>
             </div>
           );

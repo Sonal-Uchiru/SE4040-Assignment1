@@ -8,13 +8,16 @@ import Title from "../components/atoms/title/Title";
 import HeadLine2 from "../components/atoms/typographies/HeadLine2";
 import ReservationManagementTrainListDataTable from "../components/organisms/tables/ReservationManagementTrainListDataTable";
 import theme from "../theme/hooks/CreateTheme";
+import * as React from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 export default function ReservationManagementPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
+  const [startingStation, setStartingStation] = React.useState("");
+  const [endingStation, setEndingStation] = React.useState("");
+  const [noOfPassengers, setNoofPassengers] = React.useState("");
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs(""));
 
-  const options = [
+  const stations = [
     { value: "AHUNGALLE", label: "AHUNGALLE" },
     { value: "BADULLA", label: "BADULLA" },
     { value: "BENTOTA", label: "BENTOTA" },
@@ -23,6 +26,19 @@ export default function ReservationManagementPage() {
     { value: "GAPMPAHA", label: "GAPMPAHA" },
     { value: "YAGODA", label: "YAGODA" },
   ];
+
+  function handleSearch() {
+    // if (date) {
+    //   const dayOfWeek = date.day(); // Get the day of the week (0 for Sunday, 1 for Monday, and so on)
+    //   if (dayOfWeek === 0 || dayOfWeek === 6) {
+    //     console.log(date.format("YYYY-MM-DD") + " is a weekend date.");
+    //   } else {
+    //     console.log(date.format("YYYY-MM-DD") + " is a weekday date.");
+    //   }
+    // } else {
+    //   console.log("Please select a valid date.");
+    // }
+  }
 
   return (
     <>
@@ -69,10 +85,13 @@ export default function ReservationManagementPage() {
                     <SelectField
                       label={"Starting Station"}
                       placeholder={"Select Starting Station"}
-                      options={options}
+                      options={stations}
                       width={250}
+                      value={startingStation}
                       name="startingStation"
-                      onChange={(e) => {}}
+                      onChange={(e) => {
+                        setStartingStation(e.target.value);
+                      }}
                       required={true}
                     />
                   </div>
@@ -91,10 +110,13 @@ export default function ReservationManagementPage() {
                     <SelectField
                       label={"Ending Station"}
                       placeholder={"Select Ending Station"}
-                      options={options}
+                      options={stations}
+                      value={endingStation}
                       width={250}
                       name="endingStation"
-                      onChange={(e) => {}}
+                      onChange={(e) => {
+                        setEndingStation(e.target.value);
+                      }}
                       required={true}
                     />
                   </div>
@@ -122,8 +144,11 @@ export default function ReservationManagementPage() {
                       type={"number"}
                       placeholder={"Enter Passenger Count"}
                       width={250}
+                      value={noOfPassengers}
                       name="passengers"
-                      onChange={(e) => {}}
+                      onChange={(e) => {
+                        setNoofPassengers(e.target.value);
+                      }}
                       required={true}
                     />
                   </div>
@@ -139,7 +164,12 @@ export default function ReservationManagementPage() {
                       marginTop: 30,
                     }}
                   >
-                    <CalenderField label={"Date"} required={true} />
+                    <CalenderField
+                      label={"Date"}
+                      required={true}
+                      value={date}
+                      onChange={(newValue: any) => setDate(newValue)}
+                    />
                   </div>
                 </Grid>
               </Grid>
@@ -162,6 +192,7 @@ export default function ReservationManagementPage() {
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleSearch}
                 />
               </div>
               <div
@@ -174,7 +205,7 @@ export default function ReservationManagementPage() {
                   title={"Reset"}
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.neutral.main}
-                  onClick={handleClick}
+                  onClick={handleSearch}
                   width={100}
                 />
               </div>
