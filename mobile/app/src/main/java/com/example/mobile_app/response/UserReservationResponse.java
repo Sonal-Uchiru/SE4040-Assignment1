@@ -9,6 +9,7 @@ public class UserReservationResponse {
     private String time;
     private List<UserReservation> items;
 
+    //Gets and returns the list of UserReservation items.
     public List<UserReservation> getItems() {
         return items;
     }

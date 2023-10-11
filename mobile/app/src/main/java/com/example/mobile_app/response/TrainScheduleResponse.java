@@ -8,6 +8,7 @@ public class TrainScheduleResponse {
     private String time;
     private List<TrainSchedule> items;
 
+    //Gets and returns the list of TrainSchedule items.
     public List<TrainSchedule> getItems() {
         return items;
     }
