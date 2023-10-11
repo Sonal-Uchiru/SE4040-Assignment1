@@ -3,6 +3,7 @@ using FluentValidation;
 
 namespace backend_server.Handlers.V1.Trains.Commands.Update;
 
+// Validator for the 'Command' class, which validates properties for creating or updating a train entity.
 public class Validator : AbstractValidator<Command>
 {
     public Validator()

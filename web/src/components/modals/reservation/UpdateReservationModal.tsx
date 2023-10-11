@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -8,16 +8,41 @@ import theme from "../../../theme/hooks/CreateTheme";
 import ContainedButton from "../../atoms/buttons/ContainedButton";
 import InputField from "../../atoms/inputFields/InputField";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
+import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
+import { AxiosError } from "axios";
 
 interface IProps {
   handleCancel(): void;
   handleSave(): void;
+  reservation: any;
 }
 
 export default function UpdateReservationModal({
   handleCancel,
   handleSave,
+  reservation,
 }: IProps) {
+  const [passengerCount, setPassengerCount] = React.useState("");
+  const [isEditTravelerSuccess, setIsEditTravelerSuccess] =
+    React.useState(false);
+
+  const handleSubmit = () => {
+    console.log(reservation);
+    const requestPayload = {
+      noOfPassengers: passengerCount
+        ? passengerCount
+        : reservation?.noOfPassengers,
+    };
+    ReservationProtectedApi.updateAsync(requestPayload, reservation?.id)
+      .then((res) => {
+        console.log(res.data);
+        setIsEditTravelerSuccess(true);
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err.response?.data);
+      });
+  };
   return (
     <>
       <Modal
@@ -62,8 +87,13 @@ export default function UpdateReservationModal({
                 placeholder={"Enter Passenger Count"}
                 width={300}
                 name="passengers"
+                defaultValue={
+                  reservation?.noOfPassengers
+                    ? reservation?.noOfPassengers
+                    : passengerCount
+                }
                 onChange={(e) => {
-                  console.log("hi");
+                  setPassengerCount(e.target.value);
                 }}
                 required={true}
               />
@@ -85,6 +115,7 @@ export default function UpdateReservationModal({
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleSubmit}
                 />
               </div>
               <div

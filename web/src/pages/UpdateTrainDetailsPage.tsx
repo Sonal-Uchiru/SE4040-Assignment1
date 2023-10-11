@@ -11,23 +11,133 @@ import SelectField from "../components/atoms/selectField/SelectFieldAtom";
 import Title from "../components/atoms/title/Title";
 import TrainScheduleUpdateTable from "../components/organisms/tables/TrainScheduleUpdateTable";
 import theme from "../theme/hooks/CreateTheme";
+import { useParams } from "react-router-dom";
+import { use } from "i18next";
+import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
+import { AxiosError } from "axios";
+import { any } from "prop-types";
 
 export default function UpdateTrainDetailsPage() {
   function handleClick() {
     console.log("clicked");
   }
+  const { id } = useParams();
 
-  const [checked, setChecked] = React.useState(true);
-
+  const [checked, setChecked] = React.useState(false);
+  const [name, setTrainName] = React.useState("");
+  const [model, setModel] = React.useState("");
+  const [driverName, setDriverName] = React.useState("");
+  const [contactNumber, setContactNumber] = React.useState("");
+  const [noOfSeats, setNoOfSeats] = React.useState("");
+  const [startingStation, setStartingStation] = React.useState("");
+  const [endingStation, setEndingStation] = React.useState("");
+  const [frequencies, setFrequencies] = React.useState("");
+  const [departureTime, setDepartureTime] = React.useState("");
+  const [arrivalTime, setArrivalTime] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [schedules, setSchedules] = React.useState<any[]>([]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
 
-  const options = [
-    { value: "option1", label: "option1" },
-    { value: "option2", label: "option2" },
-    { value: "option3", label: "option3" },
-    { value: "option4", label: "option4" },
+  React.useEffect(() => {
+    TrainProtectedApi.getAsync(id)
+      .then((res) => {
+        console.log(res.data.item);
+        setTrainName(res.data.item.name);
+        setModel(res.data.item.model);
+        setDriverName(res.data.item.driverName);
+        setContactNumber(res.data.item.contact);
+        setNoOfSeats(res.data.item.noOfSeats);
+        setStartingStation(res.data.item.startingStation);
+        setEndingStation(res.data.item.endingStation);
+        setFrequencies(res.data.item.frequencies);
+        setDepartureTime(res.data.item.departureTime);
+        setArrivalTime(res.data.item.arrivalTime);
+        setPrice(res.data.item.schedules[0].price);
+        setSchedules(res.data.item.schedules);
+        console.log(schedules);
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, [id]);
+
+  const updateTrainDetails = () => {
+    const updateTrain = {
+      name,
+      model,
+      driverName,
+      contactNumber,
+      noOfSeats,
+      startingStation,
+      endingStation,
+      frequencies,
+      departureTime,
+      arrivalTime,
+      price,
+      schedules,
+    };
+    // console.log(updateTrain);
+    TrainProtectedApi.updateAsync(updateTrain, id)
+      .then((res) => {
+        console.log("Train details updated successfully");
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  };
+
+  const addSchedule = () => {
+    if (!frequencies || !arrivalTime || !departureTime || !price) {
+      // Display an alert or error message to the user
+      console.log(
+        "Please fill out all required fields before adding a schedule."
+      );
+      return;
+    }
+    const newSchedule: any = {
+      frequency: frequencies,
+      arrivalTime: arrivalTime,
+      departureTime: departureTime,
+      isReturnTrip: checked,
+      price: price,
+    };
+    setSchedules([...schedules, newSchedule]);
+    console.log(schedules);
+  };
+
+  const handleRemoveSchedule = (indexToRemove: number) => {
+    // Create a copy of the schedules array and remove the schedule at the specified index
+    const updatedSchedules = [...schedules];
+    updatedSchedules.splice(indexToRemove, 1);
+    setSchedules(updatedSchedules);
+  };
+
+  const stations = [
+    { value: "AHUNGALLE", label: "AHUNGALLE" },
+    { value: "BADULLA", label: "BADULLA" },
+    { value: "BENTOTA", label: "BENTOTA" },
+    { value: "KALUTARA", label: "KALUTARA" },
+    { value: "COLOMBO - FORT", label: "COLOMBO - FORT" },
+    { value: "GAPMPAHA", label: "GAPMPAHA" },
+    { value: "YAGODA", label: "YAGODA" },
+  ];
+
+  const frequency = [
+    { value: "Daily", label: "Daily" },
+    { value: "Week-Ends", label: "Week-Ends" },
+    { value: "Week-Days", label: "Week-Days" },
+  ];
+
+  const time = [
+    { value: "6.00 AM", label: "06.00 AM" },
+    { value: "08.00 AM", label: "08.00 AM" },
+    { value: "10.55 AM", label: "10.55 AM" },
+    { value: "02.05 PM", label: "02.05 PM" },
+    { value: "04.05 PM", label: "04.05 PM" },
   ];
 
   return (
@@ -38,7 +148,7 @@ export default function UpdateTrainDetailsPage() {
           <div style={styles.images}>
             <Avatar
               alt="Research Image"
-              src="./images/train.png"
+              src="/images/train.png"
               style={{
                 marginTop: 20,
                 width: 150,
@@ -62,13 +172,16 @@ export default function UpdateTrainDetailsPage() {
                   }}
                 >
                   <InputField
-                    id={"trainName"}
+                    id={"name"}
                     label={"Train Name"}
                     type={"text"}
                     placeholder={"Enter Train Name"}
                     width={450}
-                    name="trainName"
-                    onChange={(e: any) => {}}
+                    value={name}
+                    name="name"
+                    onChange={(e: any) => {
+                      setTrainName(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -88,8 +201,11 @@ export default function UpdateTrainDetailsPage() {
                     type={"text"}
                     placeholder={"Enter Model"}
                     width={450}
+                    value={model}
                     name="model"
-                    onChange={(e: any) => {}}
+                    onChange={(e: any) => {
+                      setModel(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -110,7 +226,10 @@ export default function UpdateTrainDetailsPage() {
                     placeholder={"Enter Driver Name"}
                     width={450}
                     name="driverName"
-                    onChange={(e: any) => {}}
+                    value={driverName}
+                    onChange={(e: any) => {
+                      setDriverName(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -131,7 +250,10 @@ export default function UpdateTrainDetailsPage() {
                     placeholder={"Enter Contact Number"}
                     width={450}
                     name="contactNumber"
-                    onChange={(e: any) => {}}
+                    value={contactNumber}
+                    onChange={(e: any) => {
+                      setContactNumber(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -152,7 +274,34 @@ export default function UpdateTrainDetailsPage() {
                     placeholder={"Enter Number of Seats"}
                     width={450}
                     name="noOfSeats"
-                    onChange={(e: any) => {}}
+                    value={noOfSeats}
+                    onChange={(e: any) => {
+                      setNoOfSeats(e.target.value);
+                    }}
+                    required={true}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: 20,
+                    marginRight: 20,
+                    marginTop: 45,
+                  }}
+                >
+                  <InputField
+                    id={"price"}
+                    label={"Price Per Person(LKR.)"}
+                    type={"nmber"}
+                    placeholder={"Enter Price Per Person"}
+                    width={450}
+                    name="price"
+                    value={price}
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -169,10 +318,13 @@ export default function UpdateTrainDetailsPage() {
                   <SelectField
                     label={"Starting Station"}
                     placeholder={"Select Starting Station"}
-                    options={options}
+                    options={stations}
                     width={450}
                     name="startingStation"
-                    onChange={(e: any) => {}}
+                    value={startingStation}
+                    onChange={(e: any) => {
+                      setStartingStation(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -189,10 +341,13 @@ export default function UpdateTrainDetailsPage() {
                   <SelectField
                     label={"Ending Station"}
                     placeholder={"Select Ending Station"}
-                    options={options}
+                    options={stations}
                     width={450}
                     name="endingStation"
-                    onChange={(e: any) => {}}
+                    value={endingStation}
+                    onChange={(e: any) => {
+                      setEndingStation(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -209,10 +364,13 @@ export default function UpdateTrainDetailsPage() {
                   <SelectField
                     label={"Frequency"}
                     placeholder={"Select Frequency"}
-                    options={options}
+                    options={frequency}
                     width={450}
                     name="frequency"
-                    onChange={(e: any) => {}}
+                    value={frequencies}
+                    onChange={(e: any) => {
+                      setFrequencies(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -229,10 +387,13 @@ export default function UpdateTrainDetailsPage() {
                   <SelectField
                     label={"Departure Time"}
                     placeholder={"Select Departure Time"}
-                    options={options}
+                    options={time}
                     width={450}
+                    value={departureTime}
                     name="departureTime"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setDepartureTime(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -249,10 +410,13 @@ export default function UpdateTrainDetailsPage() {
                   <SelectField
                     label={"Arrival Time"}
                     placeholder={"Select Arrival Time"}
-                    options={options}
+                    options={time}
                     width={450}
+                    value={arrivalTime}
                     name="arrivalTime"
-                    onChange={(e: any) => {}}
+                    onChange={(e: any) => {
+                      setArrivalTime(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -281,7 +445,10 @@ export default function UpdateTrainDetailsPage() {
 
               <Grid item xs={12} lg={6} md={6}>
                 <div style={{ paddingRight: 20, paddingLeft: 20 }}>
-                  <TrainScheduleUpdateTable />
+                  <TrainScheduleUpdateTable
+                    schedules={schedules}
+                    onRemoveSchedule={handleRemoveSchedule}
+                  />
                 </div>
               </Grid>
             </Grid>
@@ -300,10 +467,26 @@ export default function UpdateTrainDetailsPage() {
               style={styles.buttonGroup}
             >
               <ContainedButton
-                title={"Update"}
+                title={"Add Schedule"}
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.primary.main}
                 width={150}
+                onClick={addSchedule}
+              />
+            </div>
+
+            <div
+              className="btn-group"
+              role="group"
+              aria-label="First group"
+              style={styles.buttonGroup}
+            >
+              <ContainedButton
+                title={"Update"}
+                color={theme.palette.white.main}
+                backgroundColor={theme.palette.cream.main}
+                width={150}
+                onClick={updateTrainDetails}
               />
             </div>
 

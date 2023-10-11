@@ -4,10 +4,10 @@ import { Avatar, Container, Grid } from "@mui/material";
 import theme from "../../../theme/hooks/CreateTheme";
 import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
-import { useTranslation } from "react-i18next";
+
 
 export default function Footer() {
-  const { t } = useTranslation();
+
   return (
     <Box sx={styles.root}>
       <Box component="footer" sx={styles.footer}>
@@ -42,7 +42,7 @@ export default function Footer() {
             <Grid item xs={12} sm={6} md={3} sx={styles.text}>
               <div style={{ marginTop: 12 }}>
                 <HeadLine4
-                  text={t("footer.title")}
+                  text={"Smaple"}
                   color={theme.palette.white.main}
                 />
               </div>
@@ -57,7 +57,7 @@ export default function Footer() {
           >
             <div style={{ marginTop: 15 }}>
               <ParagraphBold
-                text={t("footer.paragraph")}
+                text={"Sample"}
                 color={theme.palette.white.main}
               />
             </div>

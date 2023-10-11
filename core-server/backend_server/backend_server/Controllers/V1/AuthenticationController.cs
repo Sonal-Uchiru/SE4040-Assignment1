@@ -6,6 +6,9 @@ using Authentication = backend_server.Handlers.V1.Authentications.Commands.Login
 
 namespace backend_server.Controllers.V1;
 
+// This controller handles authentication-related API endpoints for version 1 of the API.
+// It uses the Mediator pattern to process authentication commands and can return
+// various response types such as 201 Created, 400 Bad Request, and 401 Unauthorized.
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class AuthenticationController : ApiBaseController
@@ -26,4 +29,3 @@ public class AuthenticationController : ApiBaseController
         return _mediator.Send(command);
     }
 }
-

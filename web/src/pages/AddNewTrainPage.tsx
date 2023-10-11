@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -11,24 +11,102 @@ import SelectField from "../components/atoms/selectField/SelectFieldAtom";
 import Title from "../components/atoms/title/Title";
 import TrainScheduleModalTable from "../components/organisms/tables/TrainScheduleModalTable";
 import theme from "../theme/hooks/CreateTheme";
+import TrainScheduleTable from "../components/organisms/tables/TrainScheduleTable";
+import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
+import { AxiosError } from "axios";
 
 export default function AddNewTrainPage() {
   function handleClick() {
     console.log("clicked");
   }
 
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
+  const [name, setTrainName] = React.useState("");
+  const [model, setModel] = React.useState("");
+  const [driverName, setDriverName] = React.useState("");
+  const [contactNumber, setContactNumber] = React.useState("");
+  const [noOfSeats, setNoOfSeats] = React.useState("");
+  const [startingStation, setStartingStation] = React.useState("");
+  const [endingStation, setEndingStation] = React.useState("");
+  const [frequencies, setFrequencies] = React.useState("");
+  const [departureTime, setDepartureTime] = React.useState("");
+  const [arrivalTime, setArrivalTime] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [schedules, setSchedules] = React.useState<any[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
 
-  const options = [
-    { value: "option1", label: "option1" },
-    { value: "option2", label: "option2" },
-    { value: "option3", label: "option3" },
-    { value: "option4", label: "option4" },
+  const stations = [
+    { value: "AHUNGALLE", label: "AHUNGALLE" },
+    { value: "BADULLA", label: "BADULLA" },
+    { value: "BENTOTA", label: "BENTOTA" },
+    { value: "KALUTARA", label: "KALUTARA" },
+    { value: "COLOMBO - FORT", label: "COLOMBO - FORT" },
+    { value: "GAPMPAHA", label: "GAPMPAHA" },
+    { value: "YAGODA", label: "YAGODA" },
   ];
+
+  const frequency = [
+    { value: "Daily", label: "Daily" },
+    { value: "Week-Ends", label: "Week-Ends" },
+    { value: "Week-Days", label: "Week-Days" },
+  ];
+
+  const time = [
+    { value: "6.00 AM", label: "06.00 AM" },
+    { value: "08.00 AM", label: "08.00 AM" },
+    { value: "10.55 AM", label: "10.55 AM" },
+    { value: "02.05 PM", label: "02.05 PM" },
+    { value: "04.05 PM", label: "04.05 PM" },
+  ];
+
+  const handleSave = () => {
+    const trainData = {
+      name,
+      model,
+      driverName,
+      contactNumber: contactNumber.replace(/^0+/, ""),
+      noOfSeats,
+      price,
+      startingStation,
+      endingStation,
+      frequencies,
+      departureTime,
+      arrivalTime,
+      returnTrip: checked,
+      schedules,
+    };
+
+    TrainProtectedApi.saveAsync(trainData)
+      .then((res) => {
+        console.log(res.data.items);
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  };
+
+  const addSchedule = () => {
+    if (!frequencies || !arrivalTime || !departureTime || !price) {
+      // Display an alert or error message to the user
+      console.log(
+        "Please fill out all required fields before adding a schedule."
+      );
+      return;
+    }
+    const newSchedule: any = {
+      frequency: frequencies,
+      arrivalTime: arrivalTime,
+      departureTime: departureTime,
+      isReturnTrip: checked,
+      price: price,
+    };
+    setSchedules([...schedules, newSchedule]);
+    console.log(schedules);
+  };
 
   return (
     <>
@@ -65,10 +143,12 @@ export default function AddNewTrainPage() {
                     id={"trainName"}
                     label={"Train Name"}
                     type={"text"}
-                    placeholder={"Enter Train Name"}
+                    placeholder={name ? name : "Enter Train Name"}
                     width={450}
                     name="trainName"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setTrainName(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -86,10 +166,12 @@ export default function AddNewTrainPage() {
                     id={"model"}
                     label={"Model"}
                     type={"text"}
-                    placeholder={"Enter Model"}
+                    placeholder={model ? model : "Enter Model"}
                     width={450}
                     name="model"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setModel(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -107,10 +189,12 @@ export default function AddNewTrainPage() {
                     id={"driverName"}
                     label={"Driver Name"}
                     type={"text"}
-                    placeholder={"Enter Driver Name"}
+                    placeholder={driverName ? driverName : "Enter Driver Name"}
                     width={450}
                     name="driverName"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setDriverName(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -128,10 +212,14 @@ export default function AddNewTrainPage() {
                     id={"contactNumber"}
                     label={"Contact Number"}
                     type={"number"}
-                    placeholder={"Enter Contact Number"}
+                    placeholder={
+                      contactNumber ? contactNumber : "Enter Contact Number"
+                    }
                     width={450}
                     name="contactNumber"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setContactNumber(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -149,10 +237,37 @@ export default function AddNewTrainPage() {
                     id={"noOfSeats"}
                     label={"Number of Seats"}
                     type={"number"}
-                    placeholder={"Enter Number of Seats"}
+                    placeholder={
+                      noOfSeats ? noOfSeats : "Enter Number of Seats"
+                    }
                     width={450}
                     name="noOfSeats"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setNoOfSeats(e.target.value);
+                    }}
+                    required={true}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: 20,
+                    marginRight: 20,
+                    marginTop: 45,
+                  }}
+                >
+                  <InputField
+                    id={"price"}
+                    label={"Price Per Person(LKR.)"}
+                    type={"nmber"}
+                    placeholder={price ? price : "Enter Price Per Person"}
+                    width={450}
+                    name="price"
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -168,11 +283,17 @@ export default function AddNewTrainPage() {
                 >
                   <SelectField
                     label={"Starting Station"}
-                    placeholder={"Select Starting Station"}
-                    options={options}
+                    placeholder={
+                      startingStation
+                        ? startingStation
+                        : "Select Starting Station"
+                    }
+                    options={stations}
                     width={450}
                     name="startingStation"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setStartingStation(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -188,11 +309,15 @@ export default function AddNewTrainPage() {
                 >
                   <SelectField
                     label={"Ending Station"}
-                    placeholder={"Select Ending Station"}
-                    options={options}
+                    placeholder={
+                      endingStation ? endingStation : "Select Ending Station"
+                    }
+                    options={stations}
                     width={450}
                     name="endingStation"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setEndingStation(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -208,11 +333,13 @@ export default function AddNewTrainPage() {
                 >
                   <SelectField
                     label={"Frequency"}
-                    placeholder={"Select Frequency"}
-                    options={options}
+                    placeholder={frequencies ? frequencies : "Select Frequency"}
+                    options={frequency}
                     width={450}
                     name="frequency"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setFrequencies(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -228,11 +355,15 @@ export default function AddNewTrainPage() {
                 >
                   <SelectField
                     label={"Departure Time"}
-                    placeholder={"Select Departure Time"}
-                    options={options}
+                    placeholder={
+                      departureTime ? departureTime : "Select Departure Time"
+                    }
+                    options={time}
                     width={450}
                     name="departureTime"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setDepartureTime(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -248,11 +379,15 @@ export default function AddNewTrainPage() {
                 >
                   <SelectField
                     label={"Arrival Time"}
-                    placeholder={"Select Arrival Time"}
-                    options={options}
+                    placeholder={
+                      arrivalTime ? arrivalTime : "Select Arrival Time"
+                    }
+                    options={time}
                     width={450}
                     name="arrivalTime"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      setArrivalTime(e.target.value);
+                    }}
                     required={true}
                   />
                 </div>
@@ -281,7 +416,7 @@ export default function AddNewTrainPage() {
 
               <Grid item xs={12} lg={6} md={6}>
                 <div style={{ paddingRight: 20, paddingLeft: 20 }}>
-                  <TrainScheduleModalTable />
+                  <TrainScheduleTable schedules={schedules} />
                 </div>
               </Grid>
             </Grid>
@@ -304,6 +439,7 @@ export default function AddNewTrainPage() {
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.primary.main}
                 width={150}
+                onClick={addSchedule}
               />
             </div>
             <div
@@ -316,7 +452,7 @@ export default function AddNewTrainPage() {
                 title={"Save"}
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.cream.main}
-                onClick={handleClick}
+                onClick={handleSave}
                 width={150}
               />
             </div>

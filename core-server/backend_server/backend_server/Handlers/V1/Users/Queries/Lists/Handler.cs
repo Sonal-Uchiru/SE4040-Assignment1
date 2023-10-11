@@ -18,11 +18,16 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
+        // Retrieve a list of users using the IUserQuery service.
         var userList = await _userQuery.GetEntitiesAsync();
+
+        // Map the list of User objects to UserResponseDto objects.
+        var userResponseList = _mapper.Map<List<UserResponseDto>>(userList);
 
         return new Response
         {
-            Items = _mapper.Map<List<UserResponseDto>>(userList)
+            // Populate the response with the list of mapped UserResponseDto objects.
+            Items = userResponseList
         };
     }
 }

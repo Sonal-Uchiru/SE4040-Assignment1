@@ -1,13 +1,59 @@
 import { Box } from "@mui/material";
 import MUIDataTable from "mui-datatables";
+import * as React from "react";
+import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import { AxiosError } from "axios";
 
-export default function TrainScheduleModalTable() {
-  const data = [
-    ["Daily", "06:55 AM", "06:00 PM", "True"],
-    ["Week Days", "06:55 AM", "06:00 PM", "True"],
-    ["Week Ends", "06:55 AM", "06:00 PM", "True"],
-    ["Daily", "06:55 AM", "06:00 PM", "True"],
-  ];
+interface IProps {
+  trainID: any;
+}
+
+class ScheduleData {
+  frequency: string;
+  arrivalTime: string;
+  departureTime: string;
+  isReturnTrip: string;
+
+  constructor(
+    frequency: string,
+    arrivalTime: string,
+    departureTime: string,
+    isReturnTrip: string
+  ) {
+    this.frequency = frequency;
+    this.arrivalTime = arrivalTime;
+    this.departureTime = departureTime;
+    this.isReturnTrip = isReturnTrip;
+  }
+}
+
+export default function TrainScheduleModalTable({ trainID }: IProps) {
+  const [schedule, setSchedule] = React.useState<any[]>([]);
+  const [dataTableSchedule, setDataTableSchedule] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    TrainProtectedApi.getTrainScheduleListAsync(trainID)
+      .then((res) => {
+        console.log(res.data.items);
+        const scheduleList = res.data.items.map(
+          (item: any) =>
+            new ScheduleData(
+              item.frequency,
+              item.arrivalTime,
+              item.departureTime,
+              item.isReturnTrip
+            )
+        );
+        setSchedule(res.data.items);
+        console.log(scheduleList);
+        setDataTableSchedule(getDataArrayByJson(scheduleList));
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, []);
 
   const options: any = {
     responsive: "standard",
@@ -25,18 +71,25 @@ export default function TrainScheduleModalTable() {
     "Frequency",
     "Departure Time",
     "Arrival Time",
-    "Return Trip",
+    {
+      name: "Return Trip",
+      options: {
+        customBodyRender: (value: any) => (value ? "true" : "false"),
+      },
+    },
   ];
 
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Train Schedule"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableSchedule && (
+          <MUIDataTable
+            title={"Train Schedule"}
+            data={dataTableSchedule}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );

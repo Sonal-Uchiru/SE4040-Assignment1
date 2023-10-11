@@ -8,16 +8,43 @@ import theme from "../../../theme/hooks/CreateTheme";
 import ContainedButton from "../../atoms/buttons/ContainedButton";
 import InputField from "../../atoms/inputFields/InputField";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
+import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
+import { AxiosError } from "axios";
 
 interface IProps {
   handleCancel(): void;
   handleSave(): void;
+  traveler: any;
 }
 
 export default function UpdateTravelersDetailsModal({
   handleCancel,
   handleSave,
+  traveler,
 }: IProps) {
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [mobileNumber, setMobileNumber] = React.useState("");
+  const [isEditTravelerSuccess, setIsEditTravelerSuccess] =
+    React.useState(false);
+
+  const handleSubmit = () => {
+    const requestPayload = {
+      firstName: firstName ? firstName : traveler?.firstName,
+      lastName: lastName ? lastName : traveler?.lastName,
+      mobile: mobileNumber ? mobileNumber : traveler?.mobile,
+    };
+
+    UserProtectedApi.updateAsync(requestPayload, traveler?.id)
+      .then((res) => {
+        console.log(res.data);
+        setIsEditTravelerSuccess(true);
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err.response?.data);
+      });
+  };
   return (
     <>
       <Modal
@@ -61,9 +88,12 @@ export default function UpdateTravelersDetailsModal({
                 type={"text"}
                 placeholder={"Enter First Name"}
                 width={300}
+                defaultValue={
+                  traveler?.firstName ? traveler?.firstName : firstName
+                }
                 name="firstName"
                 onChange={(e) => {
-                  console.log("hi");
+                  setFirstName(e.target.value);
                 }}
                 required={true}
               />
@@ -76,9 +106,12 @@ export default function UpdateTravelersDetailsModal({
                 type={"text"}
                 placeholder={"Enter Last Name"}
                 width={300}
+                defaultValue={
+                  traveler?.lastName ? traveler?.lastName : lastName
+                }
                 name="lastName"
                 onChange={(e) => {
-                  console.log("hi");
+                  setLastName(e.target.value);
                 }}
                 required={true}
               />
@@ -91,9 +124,12 @@ export default function UpdateTravelersDetailsModal({
                 type={"text"}
                 placeholder={"Enter Mobile Number"}
                 width={300}
+                defaultValue={
+                  traveler?.mobile ? traveler?.mobile : mobileNumber
+                }
                 name="mobile Number"
                 onChange={(e) => {
-                  console.log("hi");
+                  setMobileNumber(e.target.value);
                 }}
                 required={true}
               />
@@ -116,6 +152,7 @@ export default function UpdateTravelersDetailsModal({
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleSubmit}
                 />
               </div>
               <div

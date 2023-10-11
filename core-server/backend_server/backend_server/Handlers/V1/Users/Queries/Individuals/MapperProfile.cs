@@ -7,7 +7,7 @@ public class MapperProfile : BaseMapperProfile
 {
     public MapperProfile()
     {
-        CreateMap<User, Models.Dtos.Users.UserResponseDto>();
+        // Define a mapping from the 'User' entity to the 'UserResponseDto' class.
+        CreateMap<User, UserResponseDto>();
     }
 }
-
