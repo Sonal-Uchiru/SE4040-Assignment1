@@ -1,58 +1,19 @@
 ﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
-<<<<<<< Updated upstream
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs">
-    <Files>
-      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs" Line="27" Column="59" />
-      <File FileName="backend_server/Queries/Interfaces/IUserQuery.cs" Line="11" Column="16" />
-      <File FileName="backend_server/Queries/UserQuery.cs" Line="19" Column="63" />
-      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Response.cs" Line="5" Column="1" />
-      <File FileName="backend_server/Program.cs" Line="121" Column="1" />
-      <File FileName="backend_server/Controllers/V1/AuthenticationController.cs" Line="26" Column="2" />
-      <File FileName="backend_server/Models/Commons/Responses/BaseResponse.cs" Line="10" Column="1" />
-      <File FileName="backend_server/Models/Commons/Responses/UnAuthorizedResponse.cs" Line="3" Column="15" />
-      <File FileName="backend_server/Controllers/V1/ReservationController.cs" Line="42" Column="56" />
-      <File FileName="backend_server/Models/Commons/Responses/NotFoundResponse.cs" Line="3" Column="15" />
-      <File FileName="backend_server/Models/Commons/Exceptions/UnauthorizedException.cs" Line="9" Column="2" />
-      <File FileName="backend_server/Models/Commons/Exceptions/BaseException.cs" Line="3" Column="8" />
-      <File FileName="backend_server/Models/Commons/Exceptions/NotFoundException.cs" Line="3" Column="15" />
-      <File FileName="backend_server/Handlers/V1/Reservations/Commands/Delete/Handler.cs" Line="23" Column="33" />
-      <File FileName="backend_server/Models/Commons/Responses/ErrorResponse.cs" Line="1" Column="1" />
-      <File FileName="backend_server/Models/Commons/Exceptions/ValidationException.cs" Line="5" Column="70" />
-=======
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../usr/local/share/dotnet/sdk/7.0.307/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
     <Files>
       <File FileName="../../../../../usr/local/share/dotnet/sdk/7.0.307/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="266" Column="5" />
->>>>>>> Stashed changes
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="backend_server">
-<<<<<<< Updated upstream
-            <Node name="backend_server">
-              <Node name="Handlers">
-                <Node name="V1">
-                  <Node name="Authentications">
-                    <Node name="Commands">
-                      <Node name="Logins">
-                        <Node name="Handler.cs" selected="True" />
-                      </Node>
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Queries" expanded="True">
-                <Node name="Interfaces" expanded="True" />
-=======
             <Node name="backend_server" expanded="True">
               <Node name="Handlers" expanded="True">
                 <Node name="V1" expanded="True" />
               </Node>
               <Node name="Queries" expanded="True">
                 <Node name="TrainQuery.cs" selected="True" />
->>>>>>> Stashed changes
               </Node>
               <Node name="Services" expanded="True" />
             </Node>
@@ -61,13 +22,8 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-<<<<<<< Updated upstream
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
-=======
   <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
->>>>>>> Stashed changes
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
