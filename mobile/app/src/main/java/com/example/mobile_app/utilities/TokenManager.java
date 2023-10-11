@@ -30,9 +30,11 @@ public class TokenManager {
     }
 
     public String getToken() {
+        //  Retrieves and returns the user's authentication token from SharedPreferences.
         return sharedPreferences.getString("token", "");
     }
     public String getUserId() {
+        // Retrieves and returns the user's unique identifier (user ID) from SharedPreferences.
         return sharedPreferences.getString("userId", "");
     }
 }

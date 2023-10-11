@@ -9,10 +9,13 @@ import java.util.TimeZone;
 
 public class DatabaseTypeConverters {
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
     public static String dateToString(Date value){
+        // @return The formatted date string, or null if the input Date is null.
         return value == null ? null : df.format(value);
     }
 
+    // Converts a string date in the format "yyyy-MM-dd'T'HH:mm" to "yyyy-MM-dd".
     public static String stringDateFormatter(String originalDate) {
 
         try {
@@ -30,6 +33,8 @@ public class DatabaseTypeConverters {
         }
     }
 
+
+    // Converts a string date in the format "dd-MM-yyyy" to "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'".
     public static String formatToDateTime(String inputDateStr) {
         String outputDatePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         try {
