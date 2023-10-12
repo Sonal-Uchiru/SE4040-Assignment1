@@ -12,6 +12,8 @@ import ErrorModal from "../../modals/ErrorModal";
 import { styled } from "@mui/material/styles";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Snackbars from "../../atoms/snackBar/SnackBar";
+import { set } from "lodash";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -42,7 +44,7 @@ class TravelersData {
   }
 }
 
-export default function TravelersDetailsDataTable({}: IProp) {
+export default function TravelersDetailsDataTable({ isDataUpdated }: IProp) {
   const [travelers, setTravelers] = React.useState<any[]>([]);
   const [dataTableTravelers, setDataTableTravelers] = React.useState<any>(null);
   const [id, setId] = React.useState(null);
@@ -50,6 +52,11 @@ export default function TravelersDetailsDataTable({}: IProp) {
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [errorModalVisibility, setErrorModalVisibility] = React.useState(false);
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
 
   React.useEffect(() => {
     setErrorModalVisibility(false);
@@ -77,7 +84,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
         setErrorModalVisibility(true);
         console.log(err);
       });
-  }, [isUpdateSuccess]);
+  }, [isUpdateSuccess, isDataUpdated]);
 
   const options: any = {
     responsive: "standard",
@@ -112,6 +119,40 @@ export default function TravelersDetailsDataTable({}: IProp) {
       .catch((err) => {
         err as AxiosError;
         console.log(err);
+      });
+  };
+
+  const handleDeleteUser = (userId: any) => {
+    UserProtectedApi.deleteAsync(userId)
+      .then((res) => {
+        UserProtectedApi.getListAsync()
+          .then((res) => {
+            const updatedTravelerList = res.data.items.map(
+              (item: any) =>
+                new TravelersData(
+                  item.nic ? item.nic : "Not Available",
+                  item.firstName ? item.firstName : "Not Available",
+                  item.lastName ? item.lastName : "Not Available",
+                  item.email ? item.email : "Not Available",
+                  item.mobile ? item.mobile : "Not Available",
+                  item?.isEnabled ? item?.isEnabled : false
+                )
+            );
+            // Update the state with the new list of customers.
+            setTravelers(res.data.items);
+            setDataTableTravelers(getDataArrayByJson(updatedTravelerList));
+            setSnackbarMessage("Successfully deleted the traveler!🙂");
+            setSnackbarSeverity("success");
+            setShowSnackBar(true);
+          })
+          .catch((err) => {
+            err as AxiosError;
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.error(err?.response?.data?.message);
       });
   };
 
@@ -177,97 +218,104 @@ export default function TravelersDetailsDataTable({}: IProp) {
     "Last Name",
     "Email",
     "Mobile Number",
-    BrowserLocalStorage.GetUserRole() === UserRoles.BackOfficer
-      ? {
-          name: "Action",
-          options: {
-            customBodyRender: (
-              value: any,
-              tableMeta: any,
-              updateValue: any
-            ) => {
-              const travelerId = dataTableTravelers[tableMeta.rowIndex][0];
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
+    {
+      name: "Action",
+      options: {
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const travelerId = dataTableTravelers[tableMeta.rowIndex][0];
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <IconButton
+                  onClick={() => {
+                    handleClick(travelerId, travelers[tableMeta.rowIndex]);
                   }}
                 >
-                  <div>
-                    <IconButton
-                      onClick={() => {
-                        handleClick(travelerId, travelers[tableMeta.rowIndex]);
-                      }}
-                    >
-                      <img
-                        alt="Edit Icon"
-                        src="./images/editing.png"
-                        style={{
-                          width: 25,
-                          height: 25,
-                        }}
+                  <img
+                    alt="Edit Icon"
+                    src="./images/editing.png"
+                    style={{
+                      width: 25,
+                      height: 25,
+                    }}
+                  />
+                </IconButton>
+                {isOpen && id === travelerId && (
+                  <UpdateTravelersDetailsModal
+                    handleCancel={() => {
+                      handleClick(travelerId, travelers[tableMeta.rowIndex]);
+                    }}
+                    handleSave={() => [
+                      setIsUpdateSuccess(!isUpdateSuccess),
+                      setIsOpen(!isOpen),
+                      setSnackbarMessage("Successfully updated!🙂"),
+                      setSnackbarSeverity("success"),
+                      setShowSnackBar(true),
+                    ]}
+                    traveler={selectedTraveler}
+                  />
+                )}
+              </div>
+              {BrowserLocalStorage.GetUserRole() === UserRoles.BackOfficer && (
+                <div>
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        sx={{ marginLeft: 3, marginTop: 1, marginRight: -1 }}
+                        checked={travelers[tableMeta.rowIndex].isEnabled}
+                        onChange={() => handleSwitchChange(tableMeta.rowIndex)}
+                        defaultChecked
                       />
-                    </IconButton>
-                    {isOpen && id === travelerId && (
-                      <UpdateTravelersDetailsModal
-                        handleCancel={() => {
-                          handleClick(
-                            travelerId,
-                            travelers[tableMeta.rowIndex]
-                          );
-                        }}
-                        handleSave={() => {
-                          setIsUpdateSuccess(!isUpdateSuccess);
-                        }}
-                        traveler={selectedTraveler}
-                      />
-                    )}
-                  </div>
-
-                  <div>
-                    <FormControlLabel
-                      control={
-                        <IOSSwitch
-                          sx={{ marginLeft: 3, marginTop: 1, marginRight: -1 }}
-                          checked={travelers[tableMeta.rowIndex].isEnabled}
-                          onChange={() =>
-                            handleSwitchChange(tableMeta.rowIndex)
-                          }
-                          defaultChecked
-                        />
-                      }
-                      label=""
-                    />
-                  </div>
-
-                  <div>
-                    <IconButton
-                      onClick={() => {
-                        console.log("hi");
-                      }}
-                    >
-                      <img
-                        alt="Edit Icon"
-                        src="./images/trash.png"
-                        style={{
-                          width: 25,
-                          height: 25,
-                        }}
-                      />
-                    </IconButton>
-                  </div>
+                    }
+                    label=""
+                  />
                 </div>
-              );
-            },
-          },
-        }
-      : "",
+              )}
+              {BrowserLocalStorage.GetUserRole() === UserRoles.BackOfficer && (
+                <div>
+                  <IconButton
+                    onClick={() => {
+                      handleDeleteUser(travelers[tableMeta.rowIndex].id);
+                    }}
+                  >
+                    <img
+                      alt="Edit Icon"
+                      src="./images/trash.png"
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                    />
+                  </IconButton>
+                </div>
+              )}
+            </div>
+          );
+        },
+      },
+    },
   ];
 
   return (
     <>
+      {showSnackBar && (
+        <div>
+          <Snackbars
+            message={snackbarMessage}
+            severity={snackbarSeverity}
+            vertical={"top"}
+            horizontal={"right"}
+            open={showSnackBar}
+            onClose={() => setShowSnackBar(false)}
+          />
+        </div>
+      )}
       {!isLoading ? (
         <Box sx={styles.table}>
           {dataTableTravelers && (

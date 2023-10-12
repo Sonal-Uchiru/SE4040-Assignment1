@@ -157,7 +157,11 @@ export default function AddNewTrainPage() {
             <div>
               <Snackbars
                 message={"Please Fill Out All the Required Fields(*)"}
-                serverity={"error"}
+                severity={"error"}
+                vertical={"top"}
+                horizontal={"right"}
+                open={showSnackBar}
+                onClose={() => setShowSnackBar(false)}
               />
             </div>
           )}

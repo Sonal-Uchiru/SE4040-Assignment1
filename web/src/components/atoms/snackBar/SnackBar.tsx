@@ -13,11 +13,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 interface IProps {
   message: string;
-  serverity: "success" | "info" | "warning" | "error";
+  severity: "success" | "info" | "warning" | "error";
+  vertical: "top" | "bottom";
+  horizontal: "left" | "center" | "right";
+  open: boolean;
+  onClose: (event?: React.SyntheticEvent | Event, reason?: string) => void;
 }
 
-export default function Snackbars({ message, serverity }: IProps) {
-  const [open, setOpen] = React.useState(true);
+export default function Snackbars({
+  message,
+  severity,
+  vertical = "bottom",
+  horizontal = "left",
+  open,
+  onClose,
+}: IProps) {
+  // const [open, setOpen] = React.useState(false);
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -26,17 +37,20 @@ export default function Snackbars({ message, serverity }: IProps) {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    // setOpen(false);
+    onClose(event, reason);
   };
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar open={open} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={serverity}
-          sx={{ width: "100%" }}
-        >
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical, horizontal }}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>
