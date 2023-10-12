@@ -14,12 +14,9 @@ import theme from "../theme/hooks/CreateTheme";
 import TrainScheduleTable from "../components/organisms/tables/TrainScheduleTable";
 import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function AddNewTrainPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
-
+  const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const [name, setTrainName] = React.useState("");
   const [model, setModel] = React.useState("");
@@ -37,6 +34,10 @@ export default function AddNewTrainPage() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
+
+  function handleClick() {
+    console.log("clicked");
+  }
 
   const stations = [
     { value: "AHUNGALLE", label: "AHUNGALLE" },
@@ -112,7 +113,11 @@ export default function AddNewTrainPage() {
     <>
       <Box sx={{ minHeight: 650 }}>
         <div>
-          <Title backicon={false} titleName="Add New Train" />
+          <Title
+            backicon={true}
+            titleName="Add New Train"
+            onClick={() => navigate("/trainDetails")}
+          />
           <div style={styles.images}>
             <Avatar
               alt="Research Image"

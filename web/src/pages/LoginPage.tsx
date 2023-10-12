@@ -12,7 +12,6 @@ import theme from "../theme/hooks/CreateTheme";
 import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
 import React from "react";
-import { UserRoles } from "../types/enums/UserRoles";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
@@ -20,6 +19,8 @@ export default function LoginPage() {
   const [nic, setNic] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [loginErrorMessage, setLoginErrorMessage] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const handleNicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNic(e.target.value);
   };
@@ -29,13 +30,16 @@ export default function LoginPage() {
   };
 
   const handleClick = () => {
+    setIsLoading(true);
     setLoginErrorMessage("");
     UserAuthenticationApi.loginAsync({ nic: nic, password: password })
       .then((res) => {
+        setIsLoading(false);
         BrowserLocalStorage.SetAccessToken(res.data?.token);
         navigate("/travelersDetails");
       })
       .catch((err: any) => {
+        setIsLoading(false);
         setLoginErrorMessage(err?.response?.data?.message);
       });
   };

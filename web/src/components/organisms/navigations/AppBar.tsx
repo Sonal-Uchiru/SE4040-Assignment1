@@ -14,8 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import theme from "../../../theme/hooks/CreateTheme";
 import { useNavigate } from "react-router-dom";
-import { UserRoles } from "../../../types/enums/UserRoles";
 import BrowserLocalStorage from "../../../utils/localStorage/BrowserLocalStorage";
+import { UserRoles } from "../../../types/enums/UserRoles";
 
 const settings = ["Logout"];
 
@@ -34,52 +34,55 @@ function NavigationAppBar() {
     null
   );
 
-  const handleSelectPage = (page: string) => {
-    setSelectedPage(page); // Update the selected page when changed
-    if (userRole == UserRoles.BackOfficer) {
-      if (getPages().indexOf(page) === 1) {
-        navigate("/travelersDetails");
-      } else if (getPages().indexOf(page) === 1) {
-        navigate("/trainDetails");
-      } else if (getPages().indexOf(page) === 1) {
-        navigate("/reservationManagement");
-      } else if (getPages().indexOf(page) === 1) {
-        navigate("/reservationDetails");
-      } else {
-        navigate("/*");
-      }
-    } else {
-      if (getPages().indexOf(page) === 2) {
-        navigate("/travelersDetails");
-      } else if (getPages().indexOf(page) === 2) {
-        navigate("/reservationManagement");
-      } else if (getPages().indexOf(page) === 2) {
-        navigate("/reservationDetails");
-      } else {
-        navigate("/*");
-      }
-    }
-  };
-
   const getPages = () => {
     if (userRole == UserRoles.BackOfficer) {
       return [
         "Travelers Details",
-        "Reservation Details",
-        "Reservation Management",
         "Train Details",
+        "Reservation Management",
+        "Reservation Details",
       ];
     }
 
     if (userRole == UserRoles.TravelAgent) {
       return [
         "Travelers Details",
-        "Reservation Details",
         "Reservation Management",
+        "Reservation Details",
       ];
     }
 
     return [];
+  };
+
+  const handleSelectPage = (page: string) => {
+    setSelectedPage(page); // Update the selected page when changed
+
+    if (userRole === UserRoles.BackOfficer) {
+      const pageIndex = getPages().indexOf(page);
+      if (pageIndex === 0) {
+        navigate("/travelersDetails");
+      } else if (pageIndex === 1) {
+        navigate("/trainDetails");
+      } else if (pageIndex === 2) {
+        navigate("/reservationManagement");
+      } else if (pageIndex === 3) {
+        navigate("/reservationDetails");
+      } else {
+        navigate("/*");
+      }
+    } else if (userRole === UserRoles.TravelAgent) {
+      const pageIndex = getPages().indexOf(page);
+      if (pageIndex === 0) {
+        navigate("/travelersDetails");
+      } else if (pageIndex === 1) {
+        navigate("/reservationManagement");
+      } else if (pageIndex === 2) {
+        navigate("/reservationDetails");
+      } else {
+        navigate("/*");
+      }
+    }
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

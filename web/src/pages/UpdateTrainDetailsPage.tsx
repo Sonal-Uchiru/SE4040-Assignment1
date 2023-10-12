@@ -5,6 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import InputField from "../components/atoms/inputFields/InputField";
 import SelectField from "../components/atoms/selectField/SelectFieldAtom";
@@ -18,9 +19,7 @@ import { AxiosError } from "axios";
 import { any } from "prop-types";
 
 export default function UpdateTrainDetailsPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [checked, setChecked] = React.useState(false);
@@ -39,6 +38,10 @@ export default function UpdateTrainDetailsPage() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
+
+  function handleClick() {
+    console.log("clicked");
+  }
 
   React.useEffect(() => {
     TrainProtectedApi.getAsync(id)
@@ -144,7 +147,11 @@ export default function UpdateTrainDetailsPage() {
     <>
       <Box sx={{ minHeight: 650 }}>
         <div>
-          <Title backicon={false} titleName="Update Train Details" />
+          <Title
+            backicon={true}
+            titleName="Update Train Details"
+            onClick={() => navigate("/trainDetails")}
+          />
           <div style={styles.images}>
             <Avatar
               alt="Research Image"
