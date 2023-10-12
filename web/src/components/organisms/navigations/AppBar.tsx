@@ -17,18 +17,15 @@ import { useNavigate } from "react-router-dom";
 import { UserRoles } from "../../../types/enums/UserRoles";
 import BrowserLocalStorage from "../../../utils/localStorage/BrowserLocalStorage";
 
-const pages = [
-  "Travelers Details",
-  "Train Details",
-  "Reservation Management",
-  "Reservation Details",
-];
 const settings = ["Logout"];
 
 function NavigationAppBar() {
-  const [value, setValue] = React.useState("one");
   const [selectedPage, setSelectedPage] = React.useState<null | string>();
   const [userRole, setUserRole] = React.useState(UserRoles.Unspecified);
+
+  React.useEffect(() => {
+    setUserRole(BrowserLocalStorage.GetUserRole());
+  }, []);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -37,21 +34,27 @@ function NavigationAppBar() {
     null
   );
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
   const handleSelectPage = (page: string) => {
     setSelectedPage(page); // Update the selected page when changed
     if (userRole == UserRoles.BackOfficer) {
       if (getPages().indexOf(page) === 1) {
         navigate("/travelersDetails");
+      } else if (getPages().indexOf(page) === 1) {
+        navigate("/trainDetails");
+      } else if (getPages().indexOf(page) === 1) {
+        navigate("/reservationManagement");
+      } else if (getPages().indexOf(page) === 1) {
+        navigate("/reservationDetails");
+      } else {
+        navigate("/*");
       }
     } else {
       if (getPages().indexOf(page) === 2) {
         navigate("/travelersDetails");
-      } else if (getPages().indexOf(page) === 3) {
+      } else if (getPages().indexOf(page) === 2) {
         navigate("/reservationManagement");
+      } else if (getPages().indexOf(page) === 2) {
+        navigate("/reservationDetails");
       } else {
         navigate("/*");
       }
