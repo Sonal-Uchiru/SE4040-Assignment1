@@ -6,6 +6,8 @@ import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import ViewTrainScheduleModal from "../../modals/train/ViewTrainScheduleModal";
 import { useNavigate } from "react-router-dom";
+import ContentLoadingBar from "../../atoms/Loadings/ContentLoadingBar";
+import ErrorModal from "../../modals/ErrorModal";
 
 interface IProp {
   isDataUpdated: boolean;
@@ -46,8 +48,11 @@ export default function TrainDetailsDataTable({}: IProp) {
   const [id, setId] = React.useState(null);
   const [selectedTrain, setSelectedTrain] = React.useState<any>({});
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [errorModalVisibility, setErrorModalVisibility] = React.useState(false);
 
   React.useEffect(() => {
+    setErrorModalVisibility(false);
     TrainProtectedApi.getListAsync()
       .then((res) => {
         console.log(res.data.items);
@@ -64,11 +69,13 @@ export default function TrainDetailsDataTable({}: IProp) {
             )
         );
         setTrains(res.data.items);
-        console.log(trainList);
         setDataTableTrains(getDataArrayByJson(trainList));
+        setIsLoading(false);
       })
       .catch((err) => {
         err as AxiosError;
+        setIsLoading(false);
+        setErrorModalVisibility(true);
         console.log(err);
       });
   }, [isUpdateSuccess]);
@@ -196,16 +203,24 @@ export default function TrainDetailsDataTable({}: IProp) {
 
   return (
     <>
-      <Box sx={styles.table}>
-        {dataTableTrains && (
-          <MUIDataTable
-            title={"Train List"}
-            data={dataTableTrains}
-            columns={columns}
-            options={options}
-          />
-        )}
-      </Box>
+      {!isLoading ? (
+        <Box sx={styles.table}>
+          {dataTableTrains && (
+            <MUIDataTable
+              title={"Train List"}
+              data={dataTableTrains}
+              columns={columns}
+              options={options}
+            />
+          )}
+        </Box>
+      ) : (
+        <ContentLoadingBar />
+      )}
+
+      {errorModalVisibility && (
+        <ErrorModal handleCancel={() => setErrorModalVisibility(false)} />
+      )}
     </>
   );
 }

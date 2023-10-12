@@ -12,7 +12,11 @@ import theme from "../theme/hooks/CreateTheme";
 import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
 import React from "react";
+import ContentLoadingBar from "../components/atoms/Loadings/ContentLoadingBar";
 import { useNavigate } from "react-router-dom";
+import { UserRoles } from "../types/enums/UserRoles";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,6 +24,7 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState<string>("");
   const [loginErrorMessage, setLoginErrorMessage] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
 
   const handleNicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNic(e.target.value);
@@ -36,7 +41,18 @@ export default function LoginPage() {
       .then((res) => {
         setIsLoading(false);
         BrowserLocalStorage.SetAccessToken(res.data?.token);
-        navigate("/travelersDetails");
+        const userRole = BrowserLocalStorage.GetUserRole();
+
+        switch (userRole) {
+          case UserRoles.BackOfficer:
+            navigate("/travelersDetails");
+            break;
+          case UserRoles.TravelAgent:
+            navigate("/travelersDetails");
+            break;
+          default:
+            setShowAlert(true);
+        }
       })
       .catch((err: any) => {
         setIsLoading(false);
@@ -174,7 +190,7 @@ export default function LoginPage() {
                     />
                   </div>
 
-                  <div style={styles.link}>
+                  {/* <div style={styles.link}>
                     <Link
                       underline="always"
                       fontSize={16}
@@ -184,15 +200,28 @@ export default function LoginPage() {
                     >
                       {"Forgot Password?"}
                     </Link>
-                  </div>
+                  </div> */}
 
                   <div style={styles.button}>
                     <ContainedButton
                       onClick={handleClick}
                       title={"Login"}
                       backgroundColor={theme.palette.primary.main}
+                      isLoading={isLoading}
                     />
                   </div>
+                  {showAlert && (
+                    <Stack sx={{ width: "100%" }} spacing={2}>
+                      <Alert
+                        severity="error"
+                        onClose={() => {
+                          setShowAlert(false);
+                        }}
+                      >
+                        You're not a valid user to access the website
+                      </Alert>
+                    </Stack>
+                  )}
                 </div>
               </Grid>
             </Grid>
@@ -212,7 +241,7 @@ const styles = {
   },
 
   button: {
-    marginTop: 40,
+    marginTop: 80,
     display: "flex",
     marginBottom: 20,
     justifyContent: "center",
@@ -232,7 +261,7 @@ const styles = {
   },
 
   passwordInput: {
-    marginTop: 40,
+    marginTop: 50,
     display: "flex",
     justifyContent: "center",
   },

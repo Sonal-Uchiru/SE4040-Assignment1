@@ -5,7 +5,8 @@ import ReservationProtectedApi from "../../../api/exclusive/ReservationProtected
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import { AxiosError } from "axios";
 import UpdateReservationModal from "../../modals/reservation/UpdateReservationModal";
-
+import ContentLoadingBar from "../../atoms/Loadings/ContentLoadingBar";
+import ErrorModal from "../../modals/ErrorModal";
 interface IProp {
   isDataUpdated: boolean;
 }
@@ -47,8 +48,11 @@ export default function ReservationDetailsDataTable({}: IProp) {
   const [id, setId] = React.useState(null);
   const [selectedReservation, setSelectedReservation] = React.useState<any>({});
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [errorModalVisibility, setErrorModalVisibility] = React.useState(false);
 
   React.useEffect(() => {
+    setErrorModalVisibility(false);
     ReservationProtectedApi.getListAsync()
       .then((res) => {
         console.log(res.data.items);
@@ -65,11 +69,13 @@ export default function ReservationDetailsDataTable({}: IProp) {
             )
         );
         setReservations(res.data.items);
-        console.log(reservationList);
         setDataTableReservations(getDataArrayByJson(reservationList));
+        setIsLoading(false);
       })
       .catch((err) => {
         err as AxiosError;
+        setIsLoading(false);
+        setErrorModalVisibility(true);
         console.log(err);
       });
   }, [isUpdateSuccess]);
@@ -172,16 +178,24 @@ export default function ReservationDetailsDataTable({}: IProp) {
 
   return (
     <>
-      <Box sx={styles.table}>
-        {dataTableReservations && (
-          <MUIDataTable
-            title={"Reservation List"}
-            data={dataTableReservations}
-            columns={columns}
-            options={options}
-          />
-        )}
-      </Box>
+      {!isLoading ? (
+        <Box sx={styles.table}>
+          {dataTableReservations && (
+            <MUIDataTable
+              title={"Reservation List"}
+              data={dataTableReservations}
+              columns={columns}
+              options={options}
+            />
+          )}
+        </Box>
+      ) : (
+        <ContentLoadingBar />
+      )}
+
+      {errorModalVisibility && (
+        <ErrorModal handleCancel={() => setErrorModalVisibility(false)} />
+      )}
     </>
   );
 }

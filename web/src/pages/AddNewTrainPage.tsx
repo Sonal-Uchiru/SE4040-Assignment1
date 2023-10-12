@@ -1,4 +1,4 @@
-import { Alert, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,12 +9,13 @@ import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import InputField from "../components/atoms/inputFields/InputField";
 import SelectField from "../components/atoms/selectField/SelectFieldAtom";
 import Title from "../components/atoms/title/Title";
-import TrainScheduleModalTable from "../components/organisms/tables/TrainScheduleModalTable";
 import theme from "../theme/hooks/CreateTheme";
 import TrainScheduleTable from "../components/organisms/tables/TrainScheduleTable";
 import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import Snackbars from "../components/atoms/snackBar/SnackBar";
+
 export default function AddNewTrainPage() {
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
@@ -30,14 +31,12 @@ export default function AddNewTrainPage() {
   const [arrivalTime, setArrivalTime] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [schedules, setSchedules] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
-
-  function handleClick() {
-    console.log("clicked");
-  }
 
   const stations = [
     { value: "AHUNGALLE", label: "AHUNGALLE" },
@@ -64,40 +63,62 @@ export default function AddNewTrainPage() {
   ];
 
   const handleSave = () => {
-    const trainData = {
-      name,
-      model,
-      driverName,
-      contactNumber: contactNumber.replace(/^0+/, ""),
-      noOfSeats,
-      price,
-      startingStation,
-      endingStation,
-      frequencies,
-      departureTime,
-      arrivalTime,
-      returnTrip: checked,
-      schedules,
-    };
+    setIsLoading(true);
+    if (
+      !name ||
+      !model ||
+      !driverName ||
+      !contactNumber ||
+      !noOfSeats ||
+      !startingStation ||
+      !endingStation ||
+      !frequencies ||
+      !departureTime ||
+      !arrivalTime ||
+      !price
+    ) {
+      // Display an alert or error message to the user
+      setShowSnackBar(true);
+      setIsLoading(false);
+    } else {
+      const trainData = {
+        name,
+        model,
+        driverName,
+        contactNumber: contactNumber.replace(/^0+/, ""),
+        noOfSeats,
+        price,
+        startingStation,
+        endingStation,
+        frequencies,
+        departureTime,
+        arrivalTime,
+        returnTrip: checked,
+        schedules,
+      };
+      setIsLoading(false);
+      setShowSnackBar(false);
+      TrainProtectedApi.saveAsync(trainData)
 
-    TrainProtectedApi.saveAsync(trainData)
-      .then((res) => {
-        console.log(res.data.items);
-      })
-      .catch((err) => {
-        err as AxiosError;
-        console.log(err);
-      });
+        .then((res) => {
+          setIsLoading(false);
+          console.log(res.data.items);
+        })
+        .catch((err) => {
+          err as AxiosError;
+          setIsLoading(false);
+          console.log(err);
+        });
+    }
   };
 
   const addSchedule = () => {
     if (!frequencies || !arrivalTime || !departureTime || !price) {
       // Display an alert or error message to the user
-      console.log(
-        "Please fill out all required fields before adding a schedule."
-      );
+      setShowSnackBar(true);
       return;
     }
+    setShowSnackBar(false);
     const newSchedule: any = {
       frequency: frequencies,
       arrivalTime: arrivalTime,
@@ -131,6 +152,15 @@ export default function AddNewTrainPage() {
               variant="rounded"
             />
           </div>
+
+          {showSnackBar && (
+            <div>
+              <Snackbars
+                message={"Please Fill Out All the Required Fields(*)"}
+                serverity={"error"}
+              />
+            </div>
+          )}
 
           <div>
             <Grid container spacing={1}>
@@ -459,6 +489,7 @@ export default function AddNewTrainPage() {
                 backgroundColor={theme.palette.cream.main}
                 onClick={handleSave}
                 width={150}
+                isLoading={isLoading}
               />
             </div>
 
@@ -472,7 +503,7 @@ export default function AddNewTrainPage() {
                 title={"Back"}
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.neutral.main}
-                onClick={handleClick}
+                onClick={() => navigate("/trainDetails")}
                 width={150}
               />
             </div>

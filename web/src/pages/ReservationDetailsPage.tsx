@@ -10,7 +10,7 @@ export default function ReservationDetailsPage() {
   return (
     <>
       <Box sx={{ minHeight: 650 }}>
-        <div style={{ marginTop: 30 }}>
+        <div>
           <Title backicon={false} titleName="Reservation Details" />
         </div>
 

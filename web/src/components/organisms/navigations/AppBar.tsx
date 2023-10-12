@@ -35,24 +35,17 @@ function NavigationAppBar() {
   );
 
   const getPages = () => {
+    var pages = [
+      "Travelers Details",
+      "Reservation Details",
+      "Reservation Management",
+    ];
+
     if (userRole == UserRoles.BackOfficer) {
-      return [
-        "Travelers Details",
-        "Train Details",
-        "Reservation Management",
-        "Reservation Details",
-      ];
+      pages.push("Train Details");
     }
 
-    if (userRole == UserRoles.TravelAgent) {
-      return [
-        "Travelers Details",
-        "Reservation Management",
-        "Reservation Details",
-      ];
-    }
-
-    return [];
+    return pages;
   };
 
   const handleSelectPage = (page: string) => {
@@ -63,11 +56,11 @@ function NavigationAppBar() {
       if (pageIndex === 0) {
         navigate("/travelersDetails");
       } else if (pageIndex === 1) {
-        navigate("/trainDetails");
+        navigate("/reservationDetails");
       } else if (pageIndex === 2) {
         navigate("/reservationManagement");
       } else if (pageIndex === 3) {
-        navigate("/reservationDetails");
+        navigate("/trainDetails");
       } else {
         navigate("/*");
       }
@@ -76,9 +69,9 @@ function NavigationAppBar() {
       if (pageIndex === 0) {
         navigate("/travelersDetails");
       } else if (pageIndex === 1) {
-        navigate("/reservationManagement");
-      } else if (pageIndex === 2) {
         navigate("/reservationDetails");
+      } else if (pageIndex === 2) {
+        navigate("/reservationManagement");
       } else {
         navigate("/*");
       }

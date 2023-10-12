@@ -13,6 +13,8 @@ import { UserRoles } from "./types/enums/UserRoles";
 import TrainDetailsPage from "./pages/TrainDetailsPage";
 import NavigationAppBar from "./components/organisms/navigations/AppBar";
 import * as React from "react";
+import Footer from "./components/organisms/navigations/Footer";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -101,16 +103,13 @@ function App() {
                 </>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </React.Suspense>
+        <Footer />
       </Router>
     </ThemeProvider>
   );
 }
 
 export default App;
-
-// TODO : Update payment page
-// TODO : create a footer
-// TODO: add new train is ugly
-// TODO: make the update train page similar to add train (change the edit icon to delete icon)
