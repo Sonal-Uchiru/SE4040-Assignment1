@@ -12,7 +12,6 @@ import Title from "../components/atoms/title/Title";
 import TrainScheduleUpdateTable from "../components/organisms/tables/TrainScheduleUpdateTable";
 import theme from "../theme/hooks/CreateTheme";
 import { useParams } from "react-router-dom";
-import { use } from "i18next";
 import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
 import { any } from "prop-types";

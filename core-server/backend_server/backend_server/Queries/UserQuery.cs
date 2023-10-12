@@ -16,14 +16,20 @@ public sealed class UserQuery : BaseQuery<User>, IUserQuery
     // Checks if a user with the specified NIC (National Identification Card) exists.
     public Task<bool> AnyUserByNicAsync(string nic)
     {
-        var filter = Builders<User>.Filter.Eq(i => i.Nic, nic);
+        var filter = Builders<User>.Filter.And(
+            Builders<User>.Filter.Eq(i => i.Nic, nic),
+            Builders<User>.Filter.Eq(i => i.IsEnabled, true));
+
         return _dbContext.Find(filter).AnyAsync();
     }
 
     // Retrieves a user by their NIC (National Identification Card).
     public Task<User> GetUserByNICAsync(string nic)
     {
-        var filter = Builders<User>.Filter.Eq(i => i.Nic, nic);
+        var filter = Builders<User>.Filter.And(
+            Builders<User>.Filter.Eq(i => i.Nic, nic),
+            Builders<User>.Filter.Eq(i => i.IsEnabled, true));
+
         return _dbContext.Find(filter).SingleOrDefaultAsync();
     }
 }

@@ -33,6 +33,7 @@ export default function LoginPage() {
     UserAuthenticationApi.loginAsync({ nic: nic, password: password })
       .then((res) => {
         BrowserLocalStorage.SetAccessToken(res.data?.token);
+        console.log(BrowserLocalStorage.GetUserRole())
         navigate("/travelersDetails");
       })
       .catch((err: any) => {
