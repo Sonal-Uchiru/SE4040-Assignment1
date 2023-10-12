@@ -48,8 +48,8 @@ public class ProfileFragement extends Fragment {
         deactivateBtn = view.findViewById(R.id.p_deactivate_btn);
 
         // To Do - Uncomment this
-//        String userId = tokenManager.getUserId();
-        String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
+        String userId = tokenManager.getUserId();
+        // String userId = "8a8703e0-87cb-4681-802b-6177fc5b4c93";
 
 
         // Initialize UserManager for handling user-related operations.
