@@ -13,7 +13,6 @@ import { styled } from "@mui/material/styles";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Snackbars from "../../atoms/snackBar/SnackBar";
-import { set } from "lodash";
 
 interface IProp {
   isDataUpdated: boolean;

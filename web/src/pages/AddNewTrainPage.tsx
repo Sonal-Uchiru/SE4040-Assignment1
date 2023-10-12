@@ -15,6 +15,7 @@ import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Snackbars from "../components/atoms/snackBar/SnackBar";
+import { set } from "lodash";
 
 export default function AddNewTrainPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function AddNewTrainPage() {
   const [name, setTrainName] = React.useState("");
   const [model, setModel] = React.useState("");
   const [driverName, setDriverName] = React.useState("");
-  const [contactNumber, setContactNumber] = React.useState("");
+  const [contact, setContactNumber] = React.useState("");
   const [noOfSeats, setNoOfSeats] = React.useState("");
   const [startingStation, setStartingStation] = React.useState("");
   const [endingStation, setEndingStation] = React.useState("");
@@ -33,6 +34,10 @@ export default function AddNewTrainPage() {
   const [schedules, setSchedules] = React.useState<any[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -62,13 +67,13 @@ export default function AddNewTrainPage() {
     { value: "04.05 PM", label: "04.05 PM" },
   ];
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsLoading(true);
     if (
       !name ||
       !model ||
       !driverName ||
-      !contactNumber ||
+      !contact ||
       !noOfSeats ||
       !startingStation ||
       !endingStation ||
@@ -78,6 +83,8 @@ export default function AddNewTrainPage() {
       !price
     ) {
       // Display an alert or error message to the user
+      setSnackbarMessage("Please Fill Out All the Required Fields(*)");
+      setSnackbarSeverity("error");
       setShowSnackBar(true);
       setIsLoading(false);
     } else {
@@ -85,7 +92,7 @@ export default function AddNewTrainPage() {
         name,
         model,
         driverName,
-        contactNumber: contactNumber.replace(/^0+/, ""),
+        contact,
         noOfSeats,
         price,
         startingStation,
@@ -99,10 +106,12 @@ export default function AddNewTrainPage() {
       setIsLoading(false);
       setShowSnackBar(false);
       TrainProtectedApi.saveAsync(trainData)
-
         .then((res) => {
           setIsLoading(false);
-          console.log(res.data.items);
+          setSnackbarMessage("Train Added Successfully!🙂");
+          setSnackbarSeverity("success");
+          setShowSnackBar(true);
+          navigate("/trainDetails");
         })
         .catch((err) => {
           err as AxiosError;
@@ -115,6 +124,8 @@ export default function AddNewTrainPage() {
   const addSchedule = () => {
     if (!frequencies || !arrivalTime || !departureTime || !price) {
       // Display an alert or error message to the user
+      setSnackbarMessage("Please Fill Out All the Required Fields(*)");
+      setSnackbarSeverity("error");
       setShowSnackBar(true);
       return;
     }
@@ -127,6 +138,9 @@ export default function AddNewTrainPage() {
       price: price,
     };
     setSchedules([...schedules, newSchedule]);
+    setSnackbarMessage("Schedule Added Successfully!🙂");
+    setSnackbarSeverity("success");
+    setShowSnackBar(true);
     console.log(schedules);
   };
 
@@ -156,10 +170,10 @@ export default function AddNewTrainPage() {
           {showSnackBar && (
             <div>
               <Snackbars
-                message={"Please Fill Out All the Required Fields(*)"}
-                severity={"error"}
+                message={snackbarMessage}
+                severity={snackbarSeverity}
                 vertical={"top"}
-                horizontal={"right"}
+                horizontal={"center"}
                 open={showSnackBar}
                 onClose={() => setShowSnackBar(false)}
               />
@@ -251,9 +265,7 @@ export default function AddNewTrainPage() {
                     id={"contactNumber"}
                     label={"Contact Number"}
                     type={"number"}
-                    placeholder={
-                      contactNumber ? contactNumber : "Enter Contact Number"
-                    }
+                    placeholder={contact ? contact : "Enter Contact Number"}
                     width={450}
                     name="contactNumber"
                     onChange={(e) => {
