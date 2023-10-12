@@ -24,7 +24,7 @@ public class TokenManager {
     public void saveToken(LoginResponse loginResponse) {
         editor.putString("token", loginResponse.token);
         // To Do - Uncomment this
-//        editor.putString("userId", loginResponse.userId);
+        editor.putString("userId", loginResponse.userId);
 
         editor.apply();
     }
