@@ -11,19 +11,32 @@ import ParagraphBold from "../components/atoms/typographies/ParagraphBold";
 import theme from "../theme/hooks/CreateTheme";
 import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
-import ReservationProtectedApi from "../api/exclusive/ReservationProtectedApi";
+import React from "react";
+import { UserRoles } from "../types/enums/UserRoles";
+import { useNavigate } from "react-router-dom";
 
-// TODO : incomplete implementation (sample only) (Kaveen)
 export default function LoginPage() {
-  const handleClick = () => {
-    UserAuthenticationApi.loginAsync({ nic: "string", password: "string" })
-      .then(async (res) => {
-        BrowserLocalStorage.SetAccessToken(res.data?.token)
+  const navigate = useNavigate();
+  const [nic, setNic] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [loginErrorMessage, setLoginErrorMessage] = React.useState("");
+  const handleNicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNic(e.target.value);
+  };
 
-        await ReservationProtectedApi.getListAsync()
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleClick = () => {
+    setLoginErrorMessage("");
+    UserAuthenticationApi.loginAsync({ nic: nic, password: password })
+      .then((res) => {
+        BrowserLocalStorage.SetAccessToken(res.data?.token);
+        navigate("/travelersDetails");
       })
       .catch((err: any) => {
-        console.log(err.response?.data.message);
+        setLoginErrorMessage(err?.response?.data?.message);
       });
   };
 
@@ -43,7 +56,7 @@ export default function LoginPage() {
                       height: 660,
                       width: 980,
                       borderRadius: 10,
-                      marginLeft: 10,
+                      marginLeft: 20,
                       marginRight: 10,
                       objectFit: "contain",
                     }}
@@ -92,7 +105,7 @@ export default function LoginPage() {
                       alt="Research Image"
                       src="./images/logo.png"
                       style={{
-                        marginTop: 20,
+                        marginTop: 30,
                         height: 230,
                         width: 230,
                         borderRadius: 10,
@@ -115,18 +128,20 @@ export default function LoginPage() {
                       fontWeight={"bold"}
                     />
                   </div>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      alignSelf: "center",
-                      marginTop: 20,
-                    }}
-                  >
-                    <ParagraphBold
-                      text={"Invalid Credentials!"}
-                      color={theme.palette.error.main}
-                    />
-                  </div>
+                  {loginErrorMessage && (
+                    <div
+                      style={{
+                        textAlign: "center",
+                        alignSelf: "center",
+                        marginTop: 20,
+                      }}
+                    >
+                      <ParagraphBold
+                        text={"Invalid Credentials!"}
+                        color={theme.palette.error.main}
+                      />
+                    </div>
+                  )}
                   <div style={styles.input}>
                     <InputField
                       id={"nic"}
@@ -135,7 +150,10 @@ export default function LoginPage() {
                       placeholder={"Enter NIC Number"}
                       width={400}
                       name="nic"
-                      onChange={(e) => {}}
+                      value={nic}
+                      onChange={(e) => {
+                        handleNicChange(e);
+                      }}
                     />
                   </div>
 
@@ -145,7 +163,10 @@ export default function LoginPage() {
                       placeholder={"Enter Password"}
                       width={400}
                       name="password"
-                      onChange={(e) => {}}
+                      value={password}
+                      onChange={(e) => {
+                        handlePasswordChange(e);
+                      }}
                     />
                   </div>
 

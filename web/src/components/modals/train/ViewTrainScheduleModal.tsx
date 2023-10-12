@@ -12,9 +12,13 @@ import TrainScheduleModalTable from "../../organisms/tables/TrainScheduleModalTa
 
 interface IProps {
   handleCancel(): void;
+  train: any;
 }
 
-export default function ViewTrainScheduleModal({ handleCancel }: IProps) {
+export default function ViewTrainScheduleModal({
+  handleCancel,
+  train,
+}: IProps) {
   return (
     <>
       <Modal
@@ -51,7 +55,7 @@ export default function ViewTrainScheduleModal({ handleCancel }: IProps) {
               />
             </div>
             <div>
-              <TrainScheduleModalTable />
+              <TrainScheduleModalTable trainID={train.id} />
             </div>
             <div
               style={styles.button}

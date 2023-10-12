@@ -3,7 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useTranslation } from "react-i18next";
+
 import { FormHelperText } from "@mui/material";
 import { SelectFieldOptions } from "../../../types/selectFields/SelectFieldTypes";
 
@@ -40,7 +40,7 @@ export default function SelectField({
   size = "medium",
   readOnly = false,
 }: IProps) {
-  const { t } = useTranslation();
+
 
   return (
     <FormControl
@@ -49,7 +49,7 @@ export default function SelectField({
       size={size}
     >
       <InputLabel id="demo-simple-select-label" style={styles.label} shrink>
-        {t(label)}
+        {label}
         {required && <span style={styles.asterisk}>*</span>}
       </InputLabel>
       <Select
@@ -64,15 +64,15 @@ export default function SelectField({
         readOnly={readOnly}
       >
         <MenuItem value="" disabled>
-          {t(placeholder)}
+          {placeholder}
         </MenuItem>
         {options.map((option, index) => (
-          <MenuItem key={index} value={`${option.label}-${option.value}`}>
+          <MenuItem key={index} value={`${option.value}`}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
-      {error && <FormHelperText>{t(errorText)}</FormHelperText>}
+      {error && <FormHelperText>{errorText}</FormHelperText>}
     </FormControl>
   );
 }

@@ -1,89 +1,89 @@
 import { Box, IconButton } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import * as React from "react";
+import UserProtectedApi from "../../../api/exclusive/userApis/UserProtectedApi";
+import { AxiosError } from "axios";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import UpdateTravelersDetailsModal from "../../modals/user/UpdateTravelersDetailsModal";
+import BrowserLocalStorage from "../../../utils/localStorage/BrowserLocalStorage";
+import { UserRoles } from "../../../types/enums/UserRoles";
 
 interface IProp {
   isDataUpdated: boolean;
 }
 
+class TravelersData {
+  nic: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobile: string;
+
+  constructor(
+    nic: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    mobile: string
+  ) {
+    this.nic = nic;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.mobile = mobile;
+  }
+}
+
 export default function TravelersDetailsDataTable({}: IProp) {
-  const data = [
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-    [
-      "992652365V",
-      "Kaveen",
-      "Sithija",
-      "kaveensithija34@gmail.com",
-      "0771234567",
-    ],
-  ];
+  const [travelers, setTravelers] = React.useState<any[]>([]);
+  const [dataTableTravelers, setDataTableTravelers] = React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedTraveler, setSelectedTraveler] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
+
+  React.useEffect(() => {
+    UserProtectedApi.getListAsync()
+      .then((res) => {
+        console.log(res.data.items);
+        const travelerList = res.data.items.map(
+          (item: any) =>
+            new TravelersData(
+              item.nic ? item.nic : "Not Available",
+              item.firstName ? item.firstName : "Not Available",
+              item.lastName ? item.lastName : "Not Available",
+              item.email ? item.email : "Not Available",
+              item.mobile ? item.mobile : "Not Available"
+            )
+        );
+        setTravelers(res.data.items);
+        console.log(travelerList);
+        setDataTableTravelers(getDataArrayByJson(travelerList));
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
     rowsPerPageOptions: [5, 10, 15, 20],
     rowsPerPage: 10,
+    selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
-      console.log(action);
-      console.log(state);
+      // console.log(action);
+      // console.log(state);
     },
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(travelerId: any, traveler: any) {
+    setSelectedTraveler(traveler);
+    setIsOpen(!isOpen);
+    setId(travelerId); // Set the selected item ID
   }
-
   const columns = [
     "NIC",
     "First Name",
@@ -94,6 +94,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const travelerId = dataTableTravelers[tableMeta.rowIndex][0];
           return (
             <div
               style={{
@@ -105,7 +106,7 @@ export default function TravelersDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    handleClick(travelerId, travelers[tableMeta.rowIndex]);
                   }}
                 >
                   <img
@@ -117,23 +118,36 @@ export default function TravelersDetailsDataTable({}: IProp) {
                     }}
                   />
                 </IconButton>
-              </div>
-              <div>
-                <IconButton
-                  onClick={() => {
-                    handleClick();
-                  }}
-                >
-                  <img
-                    alt="Edit Icon"
-                    src="./images/trash.png"
-                    style={{
-                      width: 25,
-                      height: 25,
+                {isOpen && id === travelerId && (
+                  <UpdateTravelersDetailsModal
+                    handleCancel={() => {
+                      handleClick(travelerId, travelers[tableMeta.rowIndex]);
                     }}
+                    handleSave={() => {
+                      setIsUpdateSuccess(!isUpdateSuccess);
+                    }}
+                    traveler={selectedTraveler}
                   />
-                </IconButton>
+                )}
               </div>
+              {BrowserLocalStorage.GetUserRole() == UserRoles.BackOfficer && (
+                <div>
+                  <IconButton
+                    onClick={() => {
+                      console.log("hi");
+                    }}
+                  >
+                    <img
+                      alt="Edit Icon"
+                      src="./images/trash.png"
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                    />
+                  </IconButton>
+                </div>
+              )}
             </div>
           );
         },
@@ -144,12 +158,14 @@ export default function TravelersDetailsDataTable({}: IProp) {
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Travelers List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableTravelers && (
+          <MUIDataTable
+            title={"Travelers List"}
+            data={dataTableTravelers}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );

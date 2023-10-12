@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using backend_server.Models.Dtos.Users;
-using backend_server.Queries.Interfaces;
-using backend_server.Services;
+﻿using backend_server.Queries.Interfaces;
 using MediatR;
 
 namespace backend_server.Handlers.V1.Users.Queries.ReservationLists;
@@ -17,6 +14,7 @@ public class Handler : IRequestHandler<Query, Response>
 
     public async Task<Response> Handle(Query command, CancellationToken cancellationToken)
     {
+        // Retrieve a list of reservations associated with the specified 'UserId' using the 'IReservationQuery'.
         var reservationList = await _reservationQuery.GetUserEntitiesAsync(command.UserId);
 
         return new Response

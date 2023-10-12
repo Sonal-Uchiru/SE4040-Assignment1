@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
+
 
 interface IProps {
   width?: number;
@@ -39,15 +39,15 @@ export default function InputField({
   size = "medium",
   readOnly = false,
 }: IProps) {
-  const { t } = useTranslation();
-  const showHelperText = t(helperText);
+
+  const showHelperText = helperText;
 
   return (
     <TextField
       size={size}
       id={id}
-      label={t(label)}
-      placeholder={t(placeholder) ?? ""}
+      label={label}
+      placeholder={placeholder ?? ""}
       type={type}
       onChange={onChange}
       error={error}

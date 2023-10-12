@@ -28,18 +28,21 @@ public class ExceptionHandler
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
+            // Handle and respond to unauthorized exceptions with a 401 status code.
             await context.Response.WriteAsJsonAsync(new UnAuthorizedResponse(unauthorizedException.ErrorReason));
         }
         catch (NotFoundException notFoundException)
         {
             context.Response.StatusCode = StatusCodes.Status404NotFound;
 
+            // Handle and respond to not found exceptions with a 404 status code.
             await context.Response.WriteAsJsonAsync(new NotFoundResponse(notFoundException.Id, notFoundException.ObjectName));
         }
         catch (ValidationException validationException)
         {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
+            // Handle and respond to validation exceptions with a 400 status code.
             await context.Response.WriteAsJsonAsync(new ErrorResponse
             {
                 Message = validationException.ErrorReason
@@ -51,6 +54,7 @@ public class ExceptionHandler
 
             Console.Write(ex);
 
+            // Handle and respond to internal server errors with a 500 status code.
             await context.Response.WriteAsJsonAsync(InternalServerErrorResponse);
         }
     }

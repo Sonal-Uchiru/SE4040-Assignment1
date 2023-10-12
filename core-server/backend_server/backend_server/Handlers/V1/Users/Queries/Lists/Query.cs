@@ -2,6 +2,5 @@
 
 namespace backend_server.Handlers.V1.Users.Queries.Lists;
 
-public class Query : IRequest<Response>
-{
-}
+// Represents a query for retrieving specific information or data.
+public class Query : IRequest<Response> { }

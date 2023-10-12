@@ -2,12 +2,15 @@
 using backend_server.Models.Commons.Responses;
 using backend_server.Services.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using User = backend_server.Handlers.V1.Users;
 
 namespace backend_server.Controllers.V1;
 
+// This controller handles user-related API endpoints for version 1 of the API.
+// It provides functionality to create, update, delete, list, and manage user accounts.
+// The controller uses the Mediator pattern to process user commands and queries,
+// and it defines the expected response types for each action.
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class UserController : ApiBaseController
@@ -83,4 +86,3 @@ public class UserController : ApiBaseController
         });
     }
 }
-

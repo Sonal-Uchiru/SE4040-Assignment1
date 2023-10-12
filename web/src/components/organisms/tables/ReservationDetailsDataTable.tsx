@@ -1,100 +1,84 @@
 import { Box, IconButton } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import * as React from "react";
+import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
+import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
+import { AxiosError } from "axios";
+import UpdateReservationModal from "../../modals/reservation/UpdateReservationModal";
 
 interface IProp {
   isDataUpdated: boolean;
 }
 
+class ReservationData {
+  trainName: string;
+  departureDate: string;
+  arrivalTime: string;
+  departureTime: string;
+  noOfPassengers: string;
+  perPersonPrice: string;
+  totalPrice: string;
+
+  constructor(
+    trainName: string,
+    departureDate: string,
+    arrivalTime: string,
+    departureTime: string,
+    noOfPassengers: string,
+    perPersonPrice: string,
+    totalPrice: string
+  ) {
+    {
+      this.trainName = trainName;
+      this.departureDate = departureDate;
+      this.arrivalTime = arrivalTime;
+      this.departureTime = departureTime;
+      this.noOfPassengers = noOfPassengers;
+      this.perPersonPrice = perPersonPrice;
+      this.totalPrice = totalPrice;
+    }
+  }
+}
+
 export default function ReservationDetailsDataTable({}: IProp) {
-  const data = [
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-    [
-      "Udarata Manike",
-      "2023-09-25",
-      "08:55 AM",
-      "05:55 PM",
-      "10",
-      "1000.00",
-      "10000.00",
-    ],
-  ];
+  const [reservations, setReservations] = React.useState<any[]>([]);
+  const [dataTableReservations, setDataTableReservations] =
+    React.useState<any>(null);
+  const [id, setId] = React.useState(null);
+  const [selectedReservation, setSelectedReservation] = React.useState<any>({});
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
+
+  React.useEffect(() => {
+    ReservationProtectedApi.getListAsync()
+      .then((res) => {
+        console.log(res.data.items);
+        const reservationList = res.data.items.map(
+          (item: any) =>
+            new ReservationData(
+              item.trainName,
+              item.departureDate,
+              item.departureTime,
+              item.arrivalTime,
+              item.noOfPassengers,
+              item.perPersonPrice,
+              `${item.noOfPassengers * item.perPersonPrice}`
+            )
+        );
+        setReservations(res.data.items);
+        console.log(reservationList);
+        setDataTableReservations(getDataArrayByJson(reservationList));
+      })
+      .catch((err) => {
+        err as AxiosError;
+        console.log(err);
+      });
+  }, [isUpdateSuccess]);
 
   const options: any = {
     responsive: "standard",
     rowsPerPageOptions: [5, 10, 15, 20],
     rowsPerPage: 10,
+    selectableRows: false,
 
     onTableChange: (action: any, state: any) => {
       console.log(action);
@@ -103,12 +87,12 @@ export default function ReservationDetailsDataTable({}: IProp) {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPreview, setIsPreview] = React.useState(false);
 
-  function handleClick() {
-    console.log("clicked");
+  function handleClick(reservationId: any, reservation: any) {
+    setSelectedReservation(reservation);
+    setIsOpen(!isOpen);
+    setId(reservationId); // Set the selected item ID
   }
-
   const columns = [
     "Train Name",
     "Departure Date",
@@ -121,6 +105,7 @@ export default function ReservationDetailsDataTable({}: IProp) {
       name: "Action",
       options: {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const reservationId = dataTableReservations[tableMeta.rowIndex][0];
           return (
             <div
               style={{
@@ -132,7 +117,10 @@ export default function ReservationDetailsDataTable({}: IProp) {
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    handleClick(
+                      reservationId,
+                      reservations[tableMeta.rowIndex]
+                    );
                   }}
                 >
                   <img
@@ -144,11 +132,25 @@ export default function ReservationDetailsDataTable({}: IProp) {
                     }}
                   />
                 </IconButton>
+                {isOpen && id === reservationId && (
+                  <UpdateReservationModal
+                    handleCancel={() => {
+                      handleClick(
+                        reservationId,
+                        reservations[tableMeta.rowIndex]
+                      );
+                    }}
+                    handleSave={() => {
+                      setIsUpdateSuccess(!isUpdateSuccess);
+                    }}
+                    reservation={selectedReservation}
+                  />
+                )}
               </div>
               <div>
                 <IconButton
                   onClick={() => {
-                    handleClick();
+                    console.log("hi");
                   }}
                 >
                   <img
@@ -171,12 +173,14 @@ export default function ReservationDetailsDataTable({}: IProp) {
   return (
     <>
       <Box sx={styles.table}>
-        <MUIDataTable
-          title={"Reservation List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
+        {dataTableReservations && (
+          <MUIDataTable
+            title={"Reservation List"}
+            data={dataTableReservations}
+            columns={columns}
+            options={options}
+          />
+        )}
       </Box>
     </>
   );

@@ -5,7 +5,7 @@ import { Versions } from "../../types/enums/Versions";
 import ModelConstants from "../../constants/ModelConstants";
 
 class ReservationProtectedApi {
-  public async saveAsync(data: any): Promise<AxiosResponse> {
+  public async saveAsync(data: any, id:string): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Post,
       Versions.V1,
@@ -14,7 +14,7 @@ class ReservationProtectedApi {
     );
   }
 
-  public async updateAsync(id: string, data: any): Promise<AxiosResponse> {
+  public async updateAsync(data: any, id: string, ): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Patch,
       Versions.V1,

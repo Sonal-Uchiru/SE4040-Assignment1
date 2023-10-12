@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace backend_server.Services;
 
+// AuthenticationService class for JWT token generation and user payload retrieval.
 public sealed class AuthenticationService : IAuthenticationService
 {
     private readonly IJwtService _jwtService;
@@ -17,6 +18,7 @@ public sealed class AuthenticationService : IAuthenticationService
         _jwtService = jwtService;
     }
 
+    // Generates a JWT token for the provided user ID and role.
     public string GenerateJWT(Guid userId, UserRoles role)
     {
         var claims = new Claim[]
@@ -45,6 +47,7 @@ public sealed class AuthenticationService : IAuthenticationService
         return tokenHandler.WriteToken(token);
     }
 
+    // Retrieves the user payload from the JWT token stored in the HTTP context.
     public PayloadDto GetUserPayloadByContext(HttpContext context)
     {
         var userToken = _jwtService.GetToken(context);
@@ -60,6 +63,4 @@ public sealed class AuthenticationService : IAuthenticationService
             Role = userRole
         };
     }
-
 }
-

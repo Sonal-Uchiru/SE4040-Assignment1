@@ -18,4 +18,3 @@ public sealed class Train : BaseEntity
 
     public List<TrainSchedule> Schedules { get; set; }
 }
-

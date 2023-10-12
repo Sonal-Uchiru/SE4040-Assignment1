@@ -10,22 +10,26 @@ import ContainedButton from "../../atoms/buttons/ContainedButton";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
 import Paragraph from "../../atoms/typographies/Paragraph";
 import ParagraphBold from "../../atoms/typographies/ParagraphBold";
+import InputField from "../../atoms/inputFields/InputField";
 
 interface IProps {
   handleCancel(): void;
   handleConfirm(): void;
+  train: any;
 }
 
 export default function DisplaySummaryModal({
   handleCancel,
   handleConfirm,
+  train,
 }: IProps) {
-  const options = [
-    { value: "option1", label: "option1" },
-    { value: "option2", label: "option2" },
-    { value: "option3", label: "option3" },
-    { value: "option4", label: "option4" },
-  ];
+  console.log(train);
+  const [noOfPassengers, setNoofPassengers] = React.useState("");
+
+  const totalPrice = noOfPassengers
+    ? (parseInt(noOfPassengers) * parseInt(train.price)).toString()
+    : "0";
+
   return (
     <>
       <Modal
@@ -54,8 +58,8 @@ export default function DisplaySummaryModal({
                 src="./images/train2.png"
                 style={{
                   marginTop: 20,
-                  width: 100,
-                  height: 100,
+                  width: 80,
+                  height: 80,
                   objectFit: "contain",
                 }}
                 variant="rounded"
@@ -78,7 +82,7 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"8096 Udarata Manike"}
+                      text={train?.name ? train.name : "Not Available"}
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -102,7 +106,11 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"Colombo - Fort"}
+                      text={
+                        train?.startingStation
+                          ? train.startingStation
+                          : "Not Available"
+                      }
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -126,7 +134,11 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"Badulla"}
+                      text={
+                        train?.endingStation
+                          ? train.endingStation
+                          : "Not Available"
+                      }
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -150,7 +162,11 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"2023 - 09 - 28"}
+                      text={
+                        train?.departureDate
+                          ? train.departureDate
+                          : "Not Available"
+                      }
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -160,28 +176,6 @@ export default function DisplaySummaryModal({
 
             {/* row 5 */}
 
-            <div>
-              <Grid container spacing={1}>
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginRight: 30, marginTop: 15 }}>
-                    <ParagraphBold
-                      text={"Starting Time"}
-                      color={theme.palette.primary.main}
-                    />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginLeft: 30, marginTop: 15 }}>
-                    <Paragraph
-                      text={"08:04 AM"}
-                      color={theme.palette.primary.main}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-            </div>
-
             {/* row 6 */}
 
             <div>
@@ -189,7 +183,7 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginRight: 30, marginTop: 15 }}>
                     <ParagraphBold
-                      text={"Ending Time"}
+                      text={"Arrival Time"}
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -198,7 +192,9 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"05:51 PM"}
+                      text={
+                        train?.arrivalTime ? train.arrivalTime : "Not Available"
+                      }
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -208,7 +204,7 @@ export default function DisplaySummaryModal({
 
             {/* row 7 */}
 
-            <div>
+            {/* <div>
               <Grid container spacing={1}>
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginRight: 30, marginTop: 15 }}>
@@ -225,7 +221,7 @@ export default function DisplaySummaryModal({
                   </div>
                 </Grid>
               </Grid>
-            </div>
+            </div> */}
 
             {/* row 8 */}
 
@@ -243,12 +239,44 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <Paragraph
-                      text={"900.00"}
+                      text={train?.price ? train.price : "Not Available"}
                       color={theme.palette.primary.main}
                     />
                   </div>
                 </Grid>
               </Grid>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
+              <InputField
+                id={"passengers"}
+                label={"No of Passengers(Max 4)"}
+                type={"number"}
+                placeholder={"Enter Passenger Count (Max 4)"}
+                width={300}
+                value={noOfPassengers}
+                name="passengers"
+                onChange={(e) => {
+                  const newValue = Math.min(parseInt(e.target.value), 4);
+
+                  // Check if newValue is a valid number
+                  if (!isNaN(newValue)) {
+                    setNoofPassengers(newValue.toString());
+                  } else {
+                    // Handle the case where newValue is not a valid number
+                    setNoofPassengers("0"); // Set to 0 or any default value you prefer
+                  }
+                }}
+                required={true}
+              />
             </div>
 
             {/* row 9 */}
@@ -269,7 +297,7 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginLeft: 30, marginTop: 15 }}>
                     <HeadLine4
-                      text={"4500.00"}
+                      text={totalPrice}
                       color={theme.palette.primary.main}
                       fontSize={16}
                       fontWeight={"bold"}
@@ -330,7 +358,7 @@ const styles = {
     boxShadow: 24,
     p: 4,
     borderRadius: 2,
-    maxWidth: 600,
+    width: 450,
   },
 
   button: {

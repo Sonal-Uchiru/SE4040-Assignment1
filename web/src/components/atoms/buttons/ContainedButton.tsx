@@ -1,6 +1,5 @@
 import { Button } from '@mui/material'
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
 import theme from '../../../theme/hooks/CreateTheme'
 import COLORS from '../../../theme/styles/Colors'
 import ButtonLoadingBar from '../Loadings/ButtonLoadingBar'
@@ -26,8 +25,6 @@ export default function ContainedButton({
     isLoading = false,
     isDisabled = false,
 }: IProps) {
-    const { t } = useTranslation()
-
     return (
         <Button
             variant="contained"
@@ -45,7 +42,7 @@ export default function ContainedButton({
             type="submit"
             disabled={isLoading || isDisabled}
         >
-            {isLoading ? <ButtonLoadingBar /> : t(title)}
+            {isLoading ? <ButtonLoadingBar /> : title}
         </Button>
     )
 }

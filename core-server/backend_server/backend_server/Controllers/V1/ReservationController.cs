@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Reservations = backend_server.Handlers.V1.Reservations;
 namespace backend_server.Controllers.V1;
 
+// This controller handles reservation-related API endpoints for version 1 of the API.
+// It provides functionality to create, update, delete, and list reservations. 
+// The controller uses the Mediator pattern to process reservation commands and queries,
+// and it defines the expected response types for each action.
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class ReservationController : ApiBaseController
@@ -55,4 +59,3 @@ public class ReservationController : ApiBaseController
         return _mediator.Send(new Reservations.Queries.Lists.Query());
     }
 }
-

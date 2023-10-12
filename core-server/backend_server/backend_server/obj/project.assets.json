@@ -2407,24 +2407,33 @@
     ]
   },
   "packageFolders": {
-    "/Users/chamodhabeygoonawardana/.nuget/packages/": {}
+    "C:\\Users\\kavee\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/chamodhabeygoonawardana/Desktop/SLIIT/SEM02/EAD/Assignment/core-server/backend_server/backend_server/backend_server.csproj",
+      "projectUniqueName": "D:\\EAD_Assignment\\SE4040-Assignment1\\core-server\\backend_server\\backend_server\\backend_server.csproj",
       "projectName": "backend_server",
-      "projectPath": "/Users/chamodhabeygoonawardana/Desktop/SLIIT/SEM02/EAD/Assignment/core-server/backend_server/backend_server/backend_server.csproj",
-      "packagesPath": "/Users/chamodhabeygoonawardana/.nuget/packages/",
-      "outputPath": "/Users/chamodhabeygoonawardana/Desktop/SLIIT/SEM02/EAD/Assignment/core-server/backend_server/backend_server/obj/",
+      "projectPath": "D:\\EAD_Assignment\\SE4040-Assignment1\\core-server\\backend_server\\backend_server\\backend_server.csproj",
+      "packagesPath": "C:\\Users\\kavee\\.nuget\\packages\\",
+      "outputPath": "D:\\EAD_Assignment\\SE4040-Assignment1\\core-server\\backend_server\\backend_server\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/chamodhabeygoonawardana/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\kavee\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2527,7 +2536,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -3,11 +3,21 @@ import ModelConstants from "../../../constants/ModelConstants";
 import { HttpMethods } from "../../../types/enums/HttpMethods";
 import { Versions } from "../../../types/enums/Versions";
 import { protectedApiAsync } from "../../ProtectedApi";
+import { protectedListApiAsync } from "../../ProtectedListApi";
 
 class UserProtectedApi {
-  public async updateAsync(data: any): Promise<AxiosResponse> {
+  public async updateAsync(data: any,  id: string): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Put,
+      Versions.V1,
+      `${ModelConstants.USERS}/${id}`,
+      data
+    );
+  }
+
+  public async saveAsync(data: any): Promise<AxiosResponse> {
+    return await protectedApiAsync(
+      HttpMethods.Post,
       Versions.V1,
       ModelConstants.USERS,
       data
@@ -34,9 +44,10 @@ class UserProtectedApi {
     return await protectedApiAsync(
       HttpMethods.Get,
       Versions.V1,
-      ModelConstants.USERS
+      `${ModelConstants.USERS}/list`
     );
   }
+
 }
 
 export default new UserProtectedApi();

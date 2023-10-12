@@ -7,7 +7,7 @@ public class MapperProfile : BaseMapperProfile
 {
     public MapperProfile()
     {
+        // Define mappings for the User class to UserResponseDto
         CreateMap<User, UserResponseDto>();
     }
 }
-
