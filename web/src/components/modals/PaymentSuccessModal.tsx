@@ -88,6 +88,7 @@ export default function PaymentSuccessModal({ handleCancel }: IProps) {
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleCancel}
                 />
               </div>
             </div>

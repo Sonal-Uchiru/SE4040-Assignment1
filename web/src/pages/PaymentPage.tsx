@@ -83,6 +83,7 @@ export default function PaymentPage() {
   };
 
   const handleNavigate = () => {
+    setIsOpen(isOpen);
     navigate("/reservationManagement");
   };
 
