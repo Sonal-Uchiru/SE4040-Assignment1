@@ -5,9 +5,7 @@ import theme from "../../../theme/hooks/CreateTheme";
 import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
 
-
 export default function Footer() {
-
   return (
     <Box sx={styles.root}>
       <Box component="footer" sx={styles.footer}>
@@ -31,7 +29,7 @@ export default function Footer() {
               >
                 <Avatar
                   alt="Cindy Baker"
-                  src="/images/Agrivo-logo-circle.png"
+                  src="/images/k.jpg"
                   sx={{
                     width: "50px",
                     height: "50px",
@@ -42,7 +40,7 @@ export default function Footer() {
             <Grid item xs={12} sm={6} md={3} sx={styles.text}>
               <div style={{ marginTop: 12 }}>
                 <HeadLine4
-                  text={"Smaple"}
+                  text={"Booking Passage"}
                   color={theme.palette.white.main}
                 />
               </div>
@@ -57,7 +55,7 @@ export default function Footer() {
           >
             <div style={{ marginTop: 15 }}>
               <ParagraphBold
-                text={"Sample"}
+                text={"© 2023 Copyright: Booking Passage"}
                 color={theme.palette.white.main}
               />
             </div>

@@ -8,11 +8,29 @@ import HeadLine3 from "../components/atoms/typographies/HeadLine3";
 import HeadLine4 from "../components/atoms/typographies/HeadLine4";
 import ParagraphBold from "../components/atoms/typographies/ParagraphBold";
 import theme from "../theme/hooks/CreateTheme";
+import * as React from "react";
+import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
+import PaymentSuccessModal from "../components/modals/PaymentSuccessModal";
+import { set } from "lodash";
+import Snackbars from "../components/atoms/snackBar/SnackBar";
 
 export default function PaymentPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
+  const navigate = useNavigate();
+  const location = useLocation();
+  const paymentProp = location.state as any;
+  const [cardNumber, setCardNumber] = React.useState("");
+  const [cardHolderName, setCardHolderName] = React.useState("");
+  const [expiryMonth, setExpiryMonth] = React.useState("");
+  const [expiryYear, setExpiryYear] = React.useState("");
+  const [cvv, setCvv] = React.useState("");
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const month = [
     { value: "1", label: "1" },
@@ -28,6 +46,46 @@ export default function PaymentPage() {
     { value: "11", label: "11" },
     { value: "12", label: "12" },
   ];
+
+  const year = [
+    { value: "2023", label: "2023" },
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+    { value: "2026", label: "2026" },
+    { value: "2027", label: "2027" },
+    { value: "2028", label: "2028" },
+    { value: "2029", label: "2029" },
+    { value: "2030", label: "2030" },
+    { value: "2031", label: "2031" },
+    { value: "2032", label: "2032" },
+    { value: "2033", label: "2033" },
+    { value: "2034", label: "2034" },
+  ];
+
+  const handleClick = () => {
+    setIsLoading(true);
+    if (
+      cardNumber === "" ||
+      cardHolderName === "" ||
+      expiryMonth === "" ||
+      expiryYear === "" ||
+      cvv === ""
+    ) {
+      setSnackbarMessage("Please Enter Valid Payment Details");
+      setSnackbarSeverity("error");
+      setShowSnackBar(true);
+      setIsLoading(false);
+      return;
+    } else {
+      setIsLoading(false);
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const handleNavigate = () => {
+    setIsOpen(isOpen);
+    navigate("/reservationManagement");
+  };
 
   return (
     <>
@@ -84,6 +142,19 @@ export default function PaymentPage() {
                     />
                   </div>
 
+                  {showSnackBar && (
+                    <div>
+                      <Snackbars
+                        message={snackbarMessage}
+                        severity={snackbarSeverity}
+                        vertical={"top"}
+                        horizontal={"center"}
+                        open={showSnackBar}
+                        onClose={() => setShowSnackBar(false)}
+                      />
+                    </div>
+                  )}
+
                   {/* row 1 */}
                   <div>
                     <Grid container>
@@ -101,10 +172,14 @@ export default function PaymentPage() {
                             id={"cardNumber"}
                             label={"Card Number"}
                             type={"number"}
-                            placeholder={"xxxx  xxxx  xxxx  xxxx"}
+                            placeholder={
+                              cardNumber ? cardNumber : "xxxx  xxxx  xxxx  xxxx"
+                            }
                             width={320}
                             name="cardNumber"
-                            onChange={(e) => {}}
+                            onChange={(e) => {
+                              setCardNumber(e.target.value);
+                            }}
                             required={true}
                           />
                         </div>
@@ -114,7 +189,6 @@ export default function PaymentPage() {
                             style={{
                               display: "flex",
                               justifyContent: "center",
-
                               marginRight: 10,
                             }}
                           >
@@ -170,10 +244,16 @@ export default function PaymentPage() {
                             id={"cardHolderName"}
                             label={"Card Holder’s Name"}
                             type={"text"}
-                            placeholder={"Enter Card Holder’s Name"}
+                            placeholder={
+                              cardHolderName
+                                ? cardHolderName
+                                : "Enter Card Holder’s Name"
+                            }
                             width={320}
                             name="cardHolderName"
-                            onChange={(e) => {}}
+                            onChange={(e) => {
+                              setCardHolderName(e.target.value);
+                            }}
                             required={true}
                           />
                         </div>
@@ -192,16 +272,19 @@ export default function PaymentPage() {
                             justifyContent: "center",
                             marginLeft: 20,
                             marginRight: 5,
-                            marginTop: 10,
                           }}
                         >
                           <SelectField
                             label={"Expiry Month"}
-                            placeholder={"Select Expiry Month"}
+                            placeholder={
+                              expiryMonth ? expiryMonth : "Select Expiry Month"
+                            }
                             options={month}
                             width={320}
                             name="expiryMonth"
-                            onChange={(e) => {}}
+                            onChange={(e) => {
+                              setExpiryMonth(e.target.value);
+                            }}
                             required={true}
                           />
                         </div>
@@ -214,17 +297,19 @@ export default function PaymentPage() {
                             justifyContent: "center",
                             marginLeft: 20,
                             marginRight: 5,
-                            marginTop: 10,
                           }}
                         >
-                          <InputField
-                            id={"cardHolderName"}
-                            label={"Card Holder’s Name"}
-                            type={"text"}
-                            placeholder={"Enter Card Holder’s Name"}
+                          <SelectField
+                            label={"Expiry Year"}
+                            placeholder={
+                              expiryYear ? expiryYear : "Select Expiry Year"
+                            }
+                            options={year}
                             width={320}
-                            name="cardHolderName"
-                            onChange={(e) => {}}
+                            name="expiryYear"
+                            onChange={(e) => {
+                              setExpiryYear(e.target.value);
+                            }}
                             required={true}
                           />
                         </div>
@@ -249,11 +334,13 @@ export default function PaymentPage() {
                           <InputField
                             id={"cvv"}
                             label={"CVV"}
-                            type={"text"}
-                            placeholder={"Enter CVV"}
+                            type={"number"}
+                            placeholder={cvv ? cvv : "Enter CVV"}
                             width={320}
                             name="cvv"
-                            onChange={(e) => {}}
+                            onChange={(e) => {
+                              setCvv(e.target.value);
+                            }}
                             required={true}
                           />
                         </div>
@@ -312,7 +399,14 @@ export default function PaymentPage() {
                               color={theme.palette.white.main}
                               backgroundColor={theme.palette.primary.main}
                               width={100}
+                              onClick={handleClick}
                             />
+
+                            {isOpen && (
+                              <PaymentSuccessModal
+                                handleCancel={handleNavigate}
+                              />
+                            )}
                           </div>
                           <div
                             className="btn-group"
@@ -324,8 +418,11 @@ export default function PaymentPage() {
                               title={"Cancel"}
                               color={theme.palette.white.main}
                               backgroundColor={theme.palette.neutral.main}
-                              onClick={handleClick}
+                              onClick={() => {
+                                navigate("/reservationManagement");
+                              }}
                               width={100}
+                              isLoading={isLoading}
                             />
                           </div>
                         </div>
@@ -378,7 +475,10 @@ export default function PaymentPage() {
                               marginTop: 10,
                             }}
                           >
-                            <HeadLine3 text={"5"} fontSize={20} />
+                            <HeadLine3
+                              text={paymentProp.noOfPassengers.toString()}
+                              fontSize={20}
+                            />
                           </div>
                         </Grid>
                       </Grid>
@@ -419,7 +519,10 @@ export default function PaymentPage() {
                               marginTop: 10,
                             }}
                           >
-                            <HeadLine3 text={"900.00"} fontSize={20} />
+                            <HeadLine3
+                              text={paymentProp.price.toString()}
+                              fontSize={20}
+                            />
                           </div>
                         </Grid>
                       </Grid>
@@ -458,7 +561,10 @@ export default function PaymentPage() {
                               marginTop: 10,
                             }}
                           >
-                            <HeadLine3 text={"4500.00"} fontSize={25} />
+                            <HeadLine3
+                              text={paymentProp.totalPrice.toString()}
+                              fontSize={25}
+                            />
                           </div>
                         </Grid>
                       </Grid>

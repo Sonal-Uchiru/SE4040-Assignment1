@@ -40,15 +40,15 @@ export default function DeleteAccountConfirmModal({
 
   const handleAccountDelete = () => {
     setErrorText("");
-    UserProtectedApi.deleteAsync()
-      .then((res) => {
-        BrowserLocalStorage.RemoveAccessToken();
-        setIsAccountDeleteSuccess(true);
-      })
-      .catch((err) => {
-        err as AxiosError;
-        setErrorText(err?.response?.data?.message);
-      });
+    // UserProtectedApi.deleteAsync()
+    //   .then((res) => {
+    //     BrowserLocalStorage.RemoveAccessToken();
+    //     setIsAccountDeleteSuccess(true);
+    //   })
+    //   .catch((err) => {
+    //     err as AxiosError;
+    //     setErrorText(err?.response?.data?.message);
+    //   });
   };
 
   return (
