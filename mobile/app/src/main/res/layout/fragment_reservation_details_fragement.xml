@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReservationDetailsFragement">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primary"
+        app:title="@string/reservation_details"
+        app:titleTextColor="@android:color/white"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            android:background="@drawable/custom_edittext">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_schedule_date"
+                    android:text="Schedule Date:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_schedule_date"
+                    android:text="June 21, 2023"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/r_label_details_schedule_date"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_train_name"
+                    android:text="Train Name:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_schedule_date"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_train_name"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_schedule_date"
+                    android:layout_toEndOf="@id/r_label_details_train_name"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_departure_time"
+                    android:text="Departure Time:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_train_name"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_departure_time"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_train_name"
+                    android:layout_toEndOf="@id/r_label_details_departure_time"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_arrival_time"
+                    android:text="Arrival Time:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_departure_time"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_arrival_time"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_departure_time"
+                    android:layout_toEndOf="@id/r_label_details_arrival_time"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_starting_station"
+                    android:text="Starting Station:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_arrival_time"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_starting_station"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_arrival_time"
+                    android:layout_toEndOf="@id/r_label_details_starting_station"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_ending_station"
+                    android:text="Ending Station:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_starting_station"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_ending_station"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_starting_station"
+                    android:layout_toEndOf="@id/r_label_details_ending_station"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_person_price"
+                    android:text="Per person price:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_ending_station"
+                    android:textStyle="bold"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_person_price"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_ending_station"
+                    android:layout_toEndOf="@id/r_label_details_person_price"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_label_details_total_price"
+                    android:text="Total Price:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/r_label_details_person_price"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r_details_total_price"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/r_label_details_person_price"
+                    android:layout_toEndOf="@id/r_label_details_total_price"
+                    android:layout_marginTop="8dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/rd_ed_nopersons"
+                    android:drawablePadding="8dp"
+                    android:hint="@string/no_of_reservations"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/secondary"
+                    android:layout_below="@+id/r_label_details_person_price"
+                    android:layout_marginTop="50dp"
+                    android:layout_centerInParent="true"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/update_reservation"
+                    android:text="@string/reservation_update"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/cancel_reservation"
+                    android:backgroundTint="@color/primary"
+                    android:layout_centerInParent="true"
+                    app:cornerRadius="20dp"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:id="@+id/cancel_reservation"
+                    android:text="@string/reservation_cancel"
+                    android:textSize="18sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@+id/rd_ed_nopersons"
+                    android:backgroundTint="@color/danger"
+                    android:layout_centerInParent="true"
+                    app:cornerRadius="20dp"/>
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+</FrameLayout>

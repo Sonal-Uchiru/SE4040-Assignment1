@@ -1,142 +1,115 @@
-import { ThemeProvider } from '@mui/material'
-import * as React from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import AgrivoAppBar from './components/organisms/navigations/AppBar'
-import DrawPaddyFieldToolPage from './pages/DrawPaddyFieldToolPage'
-import FinalizedTimeSchedulePage from './pages/FinalizedTimeSchedulePage'
-import ForgotPasswordPage from './pages/ForgotPassordPage'
-import LoginAndRegisterPage from './pages/LoginAndRegisterPage'
-import NotFoundPage from './pages/NotFoundPage'
-import PaddyFieldDetailsPage from './pages/PaddyFieldDetailsPage'
-import PriorityDistributionSchedulePage from './pages/PriorityDistributionSchedulePage'
-import PriorityDistributionScheduleStepsPage from './pages/PriorityDistributionScheduleStepsPage'
-import ResearchFindingsPage from './pages/ResearchFindingsPage'
-import ViewPaddyFieldPage from './pages/ViewPaddyFieldPage'
-import { Private } from './private/PrivateRoute'
-import theme from './theme/hooks/CreateTheme'
-import Footer from './components/organisms/navigations/Footer'
-import { UserRoles } from './types/enums/UserRoles'
+import { ThemeProvider } from "@mui/material";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import AddNewTrainPage from "./pages/AddNewTrainPage";
+import LoginPage from "./pages/LoginPage";
+import PaymentPage from "./pages/PaymentPage";
+import ReservationDetailsPage from "./pages/ReservationDetailsPage";
+import ReservationManagementPage from "./pages/ReservationManagementPage";
+import TravelersDetailsPage from "./pages/TravelersDetailsPage";
+import UpdateTrainDetailsPage from "./pages/UpdateTrainDetailsPage";
+import { Private } from "./private/PrivateRoute";
+import theme from "./theme/hooks/CreateTheme";
+import { UserRoles } from "./types/enums/UserRoles";
+import TrainDetailsPage from "./pages/TrainDetailsPage";
+import NavigationAppBar from "./components/organisms/navigations/AppBar";
+import * as React from "react";
+import Footer from "./components/organisms/navigations/Footer";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <Router>
-                <React.Suspense fallback="loading">
-                    <Routes>
-                        <Route path="/" element={<LoginAndRegisterPage />} />
-                        <Route
-                            path="/forgotPassword"
-                            element={<ForgotPasswordPage />}
-                        />
+  return (
+    <ThemeProvider theme={theme}>
+      <Router>
+        <React.Suspense fallback="loading">
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            {/* <Route path="/updateTrain/:id" element={<UpdateTrainDetailsPage />} /> */}
+            <Route
+              path="/addNewTrain"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <Private
+                    Component={AddNewTrainPage}
+                    Role={UserRoles.BackOfficer}
+                  />
+                </>
+              }
+            />
 
-                        {/* Furrow Irrigation */}
+            <Route
+              path="/trainDetails"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <Private
+                    Component={TrainDetailsPage}
+                    Role={UserRoles.BackOfficer}
+                  />
+                </>
+              }
+            />
 
-                        <Route
-                            path="/paddyFieldDetails"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={PaddyFieldDetailsPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
+            <Route
+              path="/updateTrain/:id"
+              element={
+                <>
+                  {" "}
+                  <NavigationAppBar />
+                  <Private
+                    Component={UpdateTrainDetailsPage}
+                    Role={UserRoles.BackOfficer}
+                  />
+                </>
+              }
+            />
 
-                        <Route
-                            path="/paddyFieldDrawingTool/:metaData"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={DrawPaddyFieldToolPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
+            <Route
+              path="/travelersDetails"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <TravelersDetailsPage />
+                </>
+              }
+            />
 
-                        <Route
-                            path="/viewPaddyFieldDrawing/:id"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={ViewPaddyFieldPage}
-                                        Role={UserRoles.Farmer}
-                                    />
-                                </>
-                            }
-                        />
+            <Route
+              path="/reservationManagement"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <ReservationManagementPage />
+                </>
+              }
+            />
 
-                        {/* Research Disseminating */}
+            <Route
+              path="/reservationDetails"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <ReservationDetailsPage />
+                </>
+              }
+            />
 
-                        <Route
-                            path="/researchDisseminating"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={ResearchFindingsPage}
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        {/* Priority Distribution  */}
-
-                        <Route
-                            path="/priorityDistribution"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={
-                                            PriorityDistributionScheduleStepsPage
-                                        }
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/priorityDistributionSchedule"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={
-                                            PriorityDistributionSchedulePage
-                                        }
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/finalizedTimeSchedule"
-                            element={
-                                <>
-                                    <AgrivoAppBar />
-                                    <Private
-                                        Component={FinalizedTimeSchedulePage}
-                                        Role={UserRoles.Officer}
-                                    />
-                                </>
-                            }
-                        />
-
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                </React.Suspense>
-                <Footer />
-            </Router>
-        </ThemeProvider>
-    )
+            <Route
+              path="/payment"
+              element={
+                <>
+                  <NavigationAppBar />
+                  <PaymentPage />
+                </>
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </React.Suspense>
+        <Footer />
+      </Router>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
