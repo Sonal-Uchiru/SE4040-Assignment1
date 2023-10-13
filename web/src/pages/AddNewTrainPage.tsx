@@ -15,7 +15,6 @@ import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Snackbars from "../components/atoms/snackBar/SnackBar";
-import { set } from "lodash";
 
 export default function AddNewTrainPage() {
   const navigate = useNavigate();

@@ -10,21 +10,26 @@ import InputField from "../../atoms/inputFields/InputField";
 import HeadLine4 from "../../atoms/typographies/HeadLine4";
 import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
 import { AxiosError } from "axios";
+import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 
 interface IProps {
   handleCancel(): void;
   handleSave(): void;
   reservation: any;
+  errorMessage: string;
 }
 
 export default function UpdateReservationModal({
   handleCancel,
   handleSave,
   reservation,
+  errorMessage,
 }: IProps) {
   const [passengerCount, setPassengerCount] = React.useState("");
   const [isEditTravelerSuccess, setIsEditTravelerSuccess] =
     React.useState(false);
+
+  const [errorMessageState, setErrorMessageState] = React.useState(false);
 
   const handleSubmit = () => {
     console.log(reservation);
@@ -36,11 +41,13 @@ export default function UpdateReservationModal({
     ReservationProtectedApi.updateAsync(requestPayload, reservation?.id)
       .then((res) => {
         console.log(res.data);
+        handleSave();
         setIsEditTravelerSuccess(true);
       })
       .catch((err) => {
         err as AxiosError;
         console.log(err.response?.data);
+        setErrorMessageState(true);
       });
   };
   return (
@@ -78,6 +85,21 @@ export default function UpdateReservationModal({
                 variant="rounded"
               />
             </div>
+
+            {errorMessageState && (
+              <div
+                style={{
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginTop: 20,
+                }}
+              >
+                <ParagraphBold
+                  text={"Cannot Update Reservation Now"}
+                  color={theme.palette.error.main}
+                />
+              </div>
+            )}
 
             <div style={styles.input}>
               <InputField
