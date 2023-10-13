@@ -7,7 +7,8 @@ import TrainProtectedApi from "../../../api/exclusive/TrainProtectedApi";
 import { getDataArrayByJson } from "../../../utils/datatable/TransformData";
 import { AxiosError } from "axios";
 import DisplaySummaryModal from "../../modals/reservation/DisplaySummaryModal";
-
+import ContentLoadingBar from "../../atoms/Loadings/ContentLoadingBar";
+import ErrorModal from "../../modals/ErrorModal";
 interface IProp {
   isDataUpdated: boolean;
 }
@@ -48,8 +49,11 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
   const [id, setId] = React.useState(null);
   const [selectedTrain, setSelectedTrain] = React.useState<any>({});
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [errorModalVisibility, setErrorModalVisibility] = React.useState(false);
 
   React.useEffect(() => {
+    setErrorModalVisibility(false);
     TrainProtectedApi.getScheduleListAsync()
       .then((res) => {
         console.log(res.data.items);
@@ -66,11 +70,13 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
             )
         );
         setSchedules(res.data.items);
-        console.log(scheduleList);
         setDataTableSchedules(getDataArrayByJson(scheduleList));
+        setIsLoading(false);
       })
       .catch((err) => {
         err as AxiosError;
+        setIsLoading(false);
+        setErrorModalVisibility(true);
         console.log(err);
       });
   }, [isUpdateSuccess]);
@@ -140,16 +146,24 @@ export default function ReservationManagementTrainListDataTable({}: IProp) {
 
   return (
     <>
-      <Box sx={styles.table}>
-        {dataTableSchedules && (
-          <MUIDataTable
-            title={"Train List"}
-            data={dataTableSchedules}
-            columns={columns}
-            options={options}
-          />
-        )}
-      </Box>
+      {!isLoading ? (
+        <Box sx={styles.table}>
+          {dataTableSchedules && (
+            <MUIDataTable
+              title={"Train List"}
+              data={dataTableSchedules}
+              columns={columns}
+              options={options}
+            />
+          )}
+        </Box>
+      ) : (
+        <ContentLoadingBar />
+      )}
+
+      {errorModalVisibility && (
+        <ErrorModal handleCancel={() => setErrorModalVisibility(false)} />
+      )}
     </>
   );
 }

@@ -11,7 +11,10 @@ import HeadLine4 from "../../atoms/typographies/HeadLine4";
 import Paragraph from "../../atoms/typographies/Paragraph";
 import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 import InputField from "../../atoms/inputFields/InputField";
-
+import ReservationProtectedApi from "../../../api/exclusive/ReservationProtectedApi";
+import CalenderField from "../../atoms/inputFields/CalenderField";
+import dayjs, { Dayjs } from "dayjs";
+import { useNavigate } from "react-router-dom";
 interface IProps {
   handleCancel(): void;
   handleConfirm(): void;
@@ -23,12 +26,55 @@ export default function DisplaySummaryModal({
   handleConfirm,
   train,
 }: IProps) {
-  console.log(train);
+  const navigate = useNavigate();
   const [noOfPassengers, setNoofPassengers] = React.useState("");
+  const [departureDate, setDepartureDate] = React.useState<Dayjs | null>(
+    dayjs("")
+  );
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const [errorMessageState, setErrorMessageState] = React.useState(false);
 
   const totalPrice = noOfPassengers
     ? (parseInt(noOfPassengers) * parseInt(train.price)).toString()
     : "0";
+  const currentDate = new Date().toISOString();
+
+  const handleConfirmBooking = () => {
+    setIsLoading(true);
+    if (totalPrice && noOfPassengers && departureDate) {
+      const payload = {
+        trainId: train.id,
+        trainName: train.name,
+        startingStation: train.startingStation,
+        endingStation: train.endingStation,
+        departureDate: departureDate?.format("YYYY-MM-DD"),
+        arrivalTime: train.arrivalTime,
+        departureTime: train.departureTime,
+        noOfPassengers: noOfPassengers,
+        perPersonPrice: train.price,
+        totalPrice: totalPrice,
+        reservationDate: currentDate,
+      };
+      console.log(payload);
+      ReservationProtectedApi.saveAsync(payload)
+        .then((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+
+          navigate("/payment", {
+            state: { noOfPassengers, totalPrice, price: train.price },
+          });
+        })
+        .catch((err) => {
+          const errorMessage = err?.response?.data?.message;
+          setIsLoading(false);
+        });
+    } else {
+      setErrorMessageState(true);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -73,7 +119,7 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginRight: 30, marginTop: 15 }}>
                     <ParagraphBold
-                      text={"Train Name & No"}
+                      text={"Train Name"}
                       color={theme.palette.primary.main}
                     />
                   </div>
@@ -153,36 +199,6 @@ export default function DisplaySummaryModal({
                 <Grid item xs={6} lg={6} md={6}>
                   <div style={{ marginRight: 30, marginTop: 15 }}>
                     <ParagraphBold
-                      text={"Departure Date"}
-                      color={theme.palette.primary.main}
-                    />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginLeft: 30, marginTop: 15 }}>
-                    <Paragraph
-                      text={
-                        train?.departureDate
-                          ? train.departureDate
-                          : "Not Available"
-                      }
-                      color={theme.palette.primary.main}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-            </div>
-
-            {/* row 5 */}
-
-            {/* row 6 */}
-
-            <div>
-              <Grid container spacing={1}>
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginRight: 30, marginTop: 15 }}>
-                    <ParagraphBold
                       text={"Arrival Time"}
                       color={theme.palette.primary.main}
                     />
@@ -201,29 +217,6 @@ export default function DisplaySummaryModal({
                 </Grid>
               </Grid>
             </div>
-
-            {/* row 7 */}
-
-            {/* <div>
-              <Grid container spacing={1}>
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginRight: 30, marginTop: 15 }}>
-                    <ParagraphBold
-                      text={"No of Passengers"}
-                      color={theme.palette.primary.main}
-                    />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6} lg={6} md={6}>
-                  <div style={{ marginLeft: 30, marginTop: 15 }}>
-                    <Paragraph text={"05"} color={theme.palette.primary.main} />
-                  </div>
-                </Grid>
-              </Grid>
-            </div> */}
-
-            {/* row 8 */}
 
             <div>
               <Grid container spacing={1}>
@@ -261,7 +254,8 @@ export default function DisplaySummaryModal({
                 label={"No of Passengers(Max 4)"}
                 type={"number"}
                 placeholder={"Enter Passenger Count (Max 4)"}
-                width={300}
+                width={370}
+                size="small"
                 value={noOfPassengers}
                 name="passengers"
                 onChange={(e) => {
@@ -276,6 +270,25 @@ export default function DisplaySummaryModal({
                   }
                 }}
                 required={true}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                marginTop: 20,
+                marginBottom: 10,
+              }}
+            >
+              <CalenderField
+                label={"Date To Be Reserved"}
+                size="small"
+                width={370}
+                value={departureDate}
+                onChange={(newValue: any) => {
+                  setDepartureDate(newValue);
+                }}
               />
             </div>
 
@@ -306,7 +319,20 @@ export default function DisplaySummaryModal({
                 </Grid>
               </Grid>
             </div>
-
+            {errorMessageState && (
+              <div
+                style={{
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginTop: 10,
+                }}
+              >
+                <ParagraphBold
+                  text={"Please Fill Out All Required Fields (*)"}
+                  color={theme.palette.error.main}
+                />
+              </div>
+            )}
             <div
               style={styles.button}
               className="btn-toolbar"
@@ -324,6 +350,8 @@ export default function DisplaySummaryModal({
                   color={theme.palette.white.main}
                   backgroundColor={theme.palette.primary.main}
                   width={100}
+                  onClick={handleConfirmBooking}
+                  isLoading={isLoading}
                 />
               </div>
               <div

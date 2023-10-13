@@ -26,13 +26,14 @@ class TrainProtectedApi {
     );
   }
 
-  public async deleteAsync(): Promise<AxiosResponse> {
+  public async deleteAsync(id: string): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Delete,
       Versions.V1,
-      ModelConstants.TRAIN
+      `${ModelConstants.TRAIN}/${id}`
     );
   }
+
 
   public async getAsync(id:any): Promise<AxiosResponse> {
     return await protectedApiAsync(
@@ -67,6 +68,15 @@ public async getTrainScheduleListAsync(id: string): Promise<AxiosResponse> {
     `${ModelConstants.TRAIN}/${id}/schedules/list`
   );
 }
+
+public async toggleActivationAsync(id: string): Promise<AxiosResponse> {
+  return await protectedApiAsync(
+      HttpMethods.Patch,
+      Versions.V1,
+    `${ModelConstants.TRAIN}/${id}/toggleactivation`
+  );
+}
+
 
 }
 

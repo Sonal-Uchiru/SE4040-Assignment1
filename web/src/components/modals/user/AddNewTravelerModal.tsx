@@ -13,11 +13,13 @@ import ParagraphBold from "../../atoms/typographies/ParagraphBold";
 interface IProps {
   handleCancel(): void;
   handleSave(values: any): void;
+  errorMessage: string;
 }
 
 export default function AddNewTravelerModal({
   handleCancel,
   handleSave,
+  errorMessage,
 }: IProps) {
   const [nic, setNic] = React.useState("");
 
@@ -29,7 +31,6 @@ export default function AddNewTravelerModal({
     };
 
     handleSave(travelerData);
-    console.log(travelerData);
   };
 
   return (
@@ -67,6 +68,21 @@ export default function AddNewTravelerModal({
                 variant="rounded"
               />
             </div>
+
+            {errorMessage && (
+              <div
+                style={{
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginTop: 20,
+                }}
+              >
+                <ParagraphBold
+                  text={"User Already Exists!"}
+                  color={theme.palette.error.main}
+                />
+              </div>
+            )}
 
             <div style={styles.input}>
               <InputField
