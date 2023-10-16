@@ -1,19 +1,32 @@
 ﻿<Properties StartupConfiguration="{999538A7-F9E8-4898-8104-D2C3786398B0}|https">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../usr/local/share/dotnet/sdk/7.0.307/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
+  <MonoDevelop.Ide.Workbench ActiveDocument="backend_server/Queries/UserQuery.cs">
     <Files>
-      <File FileName="../../../../../usr/local/share/dotnet/sdk/7.0.307/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="266" Column="5" />
+      <File FileName="backend_server/Program.cs" Line="56" Column="1" />
+      <File FileName="backend_server/Handlers/V1/Authentications/Commands/Logins/Handler.cs" Line="25" Column="47" />
+      <File FileName="backend_server/Queries/UserQuery.cs" Line="31" Column="13" />
+      <File FileName="backend_server/Queries/TrainQuery.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Queries/ReservationQuery.cs" Line="1" Column="1" />
+      <File FileName="backend_server/Queries/BaseQuery.cs" Line="20" Column="33" />
+      <File FileName="backend_server/Queries/Interfaces/IUserQuery.cs" Line="7" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="backend_server">
-            <Node name="backend_server" expanded="True">
+          <Node name="backend_server" expanded="True">
+            <Node name="backend_server">
               <Node name="Handlers" expanded="True">
-                <Node name="V1" expanded="True" />
+                <Node name="V1" expanded="True">
+                  <Node name="Authentications" expanded="True">
+                    <Node name="Commands" expanded="True">
+                      <Node name="Logins" expanded="True" />
+                    </Node>
+                  </Node>
+                </Node>
               </Node>
-              <Node name="Queries" expanded="True">
-                <Node name="TrainQuery.cs" selected="True" />
+              <Node name="Middlewares" expanded="True" />
+              <Node name="Queries">
+                <Node name="Interfaces" expanded="True" />
+                <Node name="UserQuery.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -22,9 +35,10 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.backend__server PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
