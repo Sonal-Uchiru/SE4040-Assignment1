@@ -24,11 +24,11 @@ class UserProtectedApi {
     );
   }
 
-  public async deleteAsync(): Promise<AxiosResponse> {
+  public async deleteAsync(id: string): Promise<AxiosResponse> {
     return await protectedApiAsync(
       HttpMethods.Delete,
       Versions.V1,
-      ModelConstants.USERS
+      `${ModelConstants.USERS}/${id}`
     );
   }
 
@@ -45,6 +45,14 @@ class UserProtectedApi {
       HttpMethods.Get,
       Versions.V1,
       `${ModelConstants.USERS}/list`
+    );
+  }
+
+  public async toggleActivationAsync(id: string): Promise<AxiosResponse> {
+    return await protectedApiAsync(
+        HttpMethods.Patch,
+        Versions.V1,
+      `${ModelConstants.USERS}/${id}/toggleactivation`
     );
   }
 

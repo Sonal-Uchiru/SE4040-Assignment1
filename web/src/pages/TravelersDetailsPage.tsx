@@ -6,29 +6,48 @@ import TravelersDetailsDataTable from "../components/organisms/tables/TravelersD
 import theme from "../theme/hooks/CreateTheme";
 import AddNewTravelerModal from "../components/modals/user/AddNewTravelerModal";
 import UserProtectedApi from "../api/exclusive/userApis/UserProtectedApi";
-import UserUnprotectedApi from "../api/exclusive/userApis/UserUnprotectedApi";
+import Snackbars from "../components/atoms/snackBar/SnackBar";
 
 export default function TravelersDetailsPage() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isDataUpdated, setIsDataUpdated] = React.useState(false); // State to trigger data update
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(""); // State to store the error message
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSave = (values: any) => {
-    UserProtectedApi.saveAsync(values)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    setIsOpen(false);
+    if (values.nic && values.password && values.role)
+      UserProtectedApi.saveAsync(values)
+        .then((res) => {
+          setIsOpen(false);
+          setIsDataUpdated(!isDataUpdated);
+        })
+        .catch((err) => {
+          const errorMessage = err?.response?.data?.message;
+          setErrorMessage(errorMessage);
+        });
+    else {
+      setShowSnackBar(true);
+    }
   };
 
   return (
     <>
+      {showSnackBar && (
+        <div>
+          <Snackbars
+            message={"Please fill all the required fields"}
+            severity={"error"}
+            vertical={"top"}
+            horizontal={"center"}
+            open={showSnackBar}
+            onClose={() => setShowSnackBar(false)}
+          />
+        </div>
+      )}
       <Box sx={{ minHeight: 650 }}>
         <div>
           <Title backicon={false} titleName="Travelers Details" />
@@ -43,7 +62,7 @@ export default function TravelersDetailsPage() {
           </div>
         </div>
 
-        <TravelersDetailsDataTable isDataUpdated={false} />
+        <TravelersDetailsDataTable isDataUpdated={isDataUpdated} />
 
         {isOpen && (
           <AddNewTravelerModal
@@ -51,6 +70,7 @@ export default function TravelersDetailsPage() {
               setIsOpen(!isOpen);
             }}
             handleSave={handleSave}
+            errorMessage={errorMessage}
           />
         )}
       </Box>

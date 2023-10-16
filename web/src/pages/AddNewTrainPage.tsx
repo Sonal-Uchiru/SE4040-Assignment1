@@ -1,4 +1,4 @@
-import { Alert, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,22 +9,20 @@ import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import InputField from "../components/atoms/inputFields/InputField";
 import SelectField from "../components/atoms/selectField/SelectFieldAtom";
 import Title from "../components/atoms/title/Title";
-import TrainScheduleModalTable from "../components/organisms/tables/TrainScheduleModalTable";
 import theme from "../theme/hooks/CreateTheme";
 import TrainScheduleTable from "../components/organisms/tables/TrainScheduleTable";
 import TrainProtectedApi from "../api/exclusive/TrainProtectedApi";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+import Snackbars from "../components/atoms/snackBar/SnackBar";
 
 export default function AddNewTrainPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
-
+  const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const [name, setTrainName] = React.useState("");
   const [model, setModel] = React.useState("");
   const [driverName, setDriverName] = React.useState("");
-  const [contactNumber, setContactNumber] = React.useState("");
+  const [contact, setContactNumber] = React.useState("");
   const [noOfSeats, setNoOfSeats] = React.useState("");
   const [startingStation, setStartingStation] = React.useState("");
   const [endingStation, setEndingStation] = React.useState("");
@@ -33,6 +31,12 @@ export default function AddNewTrainPage() {
   const [arrivalTime, setArrivalTime] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [schedules, setSchedules] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -62,41 +66,69 @@ export default function AddNewTrainPage() {
     { value: "04.05 PM", label: "04.05 PM" },
   ];
 
-  const handleSave = () => {
-    const trainData = {
-      name,
-      model,
-      driverName,
-      contactNumber: contactNumber.replace(/^0+/, ""),
-      noOfSeats,
-      price,
-      startingStation,
-      endingStation,
-      frequencies,
-      departureTime,
-      arrivalTime,
-      returnTrip: checked,
-      schedules,
-    };
-
-    TrainProtectedApi.saveAsync(trainData)
-      .then((res) => {
-        console.log(res.data.items);
-      })
-      .catch((err) => {
-        err as AxiosError;
-        console.log(err);
-      });
+  const handleSave = async () => {
+    setIsLoading(true);
+    if (
+      !name ||
+      !model ||
+      !driverName ||
+      !contact ||
+      !noOfSeats ||
+      !startingStation ||
+      !endingStation ||
+      !frequencies ||
+      !departureTime ||
+      !arrivalTime ||
+      !price
+    ) {
+      // Display an alert or error message to the user
+      setSnackbarMessage("Please Fill Out All the Required Fields(*)");
+      setSnackbarSeverity("error");
+      setShowSnackBar(true);
+      setIsLoading(false);
+    } else {
+      const trainData = {
+        name,
+        model,
+        driverName,
+        contact,
+        noOfSeats,
+        price,
+        startingStation,
+        endingStation,
+        frequencies,
+        departureTime,
+        arrivalTime,
+        returnTrip: checked,
+        schedules,
+      };
+      setIsLoading(false);
+      setShowSnackBar(false);
+      TrainProtectedApi.saveAsync(trainData)
+        .then((res) => {
+          setIsLoading(false);
+          setSnackbarMessage("Train Added Successfully!🙂");
+          setSnackbarSeverity("success");
+          setShowSnackBar(true);
+          navigate("/trainDetails");
+        })
+        .catch((err) => {
+          err as AxiosError;
+          setIsLoading(false);
+          console.log(err);
+        });
+    }
   };
 
   const addSchedule = () => {
     if (!frequencies || !arrivalTime || !departureTime || !price) {
       // Display an alert or error message to the user
-      console.log(
-        "Please fill out all required fields before adding a schedule."
-      );
+      setSnackbarMessage("Please Fill Out All the Required Fields(*)");
+      setSnackbarSeverity("error");
+      setShowSnackBar(true);
       return;
     }
+    setShowSnackBar(false);
     const newSchedule: any = {
       frequency: frequencies,
       arrivalTime: arrivalTime,
@@ -105,6 +137,9 @@ export default function AddNewTrainPage() {
       price: price,
     };
     setSchedules([...schedules, newSchedule]);
+    setSnackbarMessage("Schedule Added Successfully!🙂");
+    setSnackbarSeverity("success");
+    setShowSnackBar(true);
     console.log(schedules);
   };
 
@@ -112,7 +147,11 @@ export default function AddNewTrainPage() {
     <>
       <Box sx={{ minHeight: 650 }}>
         <div>
-          <Title backicon={false} titleName="Add New Train" />
+          <Title
+            backicon={true}
+            titleName="Add New Train"
+            onClick={() => navigate("/trainDetails")}
+          />
           <div style={styles.images}>
             <Avatar
               alt="Research Image"
@@ -126,6 +165,19 @@ export default function AddNewTrainPage() {
               variant="rounded"
             />
           </div>
+
+          {showSnackBar && (
+            <div>
+              <Snackbars
+                message={snackbarMessage}
+                severity={snackbarSeverity}
+                vertical={"top"}
+                horizontal={"center"}
+                open={showSnackBar}
+                onClose={() => setShowSnackBar(false)}
+              />
+            </div>
+          )}
 
           <div>
             <Grid container spacing={1}>
@@ -212,9 +264,7 @@ export default function AddNewTrainPage() {
                     id={"contactNumber"}
                     label={"Contact Number"}
                     type={"number"}
-                    placeholder={
-                      contactNumber ? contactNumber : "Enter Contact Number"
-                    }
+                    placeholder={contact ? contact : "Enter Contact Number"}
                     width={450}
                     name="contactNumber"
                     onChange={(e) => {
@@ -454,6 +504,7 @@ export default function AddNewTrainPage() {
                 backgroundColor={theme.palette.cream.main}
                 onClick={handleSave}
                 width={150}
+                isLoading={isLoading}
               />
             </div>
 
@@ -467,7 +518,7 @@ export default function AddNewTrainPage() {
                 title={"Back"}
                 color={theme.palette.white.main}
                 backgroundColor={theme.palette.neutral.main}
-                onClick={handleClick}
+                onClick={() => navigate("/trainDetails")}
                 width={150}
               />
             </div>

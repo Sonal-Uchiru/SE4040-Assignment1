@@ -3,12 +3,10 @@ import ContainedButton from "../components/atoms/buttons/ContainedButton";
 import Title from "../components/atoms/title/Title";
 import TrainDetailsDataTable from "../components/organisms/tables/TrainDetailsDataTable";
 import theme from "../theme/hooks/CreateTheme";
+import { useNavigate } from "react-router-dom";
 
 export default function TrainDetailsPage() {
-  function handleClick() {
-    console.log("clicked");
-  }
-
+  const navigate = useNavigate();
   return (
     <>
       <Box sx={{ minHeight: 650 }}>
@@ -16,7 +14,7 @@ export default function TrainDetailsPage() {
           <Title backicon={false} titleName="Train Details" />
           <div style={styles.button}>
             <ContainedButton
-              onClick={handleClick}
+              onClick={() => navigate("/addNewTrain")}
               title={"Add New Train"}
               backgroundColor={theme.palette.darkBlue.main}
               height={60}

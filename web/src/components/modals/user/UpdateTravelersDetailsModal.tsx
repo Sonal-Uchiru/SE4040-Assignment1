@@ -27,18 +27,23 @@ export default function UpdateTravelersDetailsModal({
   const [mobileNumber, setMobileNumber] = React.useState("");
   const [isEditTravelerSuccess, setIsEditTravelerSuccess] =
     React.useState(false);
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
 
   const handleSubmit = () => {
     const requestPayload = {
       firstName: firstName ? firstName : traveler?.firstName,
       lastName: lastName ? lastName : traveler?.lastName,
-      mobile: mobileNumber ? mobileNumber : traveler?.mobile,
+      mobile: mobileNumber.replace(/^0+/, "")
+        ? mobileNumber.replace(/^0+/, "")
+        : traveler?.mobile,
     };
 
     UserProtectedApi.updateAsync(requestPayload, traveler?.id)
       .then((res) => {
         console.log(res.data);
         setIsEditTravelerSuccess(true);
+        handleSave();
+        setShowSnackBar(true);
       })
       .catch((err) => {
         err as AxiosError;

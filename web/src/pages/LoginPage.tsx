@@ -12,14 +12,19 @@ import theme from "../theme/hooks/CreateTheme";
 import UserAuthenticationApi from "../api/exclusive/userApis/UserAuthenticationApi";
 import BrowserLocalStorage from "../utils/localStorage/BrowserLocalStorage";
 import React from "react";
-import { UserRoles } from "../types/enums/UserRoles";
 import { useNavigate } from "react-router-dom";
+import { UserRoles } from "../types/enums/UserRoles";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [nic, setNic] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [loginErrorMessage, setLoginErrorMessage] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+
   const handleNicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNic(e.target.value);
   };
@@ -29,14 +34,27 @@ export default function LoginPage() {
   };
 
   const handleClick = () => {
+    setIsLoading(true);
     setLoginErrorMessage("");
     UserAuthenticationApi.loginAsync({ nic: nic, password: password })
       .then((res) => {
+        setIsLoading(false);
         BrowserLocalStorage.SetAccessToken(res.data?.token);
-        console.log(BrowserLocalStorage.GetUserRole())
-        navigate("/travelersDetails");
+        const userRole = BrowserLocalStorage.GetUserRole();
+
+        switch (userRole) {
+          case UserRoles.BackOfficer:
+            navigate("/travelersDetails");
+            break;
+          case UserRoles.TravelAgent:
+            navigate("/travelersDetails");
+            break;
+          default:
+            setShowAlert(true);
+        }
       })
       .catch((err: any) => {
+        setIsLoading(false);
         setLoginErrorMessage(err?.response?.data?.message);
       });
   };
@@ -66,15 +84,15 @@ export default function LoginPage() {
                   <div
                     style={{
                       position: "absolute",
-                      top: "37%", // Adjust the top position as needed
-                      left: "33.5%", // Adjust the left position as needed
-                      transform: "translate(-50%, -50%)", // Center the text
-                      color: "white", // Text color
-                      // Text font size
-                      fontWeight: "bold", // Text font weight
-                      background: "rgba(0, 0, 0, 0.5)", // Background color with transparency
-                      padding: "10px 20px", // Padding for the text
-                      borderRadius: "5px", // Border radius for the background
+                      top: "37%",
+                      left: "33.5%",
+                      transform: "translate(-50%, -50%)",
+                      color: "white",
+
+                      fontWeight: "bold",
+                      background: "rgba(0, 0, 0, 0.5)",
+                      padding: "10px 20px",
+                      borderRadius: "5px",
                     }}
                   >
                     <HeadLine1
@@ -171,25 +189,26 @@ export default function LoginPage() {
                     />
                   </div>
 
-                  <div style={styles.link}>
-                    <Link
-                      underline="always"
-                      fontSize={16}
-                      fontWeight={600}
-                      color={theme.palette.blue.main}
-                      onClick={() => {}}
-                    >
-                      {"Forgot Password?"}
-                    </Link>
-                  </div>
-
                   <div style={styles.button}>
                     <ContainedButton
                       onClick={handleClick}
                       title={"Login"}
                       backgroundColor={theme.palette.primary.main}
+                      isLoading={isLoading}
                     />
                   </div>
+                  {showAlert && (
+                    <Stack sx={{ width: "100%" }} spacing={2}>
+                      <Alert
+                        severity="error"
+                        onClose={() => {
+                          setShowAlert(false);
+                        }}
+                      >
+                        You're not a valid user to access the website
+                      </Alert>
+                    </Stack>
+                  )}
                 </div>
               </Grid>
             </Grid>
@@ -209,7 +228,7 @@ const styles = {
   },
 
   button: {
-    marginTop: 40,
+    marginTop: 80,
     display: "flex",
     marginBottom: 20,
     justifyContent: "center",
@@ -229,7 +248,7 @@ const styles = {
   },
 
   passwordInput: {
-    marginTop: 40,
+    marginTop: 50,
     display: "flex",
     justifyContent: "center",
   },
